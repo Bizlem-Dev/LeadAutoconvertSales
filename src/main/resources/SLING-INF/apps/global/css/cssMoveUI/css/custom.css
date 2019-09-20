@@ -1,0 +1,103 @@
+.display-none{
+	display: none;
+}
+.display-block{
+	display: table-cell;
+}
+.hed-select-area{
+	margin-top:70px;
+}
+a:hover{
+	cursor: pointer;
+}
+.fst-main-tbl,.classTableC{
+	margin-top:20px;
+}
+.fst-main-tbl tr th{
+	background-color: #4A7BB2;
+	color:#fff;
+}
+.fst-main-tbl tr td{
+	background-color:#a8c4e4;
+}
+.bg-blue{
+	color:#fff;
+	background-color: #4A7BB2;
+}
+.sky-blue{
+	background-color:#a8c4e4;
+}
+.label-success:hover{
+	cursor: pointer;
+}
+.apd-delete, .apd-move{
+	margin-left: 15px;
+}
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+	padding:4px;
+}
+.classTableC{
+	width:50%;
+}
+.width-50{
+	width:50% !important;
+}
+.width-60{
+	width:60% !important;
+}
+.width-80{
+	width:80% !important;
+}
+.width-100{
+	width:100% !important;
+}
+.width-70{
+	width:70% !important;
+}
+.box-total{
+	width:12.5%;
+	color:#fff;
+	height:50px;
+	float:left;
+	margin-left:10px;
+}
+.box-total-sm{	
+	width:7.5%;
+}
+.box-total:first-child{
+	margin-left:0px;
+}
+.box-total p{
+	padding-top:3px;
+	margin:0px;
+	font-size:19px;
+	color:#fff;
+}
+.box-total span{
+	position: relative;
+	top:-3px;
+}
+.sessionTime{
+	background-color:#bfbf09;
+}
+.numberofVisits{
+	background-color:#d08317;
+}
+.totalCutom{
+	background-color:#00ACCC;
+}
+.unsubscribed{
+	background-color:gray;
+}
+.not-opened{
+	background-color:#000;
+}
+.spam{
+	background-color:#C9302C;
+}
+.open{
+	background-color:#0C1E45;
+}
+.click{
+	background-color:#449D44;
+}
