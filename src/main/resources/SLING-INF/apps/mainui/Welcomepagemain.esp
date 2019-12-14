@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Welcome</title>
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/apps/global/assets/images/lead-auto-convert-logo.png">
+ <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/SalesWelcome/css/bootstrap.min.css">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/SalesWelcome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/SalesWelcome/css/ionicons.min.css"> 
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/SalesWelcome/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/SalesWelcome/css/allskins.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://www.jqueryscript.net/demo/jQuery-Multiple-Select-Plugin-For-Bootstrap-Bootstrap-Multiselect/css/bootstrap-multiselect.css">
+  <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/apps/SalesWelcome/css/custom.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <style type="text/css">
+    .product-info a,
+    .col-item h5,
+    .right-step-part a{
+      font-size: 16px;
+    }
+    .right-step-part a{
+      width: calc(100% - 45px);
+      float: right;
+      margin-bottom: 5px;
+    }
+    .show-more{
+      display: none;
+    }
+    input[type=text] { text-align:center; font-weight: bold; }
+  </style>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+  <header class="main-header">
+    <nav class="navbar navbar-static-top text-center">
+      <img src="<%=request.getContextPath()%>/apps/SalesWelcome/img/logo.png" style="width: 250px;">
+	<!--   <button class='btn btn-success pull-right'> 
+        Log Out 
+          </button>  --> 
+          <a class="btn btn-success pull-right"  href="javascript:void(0)" onclick="logout('u193')"> Log Out </a>
+    </nav>	
+    <div class="header-two">
+      <strong>Fill data for Free Trial</strong>
+    </div>
+	
+  </header>
+  <aside class="main-sidebar">
+    <section class="sidebar">
+      <div class="user-panel">
+        <div class="pull-left image">
+         <img src="<%=request.getContextPath()%>/apps/SalesWelcome/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p id="loggedinuser"></p><br>
+          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+		
+      </div>
+      <div class="blank-div"></div>
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="active">
+          <a href="welcome.html">
+            <i class="fa fa-hand-paper-o" aria-hidden="true"></i><span>Welcome</span>
+          </a>
+        </li>
+        <li>
+          <a href="<%=request.getContextPath()%>/servlet/service/Salesconverter.MarketingDashboard"  target="_blank">
+            <i class="fa fa-dashboard"></i> <span>Dashboard </span>
+          </a>
+        </li>
+        <li>
+          <a href="<%=request.getContextPath()%>/servlet/service/Salesconverter.moveMonit"  target="_blank">
+            <i class="fa fa-dashboard"></i> <span>Monitor</span>
+          </a>
+        </li>
+      </ul>
+    </section>
+  </aside>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+      <!-- Info boxes -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box" style="border-top-color: #000; min-height: 420px;">
+            <div class="box-header bg-warning with-border text-center" style="background: #E9F48F;">
+              <h5 class="box-title">Enter 1-10 Email and details of Team taking the trial</h5>
+            </div>
+            <div class="box-body firstDocument">
+              <div class="row">
+                <div class="col-md-10">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <input type="text" name="ContactEmail" class="form-control" placeholder="Email">
+                    </div>
+                    <div class="col-md-2">
+                      <input type="text" name="ContactName" class="form-control" placeholder="Name">
+                    </div>
+                    <div class="col-md-2">
+                      <input type="text" name="ContactLocation" class="form-control" placeholder="Location">
+                    </div>
+                    <div class="col-md-2">
+                      <select class="form-control" name="ContactSource">
+                        <option>Facebook</option>
+                        <option>Twitter</option>
+                        <option>LinkedIn</option>
+                        <option>Other</option>
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                      <input type="text" name="ContactCompany" class="form-control" placeholder="Company">
+                    </div>
+                    <div class="col-md-2">
+                      <input type="text" name="ContactDesignation" class="form-control" placeholder="Designation">
+                    </div>
+                  </div>
+                </div>
+				
+                <div class="col-md-2">
+                    <button class="btn btn-primary copy-plus-btn"><i class="fa fa-plus"></i></button>
+                    <button class="btn btn-danger copy-delete-btn"><i class="fa fa-trash"></i></button>
+                </div>
+                <div class="col-md-12 col-md-offset-3 copy-input" style="margin-top:10px;display: none;">
+                  <div class="row append-text" style="margin-top:10px;">
+                      <div class="col-md-2">
+                        <input type="text" name="ContactEmail" class="form-control" placeholder="Email">
+                      </div>
+                      <div class="col-md-2">
+                        <input type="text" name="ContactName" class="form-control" placeholder="Name">
+                      </div>
+                      <div class="col-md-2">
+                        <input type="text" name="ContactLocation" class="form-control" placeholder="Location">
+                      </div>
+                      <div class="col-md-2">
+                        <select class="form-control" name="ContactSource">
+                          <option>Facebook</option>
+                          <option>Twitter</option>
+                          <option>LinkedIn</option>
+                          <option>Other</option>
+                        </select>
+                      </div>
+                      <div class="col-md-2">
+                        <input type="text" name="ContactCompany" class="form-control" placeholder="Company">
+                      </div>
+                      <div class="col-md-2">
+                        <input type="text" name="ContactDesignation" class="form-control" placeholder="Designation">
+                      </div>
+                  </div>
+                </div>
+                <div class="col-md-10 paste-input">
+                    
+                </div>
+                <div class="col-md-3 col-md-offset-3">
+                    <button class="btn btn-warning btn-block start-btn-custom-green start-btn">START</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-warning btn-block start-btn-custom-green" data-toggle="modal" data-target="#myModal" disabled="disabled">Campaign Preview</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-primary">
+                <div class="box-header bg-info with-border">
+                  <h5 class="box-title">Tutorial Video</h5>
+                </div>
+                <div class="box-body slider-box">
+                  <div class="row">
+                      <div class="col-md-12">
+                        <div id="carousel-example-generic" class="carousel slide hidden-xs" data-ride="carousel" style="margin-top:10px;">
+                          <!-- Wrapper for slides -->
+                          <div class="carousel-inner">
+                              <div class="item active">
+                                  <div class="row">
+                                      <div class="col-sm-3">
+                                          <div class="col-item">
+                                              <div class="photo">
+                                                  <a data-fancybox href="https://www.youtube.com/watch?v=9xwazD5SyVg">
+                                                    <img class="img-responsive" src="<%=request.getContextPath()%>/apps/SalesWelcome/img/videoSplashImage.jpg" />
+                                                  </a>
+                                              </div>
+                                              <div class="info">
+                                                  <div class="row">
+                                                      <div class="price col-md-12">
+                                                          <h5><strong>Lorem ipsum dolor sit amet</strong></h5>
+                                                          <p>Lorem ipsum dolor sit amet</p>
+                                                      </div>
+                                                  </div>
+                                                  <div class="clearfix">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="col-sm-3">
+                                          <div class="col-item">
+                                              <div class="photo">
+                                                  <a data-fancybox href="https://www.youtube.com/watch?v=9xwazD5SyVg">
+                                                    <img class="img-responsive" src="<%=request.getContextPath()%>/apps/SalesWelcome/img/videoSplashImage.jpg" />
+                                                  </a>
+                                              </div>
+                                              <div class="info">
+                                                  <div class="row">
+                                                      <div class="price col-md-12">
+                                                          <h5><strong>Lorem ipsum dolor sit amet</strong></h5>
+                                                          <p>Lorem ipsum dolor sit amet</p>
+                                                      </div>
+                                                  </div>
+                                                  <div class="clearfix">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="col-sm-3">
+                                          <div class="col-item">
+                                              <div class="photo">
+                                                  <a data-fancybox href="https://www.youtube.com/watch?v=9xwazD5SyVg">
+                                                    <img class="img-responsive" src="<%=request.getContextPath()%>/apps/SalesWelcome/img/videoSplashImage.jpg" />
+                                                  </a>
+                                              </div>
+                                              <div class="info">
+                                                  <div class="row">
+                                                      <div class="price col-md-12">
+                                                          <h5><strong>Lorem ipsum dolor sit amet</strong></h5>
+                                                          <p>Lorem ipsum dolor sit amet</p>
+                                                      </div>
+                                                  </div>
+                                                  <div class="clearfix">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="col-sm-3">
+                                          <div class="col-item">
+                                              <div class="photo">
+                                                  <a data-fancybox href="https://www.youtube.com/watch?v=9xwazD5SyVg">
+                                                    <img class="img-responsive" src="<%=request.getContextPath()%>/apps/SalesWelcome/img/videoSplashImage.jpg" />
+                                                  </a>
+                                              </div>
+                                              <div class="info">
+                                                  <div class="row">
+                                                      <div class="price col-md-12">
+                                                          <h5><strong>Lorem ipsum dolor sit amet</strong></h5>
+                                                          <p>Lorem ipsum dolor sit amet</p>
+                                                      </div>
+                                                  </div>
+                                                  <div class="clearfix">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+
+                                  </div>
+                              </div>
+                              <div class="item">
+                                  <div class="row">
+                                      <div class="col-sm-3">
+                                          <div class="col-item">
+                                              <div class="photo">
+                                                  <a data-fancybox href="https://www.youtube.com/watch?v=9xwazD5SyVg">
+                                                    <img class="img-responsive" src="<%=request.getContextPath()%>/apps/SalesWelcome/img/videoSplashImage.jpg" />
+                                                  </a>
+                                              </div>
+                                              <div class="info">
+                                                  <div class="row">
+                                                      <div class="price col-md-12">
+                                                          <h5><strong>Lorem ipsum dolor sit amet</strong></h5>
+                                                          <p>Lorem ipsum dolor sit amet</p>
+                                                      </div>
+                                                  </div>
+                                                  <div class="clearfix">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="col-sm-3">
+                                          <div class="col-item">
+                                              <div class="photo">
+                                                  <a data-fancybox href="https://www.youtube.com/watch?v=9xwazD5SyVg">
+                                                    <img class="img-responsive" src="<%=request.getContextPath()%>/apps/SalesWelcome/img/videoSplashImage.jpg" />
+                                                  </a>
+                                              </div>
+                                              <div class="info">
+                                                  <div class="row">
+                                                      <div class="price col-md-12">
+                                                          <h5><strong>Lorem ipsum dolor sit amet</strong></h5>
+                                                          <p>Lorem ipsum dolor sit amet</p>
+                                                      </div>
+                                                  </div>
+                                                  <div class="clearfix">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="col-sm-3">
+                                          <div class="col-item">
+                                              <div class="photo">
+                                                  <a data-fancybox href="https://www.youtube.com/watch?v=9xwazD5SyVg">
+                                                    <img class="img-responsive" src="<%=request.getContextPath()%>/apps/SalesWelcome/img/videoSplashImage.jpg" />
+                                                  </a>
+                                              </div>
+                                              <div class="info">
+                                                  <div class="row">
+                                                      <div class="price col-md-12">
+                                                          <h5><strong>Lorem ipsum dolor sit amet</strong></h5>
+                                                          <p>Lorem ipsum dolor sit amet</p>
+                                                      </div>
+                                                  </div>
+                                                  <div class="clearfix">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="col-sm-3">
+                                          <div class="col-item">
+                                              <div class="photo">
+                                                  <a data-fancybox href="https://www.youtube.com/watch?v=9xwazD5SyVg">
+                                                    <img class="img-responsive" src="<%=request.getContextPath()%>/apps/SalesWelcome/img/videoSplashImage.jpg" />
+                                                  </a>
+                                              </div>
+                                              <div class="info">
+                                                  <div class="row">
+                                                      <div class="price col-md-12">
+                                                          <h5><strong>Lorem ipsum dolor sit amet</strong></h5>
+                                                          <p>Lorem ipsum dolor sit amet</p>
+                                                      </div>
+                                                  </div>
+                                                  <div class="clearfix">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                      <div class="col-md-12" style="margin-top:-10px;">
+                          <div class="controls pull-right hidden-xs">
+                              <a class="left fa fa-chevron-left btn btn-primary" href="#carousel-example-generic" data-slide="prev"></a> &nbsp;<a class="right fa fa-chevron-right btn btn-primary" href="#carousel-example-generic" data-slide="next"></a>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+      </div>
+  </div>
+  <!-- /.content-wrapper -->
+
+  <footer class="main-footer">
+    <strong>Copyright &copy; 2019 </strong> All rights
+    reserved.
+  </footer>
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Campaign Preview</h4>
+      </div>
+      <div class="modal-body">
+     <!--  <embed src="file:///D://MohitProject//MohitDesktopDoc//Java_8_in_Action.pdf" frameborder="0" width="100%" height="400px"> --> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- ./wrapper -->
+<!-- jQuery 3 --><!-- jQuery 3 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="<%=request.getContextPath()%>/apps/SalesWelcome/js/bootstrap.min.js"></script> 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+<script src="<%=request.getContextPath()%>/apps/SalesWelcome/js/custom.js"></script>
+<!-- Sparkline -->
+
+
+ <script type="text/javascript">
+ 
+ var slingip = localStorage.getItem('slingip');
+ console.log("slingip = "+slingip);
+ var remoteuser = localStorage.getItem('remoteuser');
+ 
+ 
+ //loggedinuser
+ $(document).ready(function(){
+	 document.getElementById("loggedinuser").innerHTML =remoteuser;
+ 
+ });
+    $('.faq li .question').click(function () {
+      $(this).find('.plus-minus-toggle').toggleClass('collapsed');
+      $(this).parent().toggleClass('active');
+    });
+
+    $('.start-btn').click(function () {
+      $('.start-btn-custom-green').removeAttr('disabled');
+	  var selected = [];
+     $("select[name^='ContactSource']").children('option:selected').each( function() {
+        var $this = $(this);
+        selected.push( { text: $this.text(), value: $this.val() } );
+    });
+	  var productArray=[];
+	  
+      var ContactName = document.getElementsByName("ContactName");
+	  var ContactEmail = document.getElementsByName("ContactEmail");
+	  var ContactLocation = document.getElementsByName("ContactLocation");
+	  var ContactCompany = document.getElementsByName("ContactCompany");
+	  var ContactDesignation = document.getElementsByName("ContactDesignation");
+        for(var i = 0; i < ContactName.length; i++) {
+		 console.log('Item added '+selected[i].value);
+		 if(ContactEmail[i].value != ''){
+         var dataSource={"FirstName":ContactName[i].value,"LastName":ContactName[i].value,"PhoneNumber":"blank", "Email":ContactEmail[i].value, "Country":ContactLocation[i].value,"CompanyHeadCount":ContactDesignation[i].value,"CompanyName":ContactCompany[i].value,"Source":selected[i].value,"Industry":"freeTrialFormCampaign","Institute": remoteuser,"SessionCount":0,"Recent_SessionCount":0,"AvgSesionDuration":0};
+	
+		 var productJSON={"type":"freeTrialFormCampaign","name": remoteuser, "firstname":ContactName[i].value, "emailid":ContactEmail[i].value, "location":ContactLocation[i].value,"designation":ContactDesignation[i].value,"companyname":ContactCompany[i].value,"source":selected[i].value};
+         $.ajax({ 
+                          url: 'https://'+slingip+':8088/apirest/wsapi/postWpapi/',
+                          type: 'POST', 
+                          async: true,						  
+                         // dataType: 'json',  
+                          data: JSON.stringify(productJSON),
+						  headers: {
+                          'Accept': 'application/json',
+                          'Content-Type': 'application/json'
+                          },
+                          success: function (data, textStatus, xhr) {
+						  console.log('campaign set successfully for free trial');
+						  },
+						  error: function (xhr, textStatus, errorThrown) {  
+                         console.log('Error while setting funnel'+errorThrown);  
+                     }
+						 });
+		 productArray.push(dataSource);
+		 }
+		 }
+		 var mailTemplate={"MailTempName":"fixedFreetrialTemplate","templateName":"","typeDataSource":"Enter manually","AttachtempalteType":"","esignature":"false","twofactor":"false","esigntype":"","Email":"jobs@bizlem.com","group":"DoctigerMailTemplate","lgtype":"null","multipeDropDown":["1","3"],"Type":"Generation","data":productArray};
+		 $.ajax({ 
+                          url: 'https://'+slingip+':8083/portal/servlet/service/dDependencySKU1',
+                          type: 'POST', 
+                          async: true,						  
+                         // dataType: 'json',  
+                          data: JSON.stringify(mailTemplate),
+						  headers: {
+                          'Accept': 'application/json',
+                          'Content-Type': 'application/json'
+                          },
+                          success: function (data, textStatus, xhr) {
+						  console.log('mail sent successfully for free trial');
+						  },
+						  error: function (xhr, textStatus, errorThrown) {  
+                         console.log('Error while sending mail'+errorThrown);  
+                     }
+						 });
+		 
+		 	 
+		 console.log('mailTemplate created '+JSON.stringify(mailTemplate));
+    });
+    $('#sendQuote').click(function () {
+      $('#sendQuoteDiv').css('display','block');
+    });
+    $('#viewRules').click(function () {
+      $('#sendQuoteDiv').css('display','none');
+    });
+
+    $('.card-deck a').fancybox({
+      caption : function( instance, item ) {
+        return $(this).parent().find('.card-text').html();
+      }
+    });
+
+    
+    function logout(uid){
+  	  $.ajax({
+  	  type: 'GET',
+  	  url: 'http://'+slingip+':8078/OpenFireClient/Logout.jsp',
+  	  data: {
+  	  username: uid
+  	  }, 
+  	  complete: function(){
+  	  window.location="http://"+slingip+":8082/portal/logout.jsp";
+  	  }
+  	  });
+  	  }
+  </script>
+  <script type="text/javascript">
+    $('.get-started-btn').click(function(){
+      $('.get-started-section').slideDown();
+    });
+  </script>  
+  
+
+</body>
+</html>

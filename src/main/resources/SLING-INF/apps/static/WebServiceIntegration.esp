@@ -6,7 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
   <meta name="description" content="bootstrap admin template">
   <meta name="author" content="">
-  <title>Webservice Integration</title>
+  <title> Webservice Integration</title>
+  <link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/apps/global/assets/images/lead-auto-convert-logo.png">
   <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/css/bootstrap.min599c.css?v4.0.2">
   <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/css/bootstrap-extend.min599c.css?v4.0.2">
   <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/assets/css/site.min599c.css?v4.0.2">
@@ -23,8 +24,10 @@
   <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/apps/global/css/custom.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script>
-</script>
+<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>
+<link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css'
+    media="screen" />
+    
   <style type="text/css">
   .wizard-buttons{
   	display: none;
@@ -86,9 +89,25 @@
 
 		<input type=hidden id="opArr" name="opArr" value="" />
 				<input type=hidden id="ipArr" name="ipArr" value="" />
-				<input type=hidden id="remoteemail" name="remoteemail"
-			value="<%=request.getRemoteUser()%>" />
+			
 	</form>
+	
+	<!-- Modal Popup -->
+<div id="MyPopup" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+           
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <input type="button" id="btnClosePopup" value="Close" class="btn btn-danger" />
+            </div>
+        </div>
+    </div>
+</div>
+  
+     <!--END Modal -->
  <div class="row-fluid main-header">
     <div class="container-fluid">
       <div class="col-md-12 menubar">
@@ -134,60 +153,31 @@
                           	</div>
                           </div>
                           <div class="row">
-                          	<div class="col-md-12">
-                          		<table class="table table-bordered table-section">
+                          	<div class="col-md-12" style="overflow: auto !important;">
+                          	
+                          	<table class="table table-bordered table-section">
                           			<thead>
-                          				<tr style="background-color: #0E4B91;">
-                          					<th width="50px"></th>
-                          					<th width="60px"></th>
-                          					<th></th>
-                          					<th colspan="3" class="tdInput" style="color: #fff;">INPUT <i class="fa fa-plus" id="plusIn"></i></th>
-                          					<th colspan="3" class="tdOutput" style="color: #fff;">OUTPUT <i class="fa fa-plus" id="plusOut"></i></th>
-                          				</tr>
                           				<tr style="background-color: #82BDFF;">
-                          					<th width="50px"></th>
-                          					<th width="60px">Sr no.</th>
-                          					<th>service name</th>
-                          					<th>Field Name</th>
-                          					<th>Field Type</th>
-                          					<th>Field Length</th>
-                          					<th class="columeIn">Field data1</th>
-                          					<th class="columeIn">Field data2</th>
-                          					<th class="columeIn">Field data3</th>
-                                    		<th>Field Name</th>
-                          					<th>Field Type</th>
-                          					<th>Field Length</th>
-                          					<th class="columeOut">Field data1</th>
-                          					<th class="columeOut">Field data2</th>
-                          					<th class="columeOut">Field data3</th>
+                          					<th></th>
+                          					<th>Sr no.</th>
+                                    <th>Web Service Id</th>
+                                    <th>Service name</th>
+                                    <th>Service Type</th>
+                          					<th>Service Sub Type</th>
                           				</tr>
                           			</thead>
-                          			<tbody>
-                          				<tr>
-                          					<td> <input type="radio" name=""> </td>
-                          					<td>1</td>
-                          					<td></td>
-                          					<td></td>
-                          					<td></td>
-                          					<td></td>
-                          					<td class="columeIn"></td>
-                          					<td class="columeIn"></td>
-                          					<td class="columeIn"></td>
-                          					<td></td>
-                          					<td></td>
-                          					<td></td>
-                          					<td class="columeOut"></td>
-                          					<td class="columeOut"></td>
-                          					<td class="columeOut"></td>
-                          				</tr>
+                          			<tbody id="webservtab">
+                          				
                           			</tbody>
                           		</table>
+                          
                           	</div>
                           </div>
                           <div class="row"> 
                           	<div class="col-md-12 text-right">
-                          		<button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</button>
-      				                <button class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</button>
+                          		<button class="btn btn-danger btn-sm delete-btn-get-data"><i class="fa fa-trash"></i> Delete</button>
+      				              <!--   <button class="btn btn-primary btn-sm edit-btn-get-data"><i class="fa fa-edit"></i> Edit</button> -->
+      				                  <button class="btn btn-primary btn-sm edit-btn-get-data" type="button" id="editbutt"><i class="fa fa-edit"></i> Edit</button>
       				                <div class="dropdown pull-right" style="margin-left: 5px;">
         								        <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-plus"></i> Add</button>
               									<div class="dropdown-menu" id="demolist">
@@ -227,9 +217,8 @@
 				                                        <div class="col-md-4">
 				                                          	<select class="form-control" id="nameofservice">
 				                                          		<option> -- Select Service -- </option>
-				                                          		<option>LeadAutoConvert</option>
-				                                          		<option>DocTiger</option>
-				                                          	
+				                                          		<option value="LeadAutoConvert">LeadAutoConvert</option>
+				                                          		<option value="DocTiger" selected>DocTiger</option>
 				                                          	</select>
 				                                        </div>
 			                                        </div>  	
@@ -246,19 +235,19 @@
 	                                                          </div>
 	                                                          <div class="col-md-12">
 	                                                              <div class="form-group addMore m-0">
-	                                                                <div class="row addMore-main">
+	                                                                <div class="row addMore-main" id ="div1">
 	                                                                  <div class="col-sm-2">
 	                                                                  </div>
 	                                                                  <div class="col-sm-10 addMore-sub ipfld" id="ip">
 	                                                                    <div class="row">
 	                                                                      <div class="col-sm-1">
-	                                                                        <input type="checkbox" name="prkey5" id="prkey" value="yes" > <i class="fa fa-key"></i>
+	                                                                        <input type="checkbox" name="prkey5" id="firstcheckbox" value="yes" > <i class="fa fa-key"></i>
 	                                                                      </div>
 	                                                                      <div class="col-sm-2">
-	                                                                        <input type="text" name="FieldName5" placeholder="Field Name" class="form-control"  id="ipfieldname">
+	                                                                        <input type="text" name="FieldName5" placeholder="Field Name" class="form-control"  id="input-field-one">
 	                                                                      </div>
 	                                                                      <div class="col-sm-2">
-	                                                                        <select class="form-control sf-object bg-gray" id="ip_fieldtype" name="ip_fieldtype5">
+	                                                                        <select class="form-control sf-object bg-gray" id="input-field-select" name="ip_fieldtype5">
 	                                                                            <option>-- Field Type --</option>
 	                                                                          <option value="String">String</option>
 	                                                                          <option value="Integer">Integer</option>
@@ -268,7 +257,7 @@
 	                                                                        </select>
 	                                                                      </div>
 	                                                                      <div class="col-sm-2">
-	                                                                        <input type="text" name="ipfieldlength5" placeholder="Field Length" id="ipfieldlength" class="form-control">
+	                                                                        <input type="text" name="ipfieldlength5" placeholder="Field Length" id="input-field-second" class="form-control">
 	                                                                      </div>
 	                                                                      <div class="col-sm-1 text-right p-0">
 	                                                                        <a class="active btn btn-secondary add-more-btn" id="addip"><i class="fa fa-plus"></i></a>
@@ -312,7 +301,7 @@
 	                                                          </div>
 	                                                          <div class="col-md-12">
 	                                                              <div class="form-group addMore m-0">
-	                                                                <div class="row addMore-main">
+	                                                                <div class="row addMore-main" id ="div2">
 	                                                                  <div class="col-sm-2">
 	                                                                  </div>
 	                                                                  <div class="col-sm-10 addMore-sub opfld" id="op">
@@ -320,10 +309,10 @@
 	                                                                      <div class="col-sm-1">
 	                                                                      </div>
 	                                                                      <div class="col-sm-2">
-	                                                                        <input type="text" name="FieldName6" id="fieldname" placeholder="Field Name" class="form-control">
+	                                                                        <input type="text" name="FieldName6" id="output-field-one" placeholder="Field Name" class="form-control">
 	                                                                      </div>
 	                                                                      <div class="col-sm-2">
-	                                                                        <select class="form-control sf-object bg-gray" id="op_fieldtype" name="ip_fieldtype6">
+	                                                                        <select class="form-control sf-object bg-gray" id="output-field-select" name="ip_fieldtype6">
 	                                                                          <option>-- Field Type --</option>
 	                                                                          <option value="String">String</option>
 	                                                                          <option value="Integer">Integer</option>
@@ -333,7 +322,7 @@
 	                                                                        </select>
 	                                                                      </div>
 	                                                                      <div class="col-sm-2">
-	                                                                        <input type="text" name="ipfieldlength6" id="fieldlength" placeholder="Field Length" class="form-control">
+	                                                                        <input type="text" name="ipfieldlength6" id="output-field-second" placeholder="Field Length" class="form-control">
 	                                                                      </div>
 	                                                                      <div class="col-sm-1 text-right p-0">
 	                                                                        <a class="active btn btn-secondary add-more-btn" id="addop"><i class="fa fa-plus"></i></a>
@@ -449,7 +438,7 @@
 	                                                                  <div class="col-md-5">
 	                                                                  <!--  <button class="btn btn-success mr-3 sub-btn-data">Submit1</button>  -->   
 	                                                                  <button type="button" class="btn btn-success mr-3" onclick="return GetDataFunction()">Submit</button> 
-	                                                                      <button class="btn btn-danger">Cancel</button>
+	                                                                      <button class="btn btn-danger" type="button" onClick="window.location.reload();" >Cancel</button>
 	                                                                  </div>
 	                                                              </div>
 	                                                          </div>
@@ -498,17 +487,17 @@
 	                                                          </div>
 	                                                          <div class="col-md-10">
 	                                                              <div class="form-group addMore m-0">
-	                                                                <div class="row addMore-main">
+	                                                                <div class="row addMore-main" id="div3">
 	                                                                  <div class="col-sm-12 addMore-sub ipfld1" id="ip1">
 	                                                                    <div class="row">
 	                                                                      <div class="col-sm-1">
-	                                                                      	<input type="checkbox" id="prkey1" name="prkey1"> <i class="fa fa-key"></i>
+	                                                                      	<input type="checkbox" id="firstedcheckbox" name="prkey1"> <i class="fa fa-key"></i>
 	                                                                      </div>
 	                                                                      <div class="col-sm-2">
-	                                                                        <input type="text" name="FieldName1" id="ipfieldname1" placeholder="Field Name" class="form-control">
+	                                                                        <input type="text" name="FieldName1" id="input-field-one-ed" placeholder="Field Name" class="form-control">
 	                                                                      </div>
 	                                                                      <div class="col-sm-2">
-	                                                                        <select class="form-control sf-object bg-gray" id="ip_fieldtype1" name="ip_fieldtype1">
+	                                                                        <select class="form-control sf-object bg-gray" id="input-field-select-ed" name="ip_fieldtype1">
 	                                                                          <option>-- Field Type --</option>
 	                                                                        <option value="String">String</option>
 	                                                                          <option value="Integer">Integer</option>
@@ -517,7 +506,7 @@
 	                                                                        </select>
 	                                                                      </div>
 	                                                                      <div class="col-sm-2">
-	                                                                        <input type="text" name="ipfieldlength1" id="ipfieldlength1" placeholder="Field Length" class="form-control">
+	                                                                        <input type="text" name="ipfieldlength1" id="input-field-second-ed" placeholder="Field Length" class="form-control">
 	                                                                      </div>
 	                                                                      <div class="col-sm-1 text-right p-0">
 	                                                                        <a class="active btn btn-secondary add-more-btn" id="addip1"><i class="fa fa-plus"></i></a>
@@ -616,8 +605,8 @@
 				                                        <div class="col-md-4">
 				                                          	<select class="form-control" id="nameofservice3">
 				                                          		<option> -- Select Service -- </option>
-				                                          		<option>LeadAutoConvert</option>
-				                                          		<option>DocTiger</option>
+				                                          		<option value="LeadAutoConvert">LeadAutoConvert</option>
+				                                          		<option value="DocTiger" selected>DocTiger</option>
 				                                          	</select>
 				                                        </div>
 			                                        </div>  	
@@ -645,17 +634,17 @@
       		                                          	</div>
       		                                            <div class="col-md-10">
       		                                              <div class="form-group addMore m-0">
-      		                                                <div class="row addMore-main">
+      		                                                <div class="row addMore-main" id="div4">
       		                                                  <div class="col-sm-12 addMore-sub">
       		                                                    <div class="row">
       		                                                      <div class="col-sm-1">
-      		                                                      	<input type="checkbox" name="prkey3"> <i class="fa fa-key"></i>
+      		                                                      	<input type="checkbox" id="firstcfgcheckbox" name="prkey3"> <i class="fa fa-key"></i>
       		                                                      </div>
       		                                                      <div class="col-sm-2">
-      		                                                        <input type="text" name="FieldName3" placeholder="Field Name" class="form-control">
+      		                                                        <input type="text" id="input-field-one-cfg" name="FieldName3" placeholder="Field Name" class="form-control">
       		                                                      </div>
       		                                                      <div class="col-sm-2">
-      		                                                        <select class="form-control sf-object bg-gray" name="ip_fieldtype3">
+      		                                                        <select class="form-control sf-object bg-gray" id="input-field-select-cfg" name="ip_fieldtype3">
       		                                                          <option>-- Field Type --</option>
       		                                                         <option value="String">String</option>
 	                                                                          <option value="Integer">Integer</option>
@@ -664,7 +653,7 @@
       		                                                        </select>
       		                                                      </div>
       		                                                      <div class="col-sm-2">
-      		                                                        <input type="text" name="ipfieldlength3" placeholder="Field Length" class="form-control">
+      		                                                        <input type="text" id="input-field-second-cfg" name="ipfieldlength3" placeholder="Field Length" class="form-control">
       		                                                      </div>
       		                                                      <div class="col-sm-1 text-right p-0">
       		                                                        <a class="active btn btn-secondary add-more-btn"><i class="fa fa-plus"></i></a>
@@ -712,16 +701,16 @@
       		                                          	</div>
       		                                            <div class="col-md-10">
       		                                              <div class="form-group addMore m-0">
-      		                                                <div class="row addMore-main">
+      		                                              <div class="row addMore-main" id="div5">
       		                                                  <div class="col-sm-12 addMore-sub">
       		                                                    <div class="row">
       		                                                      <div class="col-sm-1">
       		                                                      </div>
       		                                                      <div class="col-sm-2">
-      		                                                        <input type="text" name="FieldName4" placeholder="Field Name" class="form-control">
+      		                                                        <input type="text" id="output-field-one-cfg" name="FieldName4" placeholder="Field Name" class="form-control">
       		                                                      </div>
       		                                                      <div class="col-sm-2">
-      		                                                        <select class="form-control sf-object bg-gray" name="ip_fieldtype4">
+      		                                                        <select class="form-control sf-object bg-gray" id="output-field-select-cfg" name="ip_fieldtype4">
       		                                                          <option>-- Field Type --</option>
       		                                                           <option value="String">String</option>
 	                                                                          <option value="Integer">Integer</option>
@@ -730,7 +719,7 @@
       		                                                        </select>
       		                                                      </div>
       		                                                      <div class="col-sm-2">
-      		                                                        <input type="text" name="ipfieldlength4" placeholder="Field Length" class="form-control">
+      		                                                        <input type="text" id="output-field-second-cfg" name="ipfieldlength4" placeholder="Field Length" class="form-control">
       		                                                      </div>
       		                                                      <div class="col-sm-1 text-right p-0">
       		                                                        <a class="active btn btn-secondary add-more-btn"><i class="fa fa-plus"></i></a>
@@ -818,17 +807,17 @@
                                                             </div>
                                                             <div class="col-md-10">
                                                                 <div class="form-group addMore m-0">
-                                                                  <div class="row addMore-main">
+                                                                 <div class="row addMore-main" id="div6">
                                                                     <div class="col-sm-12 addMore-sub">
                                                                       <div class="row">
                                                                         <div class="col-sm-1">
-                                                                          <input type="checkbox" name="prkey2"> <i class="fa fa-key"></i>
+                                                                          <input type="checkbox" id="firstedcheckbox-sd" name="prkey2"> <i class="fa fa-key"></i>
                                                                         </div>
                                                                         <div class="col-sm-2">
-                                                                          <input type="text" name="FieldName2" placeholder="Field Name" class="form-control">
+                                                                          <input type="text" id="input-field-one-sd" name="FieldName2" placeholder="Field Name" class="form-control">
                                                                         </div>
                                                                         <div class="col-sm-2">
-                                                                          <select class="form-control sf-object bg-gray" name="ip_fieldtype2">
+                                                                          <select class="form-control sf-object bg-gray" id="input-field-select-sd" name="ip_fieldtype2">
                                                                             <option>-- Field Type --</option>
                                                                            <option value="String">String</option>
 	                                                                          <option value="Integer">Integer</option>
@@ -837,7 +826,7 @@
                                                                           </select>
                                                                         </div>
                                                                         <div class="col-sm-2">
-                                                                          <input type="text" name="ipfieldlength2" placeholder="Field Length" class="form-control">
+                                                                          <input type="text" id="input-field-second-sd" name="ipfieldlength2" placeholder="Field Length" class="form-control">
                                                                         </div>
                                                                         <div class="col-sm-1 text-right p-0">
                                                                           <a class="active btn btn-secondary add-more-btn"><i class="fa fa-plus"></i></a>
@@ -932,24 +921,121 @@
       </div>
     </div>
   </div>
-  <script data-cfasync="false" src="../../../cdn-cgi/scripts/d07b1474/cloudflare-static/email-decode.min.js"></script><script src="<%=request.getContextPath()%>/apps/global/vendor/babel-external-helpers/babel-external-helpers599c.js?v4.0.2"></script>
+  
+  
+ <!--  <script data-cfasync="false" src="../../../cdn-cgi/scripts/d07b1474/cloudflare-static/email-decode.min.js"></script><script src="<%=request.getContextPath()%>/apps/global/vendor/babel-external-helpers/babel-external-helpers599c.js?v4.0.2"></script>
+  -->
   <script src="<%=request.getContextPath()%>/apps/global/vendor/jquery/jquery.min599c.js?v4.0.2"></script>
   <script src="<%=request.getContextPath()%>/apps/global/vendor/popper-js/umd/popper.min599c.js?v4.0.2"></script>
   <script src="<%=request.getContextPath()%>/apps/global/vendor/bootstrap/bootstrap.min599c.js?v4.0.2"></script>
   <script src="<%=request.getContextPath()%>/apps/global/vendor/asscrollbar/jquery-asScrollbar.min599c.js?v4.0.2"></script>
-  <!-- <script src="../../global/vendor/formvalidation/formValidation.min599c.js?v4.0.2"></script> -->
+  <!-- <script src="../../global/vendor/formvalidation/formValidation.min599c.js?v4.0.2"></script> 
   <script src="<%=request.getContextPath()%>/apps/global/vendor/jquery-wizard/jquery-wizard.min599c.js?v4.0.2"></script>
-  <script src="<%=request.getContextPath()%>/apps/global/js/Plugin.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/js/Plugin.min599c.js?v4.0.2"></script> -->
+  
   <script src="<%=request.getContextPath()%>/apps/global/js/Config.min599c.js?v4.0.2"></script>
-  <script src="<%=request.getContextPath()%>/apps/global/js/Plugin/jquery-wizard.min599c.js?v4.0.2"></script>
-  <script src="<%=request.getContextPath()%>/apps/global/assets/examples/js/forms/wizard.min599c.js?v4.0.2"></script>
+ 
+  <!-- <script src="<%=request.getContextPath()%>/apps/global/js/Plugin/jquery-wizard.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/assets/examples/js/forms/wizard.min599c.js?v4.0.2"></script> -->
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
   <script type="text/javascript" src="<%=request.getContextPath()%>/apps/LeadAutoConvertEsp/js/custom.js"></script>
   <script type="text/javascript">
+  var update=false;
   var datatype;
   var getsubserviceType;
-  var  slingip="development.bizlem.io";
+  var  remoteemail;
+  var slingip = localStorage.getItem('slingip');
+  var  email;
+ // email=nilesh@gmail.com&group=G1&datasourcename=newwbser
+   var params={};
+ 
+	var Alldatalistarr=[];
+	  $(document)
+			.ready(
+					function() {
+						
+						
+				  		var queryString = decodeURIComponent(window.location.search);
+				  		queryString = queryString.substring(1);
+				      
+				        var vars = queryString.split('&');
+				        var queries = queryString.split('&');
+				          email=queries[0].split('=')[1];
+					for (var i = 0; i < vars.length; i++) {
+						var pair = vars[i].split('=');
+						params[pair[0]] = decodeURIComponent(pair[1]);
+					}
+				    params["email"]=email;
+				       console.log("params ="+JSON.stringify(params));
+				         remoteemail = params.email;
+				       console.log("remoteemail="+remoteemail);
+				       remoteemail= remoteemail.replace(/@/g, "_");
+					var urltblbdy='';
+					var datalistarr1;
+					var datarr2=[];
+					var servicearr=[];
+					
+					servicearr.push("LeadAutoConvert");
+					servicearr.push("DocTiger");
+					//+servicearr[j]
+					for(var j=0;j<servicearr.length;++j){
+					 //console.log("aa==  for j="+j);
+					//alert("i== "+j+servicearr.length);
+					$.ajax({
+									type : 'GET',
+									url : 'http://'+slingip+':8087/apirest/wsapi/getuserwebserviceDet?user='+remoteemail+'&servicename='+servicearr[j]
+											,
+									async: false,
+								
+								    timeout: 30000,
+									data : {},
+									success : function(response) {
+									//alert("Response returned :: "+JSON.stringify(response));
+									var jsonString = JSON.stringify(response);
+									//obj = JSON.parse(JSON.stringify(response));
+								//var jsonString = "'"+JSON.stringify(response)+"'"; 
+								jsonString= jsonString.replace(/\"{/g, "{");
+								jsonString= jsonString.replace(/\}"/g, "}");
+								jsonString= jsonString.replace(/\\"/g, "\"");
+							    console.log("response= "+ jsonString);
+							    
+							    var obj = JSON.parse(jsonString);
+							
+							//alert("aa== "+JSON.stringify(JsonObj.outputdata));
+						//	console.log("aa== "+JSON.stringify(obj.outputdata.datalist));
+							if( obj.outputdata.datalist.length>0){
+							for(var k=0;k<obj.outputdata.datalist.length;k++){
+							Alldatalistarr.push(obj.outputdata.datalist[k]);
+							}
+							}
+							 //console.log("aa== "+JSON.stringify(Alldatalistarr));
+	                         //alert(JSON.stringify(obj.outputdata.datalist));
+	                         //alert(obj.outputdata.datalist);  
+							// console.log("aa==  for j="+j);
+					
+					
+					
+									}
+								});
+								
+								}
+									
+					
+					console.log("finalObj== "+Alldatalistarr.length+JSON.stringify(Alldatalistarr));
+	  	for(var i=0;i<Alldatalistarr.length;i++){
+		//console.log("webserviceid"+Alldatalistarr[i].webserviceid);
+		var srn=i+1;
+		urltblbdy = urltblbdy + '<tr><td> <input type="radio" name="radio-get-data"></td><td>' + srn
+						+ '</td><td >'+Alldatalistarr[i].webserviceid+'</td><td >'+Alldatalistarr[i].servicename+'</td><td >'+Alldatalistarr[i].collectionname+'</td><td >'+Alldatalistarr[i].webserviceType+'</td></tr>';
+		}
+		//alert("in tab urltblbdy "+urltblbdy);
+		document.getElementById("webservtab").innerHTML = urltblbdy;
+
+
+							});
   	$(document).ready(function() { 
+  
 
       $('body').on('click', '#plusIn.fa-plus', function() { 
         $(".columeIn").show();
@@ -1012,14 +1098,12 @@
   	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
   
 	<script type="text/javascript">
-	    //<![CDATA[
-	    $(function () {
-          $('.datepicker').datepicker();
-	    });
-	    //]]>
+	   
 	    
-	 var  remoteuser = document.getElementById("remoteemail").value;
+	
+	
 		function GetDataFunction() {
+			 console.log("remoteemail= "+remoteemail);
 			getsubserviceType=$( "#myTab a.active").html();
 			 getsubserviceType =getsubserviceType.toLowerCase()
 			console.log("getsubserviceType==== "+getsubserviceType);
@@ -1029,7 +1113,7 @@
 			 
 				  datatype=datatype.toLowerCase()
 			  datatype=datatype.replace(/\s/g, '');
-			  remoteuser= remoteuser.replace(/@/g, "_");
+			  remoteemail= remoteemail.replace(/@/g, "_");
 			  mainJson["collectionname"]= datatype;
 			  mainJson["webserviceType"]= getsubserviceType;
 			 var servicename=document.getElementById("nameofservice").value;
@@ -1051,7 +1135,7 @@
 				
 				console.log(today);
 			  mainJson["webserviceid"]= servicename+datatype+getsubserviceType+today;
-			  mainJson["user"]= remoteuser;
+			  mainJson["user"]= remoteemail;
 			//  mainJson["input"]= ipFieldArr;
 			//  mainJson["output"]= opFieldArr;
 			  mainJson["url"]= document.getElementById("url").value;
@@ -1111,20 +1195,25 @@
 			  
 			  console.log("mainJson= "+JSON.stringify(mainJson));
 			  
-			 
-			  $.ajax({
-		            url: 'http://bizlem.io:8087/apirest/wsapi/postwebserviceDet',
-		            type: 'post',
-		            dataType: 'json',
-		            contentType: 'application/json',
-		            
-		            data: JSON.stringify(mainJson),
-		            success: function (data) {
-		            	  console.log("response= "+ JSON.stringify(data));
-		            }
-		        }); 
+			 // 
+			// update
+			
+			//check empty 
+		//	if(data !== null && data !== '') {}
+   
+
+			  if (update) {
+				 
+					console.log("Edit1");
+					update = false
+			        callupdatewebserviceDet(mainJson); 
+				}else{
+					console.log("save= ");
+					 callpostwebserviceDet(mainJson);
+				}
 			  
-			  }
+			  
+		}
 		//get data endpoint
 		function EndpointFunction(){
 			var mainJson={};
@@ -1134,7 +1223,7 @@
 			  datatype=datatype.replace(/\s/g, '');
 			  getsubserviceType =getsubserviceType.toLowerCase()
 			  getsubserviceType=getsubserviceType.replace(/\s/g, '');
-			  remoteuser= remoteuser.replace(/@/g, "_");
+			  remoteemail= remoteemail.replace(/@/g, "_");
 			  mainJson["collectionname"]= datatype;
 			  mainJson["webserviceType"]= getsubserviceType;
 			 var servicename=document.getElementById("nameofservice").value;
@@ -1156,7 +1245,7 @@
 				console.log(today);
 			  mainJson["webserviceid"]= servicename+datatype+getsubserviceType+today;
 			  
-			  mainJson["user"]= remoteuser;
+			  mainJson["user"]= remoteemail;
 			
 			  mainJson["token"]= document.getElementById("entertoken").value;
 			  mainJson["url"]= document.getElementById("enterurl").value;
@@ -1191,18 +1280,17 @@
 			  mainJson["input"]=ipFieldArr;
 			  console.log("mainJson= "+JSON.stringify(mainJson));
 			  
+		
 			
-			  $.ajax({
-		            url: 'http://bizlem.io:8087/apirest/wsapi/postwebserviceDet',
-		            type: 'post',
-		            dataType: 'json',
-		            contentType: 'application/json',
-		            
-		            data: JSON.stringify(mainJson),
-		            success: function (data) {
-		            	console.log("response= "+ JSON.stringify(data));
-		            }
-		        }); 
+			 if (update) {
+				 
+					console.log("Edit1");
+					update = false
+			  callupdatewebserviceDet(mainJson); 
+				}else{
+					console.log("save= ");
+					 callpostwebserviceDet(mainJson);
+				}
 		
 		}
 		
@@ -1215,7 +1303,7 @@
 			  datatype=datatype.replace(/\s/g, '');
 			  getsubserviceType =getsubserviceType.toLowerCase()
 			  getsubserviceType=getsubserviceType.replace(/\s/g, '');
-			  remoteuser= remoteuser.replace(/@/g, "_");
+			  remoteemail= remoteemail.replace(/@/g, "_");
 			  mainJson["collectionname"]= datatype;
 			  mainJson["webserviceType"]= getsubserviceType;
 			 var servicename=document.getElementById("nameofservice3").value;
@@ -1237,7 +1325,7 @@
 				console.log(today);
 			  mainJson["webserviceid"]= servicename+datatype+getsubserviceType+today;
 			  
-			  mainJson["user"]= remoteuser;
+			  mainJson["user"]= remoteemail;
 			
 			
 			  mainJson["url"]= document.getElementById("enterurl3").value;
@@ -1295,17 +1383,15 @@
 			  console.log("mainJson= "+JSON.stringify(mainJson));
 			  
 			  
-			  $.ajax({
-		            url: 'http://bizlem.io:8087/apirest/wsapi/postwebserviceDet',
-		            type: 'post',
-		            dataType: 'json',
-		            contentType: 'application/json',
-		            
-		            data: JSON.stringify(mainJson),
-		            success: function (data) {
-		            	console.log("response= "+ JSON.stringify(data));
-		            }
-		        }); 
+			  if (update) {
+					 
+					console.log("Edit1");
+					update = false
+			  callupdatewebserviceDet(mainJson); 
+				}else{
+					console.log("save= ");
+					 callpostwebserviceDet(mainJson);
+				}
 		
 		}
 		
@@ -1315,11 +1401,11 @@
 			var mainJson={};
 			getsubserviceType=$( "#myTab2 a.active").html();
 			console.log("getsubserviceType= "+getsubserviceType+" :: datatype= "+datatype);
-			  datatype=datatype.toLowerCase()
+			  datatype=datatype.toLowerCase();
 			  datatype=datatype.replace(/\s/g, '');
-			  getsubserviceType =getsubserviceType.toLowerCase()
+			  getsubserviceType =getsubserviceType.toLowerCase();
 			  getsubserviceType=getsubserviceType.replace(/\s/g, '');
-			  remoteuser= remoteuser.replace(/@/g, "_");
+			  remoteemail= remoteemail.replace(/@/g, "_");
 			  mainJson["collectionname"]= datatype;
 			  mainJson["webserviceType"]= getsubserviceType;
 			 var servicename=document.getElementById("nameofservice3").value;
@@ -1341,7 +1427,7 @@
 				console.log(today);
 			  mainJson["webserviceid"]= servicename+datatype+getsubserviceType+today;
 			  
-			  mainJson["user"]= remoteuser;
+			  mainJson["user"]= remoteemail;
 			
 			  mainJson["token"]= document.getElementById("entertoken2").value;
 			  mainJson["url"]= document.getElementById("enterurl2").value;
@@ -1377,22 +1463,69 @@
 			  console.log("mainJson= "+JSON.stringify(mainJson));
 			  
 			  
+			  if (update) {
+					 
+					console.log("Edit1");
+					update = false
+			  callupdatewebserviceDet(mainJson); 
+				}else{
+					console.log("save= ");
+					 callpostwebserviceDet(mainJson);
+				}
+		
+		}
+		function callpostwebserviceDet(mainjs){
+		  $.ajax({
+	            url: 'http://'+slingip+':8087/apirest/wsapi/postwebserviceDet',
+	            type: 'post',
+	            dataType: 'json',
+	            contentType: 'application/json',
+	            
+	            data: JSON.stringify(mainjs),
+	            success: function (data) {
+	            	console.log("response= "+ JSON.stringify(data));
+	            	
+	            	callwebservicesave(mainjs);
+	            }
+	        });
+		}
+		
+	
+			​
+		function callupdatewebserviceDet(mainjs){
 			  $.ajax({
-		            url: 'http://bizlem.io:8087/apirest/wsapi/postwebserviceDet',
+		            url: 'http://'+slingip+':8087/apirest/wsapi/updatewebserviceDet',
 		            type: 'post',
 		            dataType: 'json',
 		            contentType: 'application/json',
 		            
-		            data: JSON.stringify(mainJson),
+		            data: JSON.stringify(mainjs),
 		            success: function (data) {
 		            	console.log("response= "+ JSON.stringify(data));
+		            	
+		            	callwebservicesave(mainjs);
 		            }
-		        }); 
+		        });
+			}
+		function callwebservicesave(opjs){
+			opjs["email"]= params.email;
+			opjs["group"]=params.group;
+			opjs["datasourcename"]=params.datasourcename;
+			console.log("req= "+ JSON.stringify(opjs));
+		  $.ajax({
+	            url: 'http://'+slingip+':8082/portal/servlet/service/savedatasourceSKUONE.webservicesave',
+	            type: 'post',
+	            dataType: 'json',
+	            contentType: 'application/json',
+	            
+	            data: JSON.stringify(opjs),
+	            success: function (data) {
+	            	console.log("response= "+ JSON.stringify(data));
+	            	location.reload();
+	            }
+	        }); 
 		
 		}
-		
-		
-		
 		
 	
 	    
@@ -1473,6 +1606,704 @@
 	            $('.2requestprimary').css('display','none');
 	        }
 	    });
+	    
+	    
+	    $(function () {
+	          $('.datepicker').datepicker();
+		    });
+
+	     /* $('.sub-btn-data').click(function(){
+	          var totalRowCount = $(".table-section tbody tr").length;
+	          var count = Number(totalRowCount)+1;
+	          $('.table-section > tbody').append('<tr><td> <input type="radio" name="radio-get-data"><button class="btn btn-success btn-sm tbl-save-btn" type="button" style="display:none;">Save</button> </td><td><span>'+count+'</span></td><td><span class="tdata"></span><input type="text" name="" class="tdataedit" value=""></td><td value="Get Data">Get Data</td><td>Schedule</td><td>');
+	      }); */
+	      $('.get-data-end-point').click(function(){
+	          var totalRowCount = $(".table-section tbody tr").length;
+	          var count = Number(totalRowCount)+1;
+	          $('.table-section > tbody').append('<tr><td> <input type="radio" name="radio-get-data"><button class="btn btn-success btn-sm tbl-save-btn" type="button" style="display:none;">Save</button> </td><td><span>'+count+'</span></td><td><span class="tdata"></span><input type="text" name="" class="tdataedit" value=""></td><td>Get Data</td><td>End Point</td><td>');
+	      });
+	      $('.submit-send-data-configure').click(function(){
+	          var totalRowCount = $(".table-section tbody tr").length;
+	          var count = Number(totalRowCount)+1;
+	          $('.table-section > tbody').append('<tr><td> <input type="radio" name="radio-get-data"><button class="btn btn-success btn-sm tbl-save-btn" type="button" style="display:none;">Save</button> </td><td><span>'+count+'</span></td><td><span class="tdata"></span><input type="text" name="" class="tdataedit" value=""></td><td>Send Data</td><td>Configure</td><td>');
+	      });
+	      $('.submit-send-data-end-point').click(function(){
+	          var totalRowCount = $(".table-section tbody tr").length;
+	          var count = Number(totalRowCount)+1;
+	          $('.table-section > tbody').append('<tr><td> <input type="radio" name="radio-get-data"><button class="btn btn-success btn-sm tbl-save-btn" type="button" style="display:none;">Save</button> </td><td><span>'+count+'</span></td><td><span class="tdata"></span><input type="text" name="" class="tdataedit" value=""></td><td>Send Data</td><td>End Point</td><td>');
+	      });
+
+	      $(".delete-btn-get-data").on("click", function () {
+		    var data = $('.table-section > tbody').find('tr').has('input[name="radio-get-data"]:checked').find('td:nth-child(3)').html();
+	         var data1 = $('.table-section > tbody').find('tr').has('input[name="radio-get-data"]:checked').find('td:nth-child(4)').html();
+			  console.log("Enter"+data);
+			  console.log("Enter"+data1);
+			  remoteemail= remoteemail.replace(/@/g, "_");
+	        $('.table-section > tbody').find('tr').has('input[name="radio-get-data"]:checked').remove();
+			$.ajax({
+									type : 'GET',
+									url : 'http://'+slingip+':8087/apirest/wsapi/deletewebserviceDet?user='+remoteemail+'&servicename='+data1+'&webserviceid='+data
+											,
+											async: false,
+								
+								timeout: 30000,
+									data : {},
+									success : function(response) {
+										alert("Deleted successfully");
+										location.reload();
+									console.log("Response returned :: "+JSON.stringify(response));
+					
+									}
+								});
+	      });
+
+	      $('body').on('click', '.edit-btn-get-data', function() {
+	          var data = $('.table-section > tbody').find('tr').has('input[name="radio-get-data"]:checked').find('td:nth-child(5)').html();
+	          var data1 = $('.table-section > tbody').find('tr').has('input[name="radio-get-data"]:checked').find('td:nth-child(6)').html();
+			  var data2 = $('.table-section > tbody').find('tr').has('input[name="radio-get-data"]:checked').find('td:nth-child(3)').html();
+	         var data3 = $('.table-section > tbody').find('tr').has('input[name="radio-get-data"]:checked').find('td:nth-child(4)').html();
+			  console.log("Enter"+data);
+			  console.log("Enter"+data1);
+			  console.log("Enter"+data2);
+			  console.log("Enter"+data3);
+			  remoteemail= remoteemail.replace(/@/g, "_");
+			  var customers = [
+			        { Name: "-- Field Type --"},
+	                { Name: "String"},
+	                { Name: "Integer"},
+	                { Name: "Double"},
+	                { Name: "Boolean"}
+	            ];
+			  update = true;
+			  $.ajax({
+									type : 'GET',
+									url : 'http://'+slingip+':8087/apirest/wsapi/getwebserviceDet?user='+remoteemail+'&servicename='+data3+'&webserviceid='+data2
+											,
+											async: false,
+								
+									timeout: 30000,
+									data : {},
+									success : function(response) {
+									var jsonString = JSON.stringify(response);
+									//obj = JSON.parse(JSON.stringify(response));
+								//var jsonString = "'"+JSON.stringify(response)+"'"; 
+								jsonString= jsonString.replace(/\"{/g, "{");
+								jsonString= jsonString.replace(/\}"/g, "}");
+								jsonString= jsonString.replace(/\\"/g, "\"");
+							    console.log("response= "+ jsonString);
+							    
+							    var obj = JSON.parse(jsonString);
+								//alert("Response returned :: "+JSON.stringify(response));
+								console.log("aa== "+JSON.stringify(obj.outputdata));
+								   var jsobj=obj.outputdata;
+								   var string = JSON.stringify(obj.outputdata.input);
+							       var objects = JSON.parse(string);
+							       var stringout = JSON.stringify(obj.outputdata.output);
+								   var outstr = JSON.parse(stringout);
+								  if(data == 'getdata' && data1 == 'schedule'){
+									  console.log("Enter inside schedule"+jsobj.url+jsobj.username);
+									  
+									  document.getElementById('url').value=jsobj.url;
+									  document.getElementById('username').value=jsobj.username;
+									  console.log("document.getElementById.value= "+document.getElementById('url').value);
+									   document.getElementById('password').value=jsobj.password;
+									  document.getElementById('token').value=jsobj.token;
+									  document.getElementById("nameofservice").value=jsobj.servicename;
+								   var firstData = true;
+								   for (var key in objects) {
+							       if (objects.hasOwnProperty(key)) {
+								   if(objects[key].totalinputentered !== undefined){
+								   //console.log(objects[key].totalinputentered);
+								   } else{
+								   if(firstData){
+										   firstData = false;
+										 if("yes" === objects[key].primarykey){
+							              $( "#firstcheckbox" ).prop( "checked", true );
+							            }
+										 
+										  $("#input-field-one").val(objects[key].fieldname);
+										  $("#input-field-second").val(objects[key].fieldlength);
+							              $(customers).each(function () {
+							              if (this.Name == objects[key].fieldtype) {     
+							                 $("#input-field-select > [value=" + this.Name + "]").attr("selected", "true");
+							                }
+											
+							            });
+										   }else{
+										  
+							    var note_window = document.createElement("div");
+							    note_window.setAttribute("class", "col-sm-10 col-sm-offset-2 addMore-sub");
+							    note_window.style.visibility = 'visible';
+							    var title = document.createElement("div");
+							    title.setAttribute("class", "row");
+							   var subDiv = document.createElement("div");
+							   subDiv.setAttribute("class", "col-sm-1");
+							   var checkbox = document.createElement('input');
+							   checkbox.type = "checkbox";
+							   checkbox.name = "prkey5";
+							   checkbox.value = "value";
+							   if("yes" === objects[key].primarykey){
+							   checkbox.setAttribute("checked", "checked");
+							   }
+							   var label = document.createElement('i'); 
+							   label.setAttribute("class", "fa fa-key");
+							   subDiv.appendChild(checkbox);
+							   subDiv.appendChild( document.createTextNode( '\u00A0' ) );
+							   subDiv.appendChild(label);
+							   var subDiv1 = document.createElement("div");
+							   subDiv1.setAttribute("class", "col-sm-2");
+							   var inputF = document.createElement("input");
+							   inputF.setAttribute("class", "form-control");
+							   inputF.setAttribute("id", "input-field-one");
+							   inputF.setAttribute("type", "text");
+							   inputF.setAttribute("name", "FieldName5");
+							   inputF.setAttribute("placeholder", "Field Name");
+							   inputF.setAttribute('value', objects[key].fieldname); 
+							   subDiv1.appendChild(inputF);
+							   var subDiv2 = document.createElement("div");
+							   subDiv2.setAttribute("class", "col-sm-2");
+							   var dropdown = document.createElement('select');
+							   dropdown.setAttribute("class", "form-control sf-object bg-gray");
+							   dropdown.setAttribute("id", "input-field-select");
+							   dropdown.setAttribute("name", "ip_fieldtype5");
+							   
+							   var options_str = "";
+							   $(customers).each(function () {
+							   
+							   if (this.Name == objects[key].fieldtype) {
+							    options_str += '<option value="' + this.Name + '" selected="selected">' + this.Name + '</option>';
+							   }else{
+							     options_str += '<option value="' + this.Name + '">' + this.Name + '</option>';
+								}
+							   });
+							   dropdown.innerHTML = options_str;
+							   subDiv2.appendChild(dropdown);
+							   var subDiv3 = document.createElement("div");
+							   subDiv3.setAttribute("class", "col-sm-2");
+							   var inputF1 = document.createElement("input");
+							   inputF1.setAttribute("class", "form-control");
+							   inputF1.setAttribute("id", "input-field-second");
+							   inputF1.setAttribute("type", "text");
+							   inputF1.setAttribute("name", "ipfieldlength5");
+							   inputF1.setAttribute("placeholder", "Field Length");
+							   inputF1.setAttribute('value', objects[key].fieldlength); 
+							   subDiv3.appendChild(inputF1);
+							   var subDiv4 = document.createElement("div");
+							   subDiv4.setAttribute("class", "col-sm-1 text-right p-0");
+							   subDiv4.innerHTML='<a class="btn btn-danger delete-btn sm-btn-custom"><i class="fa fa-trash" style="color:#fff !important;"></i></a>';
+							   title.appendChild(subDiv);
+							   title.appendChild(subDiv1);
+							   title.appendChild(subDiv2);
+							   title.appendChild(subDiv3);
+							   title.appendChild(subDiv4);
+							   note_window.appendChild(title);
+							   var navbar = document.getElementById("div1");
+							   navbar.appendChild(note_window);
+							      }
+							    }
+								}
+								}
+								   
+								   var firstoutData = true;
+								   for (var key in outstr) {
+							       if (outstr.hasOwnProperty(key)) {
+								   if(outstr[key].totaloutputentered !== undefined){
+								  // console.log(outstr[key].totaloutputentered);
+								   } else{
+								   if(firstoutData){
+										   firstoutData = false;
+										  $("#output-field-one").val(outstr[key].fieldname);
+										  $("#output-field-second").val(outstr[key].fieldlength);
+							              $(customers).each(function () {
+							              if (this.Name == outstr[key].fieldtype) {     
+							                 $("#output-field-select > [value=" + this.Name + "]").attr("selected", "true");
+							                }
+											
+							            });
+										   }else{
+										  
+								var emptydivout = document.createElement("div");
+								emptydivout.setAttribute("class", "col-sm-2");
+							    var note_window = document.createElement("div");
+							    note_window.setAttribute("class", "col-sm-10 addMore-sub opfld");
+								note_window.setAttribute("id","op");
+								
+							    note_window.style.visibility = 'visible';
+							    var title = document.createElement("div");
+							    title.setAttribute("class", "row");
+							   var subDiv = document.createElement("div");
+							   subDiv.setAttribute("class", "col-sm-1");
+							
+							  // subDiv.appendChild( document.createTextNode( '\u00A0' ) );
+							   
+							   var subDiv1 = document.createElement("div");
+							   subDiv1.setAttribute("class", "col-sm-2");
+							   var inputF = document.createElement("input");
+							   inputF.setAttribute("class", "form-control");
+							   inputF.setAttribute("id", "output-field-one");
+							   inputF.setAttribute("type", "text");
+							   inputF.setAttribute("name", "FieldName6");
+							   inputF.setAttribute("placeholder", "Field Name");
+							   inputF.setAttribute('value', outstr[key].fieldname); 
+							   subDiv1.appendChild(inputF);
+							   var subDiv2 = document.createElement("div");
+							   subDiv2.setAttribute("class", "col-sm-2");
+							   var dropdown = document.createElement('select');
+							   dropdown.setAttribute("class", "form-control sf-object bg-gray");
+							   dropdown.setAttribute("id", "out-field-select");
+							   dropdown.setAttribute("name", "ip_fieldtype6");
+							   
+							   var options_str = "";
+							   $(customers).each(function () {
+							   
+							   if (this.Name == outstr[key].fieldtype) {
+							    options_str += '<option value="' + this.Name + '" selected="selected">' + this.Name + '</option>';
+							   }else{
+							     options_str += '<option value="' + this.Name + '">' + this.Name + '</option>';
+								}
+							   });
+							   dropdown.innerHTML = options_str;
+							   subDiv2.appendChild(dropdown);
+							   
+							   var subDiv3 = document.createElement("div");
+							   subDiv3.setAttribute("class", "col-sm-2");
+							   var inputF1 = document.createElement("input");
+							   inputF1.setAttribute("class", "form-control");
+							   inputF1.setAttribute("id", "output-field-second");
+							   inputF1.setAttribute("type", "text");
+							   inputF1.setAttribute("name", "ipfieldlength6");
+							   inputF1.setAttribute("placeholder", "Field Length");
+							   inputF1.setAttribute('value', outstr[key].fieldlength); 
+							   subDiv3.appendChild(inputF1);
+							   var subDiv4 = document.createElement("div");
+							   subDiv4.setAttribute("class", "col-sm-1 text-right p-0");
+							   subDiv4.innerHTML='<a class="btn btn-danger delete-btn sm-btn-custom"><i class="fa fa-trash" style="color:#fff !important;"></i></a>';
+							   title.appendChild(subDiv);
+							   title.appendChild(subDiv1);
+							   title.appendChild(subDiv2);
+							   title.appendChild(subDiv3);
+							   title.appendChild(subDiv4);
+							   note_window.appendChild(title);
+							   
+							   var navbar = document.getElementById("div2");
+							   navbar.appendChild(emptydivout);
+							   navbar.appendChild(note_window);
+							      }
+							    }
+								}
+								}	  
+									  
+									  
+									  
+							            $('#addGetData').trigger('click');
+							            $('.get-data-schedule').trigger('click');
+										
+										console.log("Getdata schedule");
+							          }else if(data == 'getdata' && data1 == 'endpoint'){
+							        	  
+							        	document.getElementById("entertoken").value=jsobj.token;
+										document.getElementById("enterurl").value=jsobj.url;
+										document.getElementById("nameofservice").value=jsobj.servicename;
+									var firstData = true;
+								   for (var key in objects) {
+							       if (objects.hasOwnProperty(key)) {
+								   if(objects[key].totalinputentered !== undefined){
+								   console.log(objects[key].totalinputentered);
+								   } else{
+								   if(firstData){
+										   firstData = false;
+										 if("yes" === objects[key].primarykey){
+							              $( "#firstedcheckbox" ).prop( "checked", true );
+							            }
+										 
+										  $("#input-field-one-ed").val(objects[key].fieldname);
+										  $("#input-field-second-ed").val(objects[key].fieldlength);
+							              $(customers).each(function () {
+							              if (this.Name == objects[key].fieldtype) {     
+							                 $("#input-field-select-ed > [value=" + this.Name + "]").attr("selected", "true");
+							                }
+											
+							            });
+										   }else{
+							    var note_window = document.createElement("div");
+							    note_window.setAttribute("class", "col-sm-10 col-sm-offset-2 addMore-sub");
+							    note_window.style.visibility = 'visible';
+							    var title = document.createElement("div");
+							    title.setAttribute("class", "row");
+							   var subDiv = document.createElement("div");
+							   subDiv.setAttribute("class", "col-sm-1");
+							   var checkbox = document.createElement('input');
+							   checkbox.type = "checkbox";
+							   checkbox.name = "prkey1";
+							   checkbox.value = "value";
+							   if("yes" === objects[key].primarykey){
+							   checkbox.setAttribute("checked", "checked");
+							   }
+							   var label = document.createElement('i'); 
+							   label.setAttribute("class", "fa fa-key");
+							   subDiv.appendChild(checkbox);
+							   subDiv.appendChild( document.createTextNode( '\u00A0' ) );
+							   subDiv.appendChild(label);
+							   //subDiv.setAttribute("class","sourceText fa fa-key"); 
+							   //$(subDiv.sourceText).append('<i class="fa fa fa-key"></i>');
+							   var subDiv1 = document.createElement("div");
+							   subDiv1.setAttribute("class", "col-sm-2");
+							   var inputF = document.createElement("input");
+							   inputF.setAttribute("class", "form-control");
+							   inputF.setAttribute("id", "input-field-one-ed");
+							   inputF.setAttribute("type", "text");
+							   inputF.setAttribute("name", "FieldName1");
+							   inputF.setAttribute("placeholder", "Field Name");
+							   inputF.setAttribute('value', objects[key].fieldname); 
+							   subDiv1.appendChild(inputF);
+							   var subDiv2 = document.createElement("div");
+							   subDiv2.setAttribute("class", "col-sm-2");
+							   var dropdown = document.createElement('select');
+							   dropdown.setAttribute("class", "form-control sf-object bg-gray");
+							   dropdown.setAttribute("id", "input-field-select-ed");
+							   dropdown.setAttribute("name", "ip_fieldtype1");
+							   var options_str = "";
+							   $(customers).each(function () {
+							   
+							   if (this.Name == objects[key].fieldtype) {
+							    options_str += '<option value="' + this.Name + '" selected="selected">' + this.Name + '</option>';
+							   }else{
+							     options_str += '<option value="' + this.Name + '">' + this.Name + '</option>';
+								}
+							   });
+							   dropdown.innerHTML = options_str;
+							   subDiv2.appendChild(dropdown);
+							   var subDiv3 = document.createElement("div");
+							   subDiv3.setAttribute("class", "col-sm-2");
+							   var inputF1 = document.createElement("input");
+							   inputF1.setAttribute("class", "form-control");
+							   inputF1.setAttribute("id", "input-field-second-ed");
+							   inputF1.setAttribute("type", "text");
+							   inputF1.setAttribute("name", "ipfieldlength1");
+							   inputF1.setAttribute("placeholder", "Field Length");
+							   inputF1.setAttribute('value', objects[key].fieldlength); 
+							   subDiv3.appendChild(inputF1);
+							   var subDiv4 = document.createElement("div");
+							   subDiv4.setAttribute("class", "col-sm-1 text-right p-0");
+							   subDiv4.innerHTML='<a class="btn btn-danger delete-btn sm-btn-custom"><i class="fa fa-trash" style="color:#fff !important;"></i></a>';
+							   title.appendChild(subDiv);
+							   title.appendChild(subDiv1);
+							   title.appendChild(subDiv2);
+							   title.appendChild(subDiv3);
+							   title.appendChild(subDiv4);
+							   note_window.appendChild(title);
+							   var navbar = document.getElementById("div3");
+							   navbar.appendChild(note_window);
+							      }
+							    }
+								
+								}
+								
+								}
+										
+										
+							        	  
+							            $('#addGetData').trigger('click');
+							            $('.get-data-end-point-btn').trigger('click');
+							          }else if(data == 'senddata' && data1 == 'configure'){
+							        	
+							        	  document.getElementById('enterurl3').value=jsobj.url;
+							        	  document.getElementById("nameofservice3").value=jsobj.servicename;
+							        	  var firstData = true;
+										   for (var key in objects) {
+									       if (objects.hasOwnProperty(key)) {
+										   if(objects[key].totalinputentered !== undefined){
+										   //console.log(objects[key].totalinputentered);
+										   } else{
+										   if(firstData){
+												   firstData = false;
+												 if("yes" === objects[key].primarykey){
+									              $( "#firstcfgcheckbox" ).prop( "checked", true );
+									            }
+												 
+												  $("#input-field-one-cfg").val(objects[key].fieldname);
+												  $("#input-field-second-cfg").val(objects[key].fieldlength);
+									              $(customers).each(function () {
+									              if (this.Name == objects[key].fieldtype) {     
+									                 $("#input-field-select-cfg > [value=" + this.Name + "]").attr("selected", "true");
+									                }
+													
+									            });
+												   }else{
+												  
+									    var note_window = document.createElement("div");
+									    note_window.setAttribute("class", "col-sm-12 addMore-sub");
+									    note_window.style.visibility = 'visible';
+									    var title = document.createElement("div");
+									    title.setAttribute("class", "row");
+									   var subDiv = document.createElement("div");
+									   subDiv.setAttribute("class", "col-sm-1");
+									   var checkbox = document.createElement('input');
+									   checkbox.type = "checkbox";
+									   checkbox.name = "prkey3";
+									   checkbox.value = "value";
+									   if("yes" === objects[key].primarykey){
+									   checkbox.setAttribute("checked", "checked");
+									   }
+									   var label = document.createElement('i'); 
+									   label.setAttribute("class", "fa fa-key");
+									   subDiv.appendChild(checkbox);
+									   subDiv.appendChild( document.createTextNode( '\u00A0' ) );
+									   subDiv.appendChild(label);
+									   var subDiv1 = document.createElement("div");
+									   subDiv1.setAttribute("class", "col-sm-2");
+									   var inputF = document.createElement("input");
+									   inputF.setAttribute("class", "form-control");
+									   inputF.setAttribute("id", "input-field-one-cfg");
+									   inputF.setAttribute("type", "text");
+									   inputF.setAttribute("name", "FieldName3");
+									   inputF.setAttribute("placeholder", "Field Name");
+									   inputF.setAttribute('value', objects[key].fieldname); 
+									   subDiv1.appendChild(inputF);
+									   var subDiv2 = document.createElement("div");
+									   subDiv2.setAttribute("class", "col-sm-2");
+									   var dropdown = document.createElement('select');
+									   dropdown.setAttribute("class", "form-control sf-object bg-gray");
+									   dropdown.setAttribute("id", "input-field-select-cfg");
+									   dropdown.setAttribute("name", "ip_fieldtype3");
+									   
+									   var options_str = "";
+									   $(customers).each(function () {
+									   
+									   if (this.Name == objects[key].fieldtype) {
+									    options_str += '<option value="' + this.Name + '" selected="selected">' + this.Name + '</option>';
+									   }else{
+									     options_str += '<option value="' + this.Name + '">' + this.Name + '</option>';
+										}
+									   });
+									   dropdown.innerHTML = options_str;
+									   subDiv2.appendChild(dropdown);
+									   var subDiv3 = document.createElement("div");
+									   subDiv3.setAttribute("class", "col-sm-2");
+									   var inputF1 = document.createElement("input");
+									   inputF1.setAttribute("class", "form-control");
+									   inputF1.setAttribute("id", "input-field-second-cfg");
+									   inputF1.setAttribute("type", "text");
+									   inputF1.setAttribute("name", "ipfieldlength3");
+									   inputF1.setAttribute("placeholder", "Field Length");
+									   inputF1.setAttribute('value', objects[key].fieldlength); 
+									   subDiv3.appendChild(inputF1);
+									   var subDiv4 = document.createElement("div");
+									   subDiv4.setAttribute("class", "col-sm-1 text-right p-0");
+									   subDiv4.innerHTML='<a class="btn btn-danger delete-btn sm-btn-custom"><i class="fa fa-trash" style="color:#fff !important;"></i></a>';
+									   title.appendChild(subDiv);
+									   title.appendChild(subDiv1);
+									   title.appendChild(subDiv2);
+									   title.appendChild(subDiv3);
+									   title.appendChild(subDiv4);
+									   note_window.appendChild(title);
+									   var navbar = document.getElementById("div4");
+									   navbar.appendChild(note_window);
+									      }
+									    }
+										}
+										}
+			                           	   var firstoutData = true;
+										   for (var key in outstr) {
+									       if (outstr.hasOwnProperty(key)) {
+										   if(outstr[key].totaloutputentered !== undefined){
+										  // console.log(outstr[key].totaloutputentered);
+										   } else{
+										   if(firstoutData){
+												   firstoutData = false;
+												  $("#output-field-one-cfg").val(outstr[key].fieldname);
+												  $("#output-field-second-cfg").val(outstr[key].fieldlength);
+									              $(customers).each(function () {
+									              if (this.Name == outstr[key].fieldtype) {     
+									                 $("#output-field-select-cfg > [value=" + this.Name + "]").attr("selected", "true");
+									                }
+													
+									            });
+												   }else{
+												  
+										
+									    var note_window = document.createElement("div");
+									    note_window.setAttribute("class", "col-sm-12 addMore-sub");
+										note_window.setAttribute("id","op");
+										
+									    note_window.style.visibility = 'visible';
+									    var title = document.createElement("div");
+									    title.setAttribute("class", "row");
+									   var subDiv = document.createElement("div");
+									   subDiv.setAttribute("class", "col-sm-1");
+									
+									  // subDiv.appendChild( document.createTextNode( '\u00A0' ) );
+									   
+									   var subDiv1 = document.createElement("div");
+									   subDiv1.setAttribute("class", "col-sm-2");
+									   var inputF = document.createElement("input");
+									   inputF.setAttribute("class", "form-control");
+									   inputF.setAttribute("id", "output-field-one-cfg");
+									   inputF.setAttribute("type", "text");
+									   inputF.setAttribute("name", "FieldName4");
+									   inputF.setAttribute("placeholder", "Field Name");
+									   inputF.setAttribute('value', outstr[key].fieldname); 
+									   subDiv1.appendChild(inputF);
+									   var subDiv2 = document.createElement("div");
+									   subDiv2.setAttribute("class", "col-sm-2");
+									   var dropdown = document.createElement('select');
+									   dropdown.setAttribute("class", "form-control sf-object bg-gray");
+									   dropdown.setAttribute("id", "out-field-select-cfg");
+									   dropdown.setAttribute("name", "ip_fieldtype4");
+									   
+									   var options_str = "";
+									   $(customers).each(function () {
+									   
+									   if (this.Name == outstr[key].fieldtype) {
+									    options_str += '<option value="' + this.Name + '" selected="selected">' + this.Name + '</option>';
+									   }else{
+									     options_str += '<option value="' + this.Name + '">' + this.Name + '</option>';
+										}
+									   });
+									   dropdown.innerHTML = options_str;
+									   subDiv2.appendChild(dropdown);
+									   
+									   var subDiv3 = document.createElement("div");
+									   subDiv3.setAttribute("class", "col-sm-2");
+									   var inputF1 = document.createElement("input");
+									   inputF1.setAttribute("class", "form-control");
+									   inputF1.setAttribute("id", "output-field-second-cfg");
+									   inputF1.setAttribute("type", "text");
+									   inputF1.setAttribute("name", "ipfieldlength4");
+									   inputF1.setAttribute("placeholder", "Field Length");
+									   inputF1.setAttribute('value', outstr[key].fieldlength); 
+									   subDiv3.appendChild(inputF1);
+									   var subDiv4 = document.createElement("div");
+									   subDiv4.setAttribute("class", "col-sm-1 text-right p-0");
+									   subDiv4.innerHTML='<a class="btn btn-danger delete-btn sm-btn-custom"><i class="fa fa-trash" style="color:#fff !important;"></i></a>';
+									   title.appendChild(subDiv);
+									   title.appendChild(subDiv1);
+									   title.appendChild(subDiv2);
+									   title.appendChild(subDiv3);
+									   title.appendChild(subDiv4);
+									   note_window.appendChild(title);
+									   
+									   var navbar = document.getElementById("div5");
+									  
+									   navbar.appendChild(note_window);
+									      }
+									    }
+										}
+										}
+							        	
+										      $('#addSendData').trigger('click');
+							            $('.send-data-configure-btn').trigger('click');
+							          }else if(data == 'senddata' && data1 == 'endpoint'){
+							        	  
+							        	   document.getElementById('entertoken2').value=jsobj.token;
+										   document.getElementById('enterurl2').value=jsobj.url;
+										   document.getElementById("nameofservice3").value=jsobj.servicename;
+											var firstData = true;
+											   for (var key in objects) {
+										       if (objects.hasOwnProperty(key)) {
+											   if(objects[key].totalinputentered !== undefined){
+											   console.log(objects[key].totalinputentered);
+											   } else{
+											   if(firstData){
+													   firstData = false;
+													 if("yes" === objects[key].primarykey){
+										              $( "#firstedcheckbox-sd" ).prop( "checked", true );
+										            }
+													 
+													  $("#input-field-one-sd").val(objects[key].fieldname);
+													  $("#input-field-second-sd").val(objects[key].fieldlength);
+										              $(customers).each(function () {
+										              if (this.Name == objects[key].fieldtype) {     
+										                 $("#input-field-select-sd > [value=" + this.Name + "]").attr("selected", "true");
+										                }
+														
+										            });
+													   }else{
+										    var note_window = document.createElement("div");
+										    note_window.setAttribute("class", "col-sm-12 addMore-sub");
+										    note_window.style.visibility = 'visible';
+										    var title = document.createElement("div");
+										    title.setAttribute("class", "row");
+										   var subDiv = document.createElement("div");
+										   subDiv.setAttribute("class", "col-sm-1");
+										   var checkbox = document.createElement('input');
+										   checkbox.type = "checkbox";
+										   checkbox.name = "prkey2";
+										   checkbox.value = "value";
+										   if("yes" === objects[key].primarykey){
+										   checkbox.setAttribute("checked", "checked");
+										   }
+										   var label = document.createElement('i'); 
+										   label.setAttribute("class", "fa fa-key");
+										   subDiv.appendChild(checkbox);
+										   subDiv.appendChild( document.createTextNode( '\u00A0' ) );
+										   subDiv.appendChild(label);
+										   //subDiv.setAttribute("class","sourceText fa fa-key"); 
+										   //$(subDiv.sourceText).append('<i class="fa fa fa-key"></i>');
+										   var subDiv1 = document.createElement("div");
+										   subDiv1.setAttribute("class", "col-sm-2");
+										   var inputF = document.createElement("input");
+										   inputF.setAttribute("class", "form-control");
+										   inputF.setAttribute("id", "input-field-one-sd");
+										   inputF.setAttribute("type", "text");
+										   inputF.setAttribute("name", "FieldName2");
+										   inputF.setAttribute("placeholder", "Field Name");
+										   inputF.setAttribute('value', objects[key].fieldname); 
+										   subDiv1.appendChild(inputF);
+										   var subDiv2 = document.createElement("div");
+										   subDiv2.setAttribute("class", "col-sm-2");
+										   var dropdown = document.createElement('select');
+										   dropdown.setAttribute("class", "form-control sf-object bg-gray");
+										   dropdown.setAttribute("id", "input-field-select-sd");
+										   dropdown.setAttribute("name", "ip_fieldtype2");
+										   var options_str = "";
+										   $(customers).each(function () {
+										   
+										   if (this.Name == objects[key].fieldtype) {
+										    options_str += '<option value="' + this.Name + '" selected="selected">' + this.Name + '</option>';
+										   }else{
+										     options_str += '<option value="' + this.Name + '">' + this.Name + '</option>';
+											}
+										   });
+										   dropdown.innerHTML = options_str;
+										   subDiv2.appendChild(dropdown);
+										   var subDiv3 = document.createElement("div");
+										   subDiv3.setAttribute("class", "col-sm-2");
+										   var inputF1 = document.createElement("input");
+										   inputF1.setAttribute("class", "form-control");
+										   inputF1.setAttribute("id", "input-field-second-sd");
+										   inputF1.setAttribute("type", "text");
+										   inputF1.setAttribute("name", "ipfieldlength2");
+										   inputF1.setAttribute("placeholder", "Field Length");
+										   inputF1.setAttribute('value', objects[key].fieldlength); 
+										   subDiv3.appendChild(inputF1);
+										   var subDiv4 = document.createElement("div");
+										   subDiv4.setAttribute("class", "col-sm-1 text-right p-0");
+										   subDiv4.innerHTML='<a class="btn btn-danger delete-btn sm-btn-custom"><i class="fa fa-trash" style="color:#fff !important;"></i></a>';
+										   title.appendChild(subDiv);
+										   title.appendChild(subDiv1);
+										   title.appendChild(subDiv2);
+										   title.appendChild(subDiv3);
+										   title.appendChild(subDiv4);
+										   note_window.appendChild(title);
+										   var navbar = document.getElementById("div6");
+										   navbar.appendChild(note_window);
+										      }
+										    }
+											
+											}
+											
+											}
+										   
+										   
+							            $('#addSendData').trigger('click');
+							            $('.send-data-end-point-btn').trigger('click');
+							          }
+								
+					
+									}
+								});   
+	      });  
 
 	</script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.13.0/prism.min.js"></script>

@@ -1,0 +1,36 @@
+<!-- <html>
+<head>
+</head>
+<body>
+<div>
+ <iframe frameborder="0" scrollable="no" id="mailtemplateIframetab" src=""
+		style="width: 100%; height: 600px;"></iframe> 
+		</div>
+		<script type="text/javascript">
+		$(document).ready(function(){
+					
+		});	
+		</script>
+		</body>
+		</html>
+		        
+                  <div id="step-1" class="">
+                          <form id="exampleFormContainer">
+            <div class="container">
+                                  <div class="container">
+                      <div class="row">
+                         <div class="col-md-11" style="margin-left:5px;margin-top:20px;">
+                         <div class="collapse show" id="collapseExample3">
+              <%load("/apps/SalesAutoConvertEsp/commonSalesAutoConvertEsp/setupMailTemplate.esp");%>
+              
+              
+              
+                     </div>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                 </form>       
+                      </div> 
+		-->
+		

@@ -245,7 +245,7 @@
 	  </div>
 	</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/apps/LeadAutoConvertEsp/js/custom.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/apps/SalesAutoConvertEsp/js/custom.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </body>
 <script type="text/javascript">

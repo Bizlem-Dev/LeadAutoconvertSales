@@ -7,6 +7,7 @@
   <meta name="description" content="bootstrap admin template">
   <meta name="author" content="">
   <title>Demo</title>
+  <link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/apps/global/assets/images/lead-auto-convert-logo.png">
   <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/css/bootstrap.min599c.css?v4.0.2">
   <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/css/bootstrap-extend.min599c.css?v4.0.2">
   <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/assets/css/site.min599c.css?v4.0.2">

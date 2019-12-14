@@ -1,0 +1,50 @@
+<html>
+<title>Provisioning</title>
+<link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/apps/global/assets/images/lead-auto-convert-logo.png">
+
+<body>
+<div id="provisional"></div>
+
+<script  src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+  <script type="text/javascript">
+//provisioning
+var slingip = localStorage.getItem('slingip');
+  $(document).ready(function(){
+
+		var admin;
+	
+		console.log(" displaysettingtabsbyrolefun remoteuser"+localStorage.getItem('remoteuser'));
+		$.ajax({
+		type: "GET",
+		url: "/portal/servlet/service/Salesconverter.checkValidUser?email="+localStorage.getItem('remoteuser'),
+		//async: false,
+		success: function (data) {
+		console.log("data "+data)
+		var datajson=JSON.parse(data);
+		if(datajson.hasOwnProperty("adminserviceid")){
+		admin=datajson.adminserviceid;
+		console.log("datajson.adminserviceid= "+datajson.adminserviceid);
+		// http://"'+slingip+'":8082/portal/servlet/service/config.serviceUrl?name="'+datajson.adminserviceid+'"&display=1
+		console.log("iframelink= "+'http://'+slingip+':8082/portal/servlet/service/config.serviceUrl?name='+datajson.adminserviceid+'&display=1');
+		var optionsli="";
+		// quantity
+//		if(admin=="1"){
+//		optionsli='<li class="active"><a href="#password" data-toggle="tab" aria-expanded="true">Change Password</a></li><li class=""><a href="#biling" data-toggle="tab" aria-expanded="false">Biling</a></li><li class=""><a href="#profilenew" data-toggle="tab" aria-expanded="false">Profile</a></li><li class=""><a href="#provisional" data-toggle="tab" aria-expanded="false">Provisional</a></li>';
+		// var  setiframe= '<iframe frameborder="0" src="http://bizlem.io:8078/ServiceLogging/userPanel?type=provisioning_d&serviceId=26&productCode=salesautoconvert" style="width: 100%; height: 400px;"></iframe>'; 
+		// document.getElementById("ruleIframetab").src = 'http://34.74.125.253:8082/carrot-rule/#/setup-rule?username='+localStorage.getItem('remoteuser')+'&projectname='+localStorage.getItem('funnelName')+'&source=leadconverter';//+localStorage.getItem('funnelName')+'
+		var setiframe= '<iframe frameborder="0" src="https://'+slingip+':8083/portal/servlet/service/config.serviceUrl?name='+datajson.adminserviceid+'&display=1" style="width: 100%; height: 400px;"></iframe>';
+		document.getElementById("provisional").innerHTML=setiframe;
+//		}else{
+//		optionsli='<li class="active"><a href="#password" data-toggle="tab" aria-expanded="true">Change Password</a></li><li class=""><a href="#profilenew" data-toggle="tab" aria-expanded="false">Profile</a></li>';
+//		}
+	//	document.getElementById("displaysettingtabsbyrole").innerHTML=optionsli;
+		}
+
+		}
+		});
+		
+  });
+		</script>
+		</body>
+		</html>

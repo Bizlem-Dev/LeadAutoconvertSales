@@ -1,0 +1,2012 @@
+<!DOCTYPE html>
+<html class="no-js css-menubar" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <meta name="description" content="bootstrap admin template">
+  <meta name="author" content="">
+  <title>Webservice Integration</title>
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/css/bootstrap.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/css/bootstrap-extend.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/assets/css/site.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/asscrollable/asScrollable.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/switchery/switchery.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/intro-js/introjs.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/slidepanel/slidePanel.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/flag-icon-css/flag-icon.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/jquery-wizard/jquery-wizard.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/formvalidation/formValidation.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/fonts/web-icons/web-icons.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/fonts/brand-icons/brand-icons.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/apps/global/css/custom.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script>
+</script>
+  <style type="text/css">
+  .wizard-buttons{
+  	display: none;
+  }
+  .new-btn{
+    background-color: #4dbae3;
+    border-radius: 20px;
+    color: #fff;
+  }
+  .wizard-content .nav .btn-secondary{
+    color: #fff !important;
+  }
+  .btn.active{
+    background-color: #3C3692 !important;
+    color: #fff !important;
+    border: 1px solid #3C3692 !important;
+  }
+  .wizard-content .nav{
+    padding-left: 15px;
+  }
+  .wizard-content .nav a{
+    margin-right: 3px;
+  }
+  .addMore-sub{
+    margin-bottom: 15px;
+  }
+  select.form-control:not([size]):not([multiple]){
+    color: #000 !important;
+    background:#fff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAFCAYAAABB9hwOAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA4RpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpiNWZkMzNlMC0zNTcxLTI4NDgtYjA3NC01ZTRhN2RjMWVmNjEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RTUxRUI3MDdEQjk4MTFFNUI1NDA5QTcyNTlFQzRERTYiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RTUxRUI3MDZEQjk4MTFFNUI1NDA5QTcyNTlFQzRERTYiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6ZWNiNjQzMjYtNDc1Yi01OTQxLWIxYjItNDVkZjU5YjZlODA2IiBzdFJlZjpkb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6N2RlYzI2YWMtZGI5OC0xMWU1LWIwMjgtY2ZhNDhhOGNjNWY1Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+AXTIGgAAAFRJREFUeNpidI1KSWFgYDBlwASngXjOrqWzGcgBTEC8DIjfo4m/h4qTDUAGfwPi+UD8Hyr2H8r/RqnBIHATiPdC2XuhfIoACxJ7PRDzQmmKAUCAAQDxOxHyb4DjOAAAAABJRU5ErkJggg==) no-repeat center right;
+  }
+  .heading{
+  	margin-bottom: 10px;
+  }
+  .table-section tr th{
+  	text-align: center;
+  }
+  .columeIn,.columeOut,
+  .colume,.colume2{
+  	display: none;
+  }
+  #addGetData,
+  #addSendData,
+  #plus ,
+  #plusOut,
+  #plusIn,
+  #send-plus{
+  	cursor: pointer;
+  }
+  .get-post{
+  	display: none;
+  }
+  .btn-get-send{
+  	margin-bottom: 10px;
+  }
+</style>
+</head>
+<body class="animsition">
+<form name="formName">
+
+		<input type=hidden id="sername" name="opArr" value="<%=request.getServerName()%>" />
+				<input type=hidden id="scheme" name="ipArr" value="<%=request.getScheme()%>" />
+			
+	</form>
+ <div class="row-fluid main-header">
+    <div class="container-fluid">
+      <div class="col-md-12 menubar">
+      <!--  <ul class="pt-5 m-0 pull-left"> 
+        <li><a href="<%=request.getContextPath()%>/servlet/service/ui.index"><img src="<%=request.getContextPath()%>/apps/global/assets/images/lead-auto-convert-logo.png" style="width:205px;margin-left:-60px;"></a></li>
+        <li><a href="<%=request.getContextPath()%>/servlet/service/ui.funnel" target="_blank"> Funnel</a></li>
+        <li><a href="<%=request.getContextPath()%>/servlet/service/ui.list" target="_blank"> List</a></li>
+        <li><a href="<%=request.getContextPath()%>/servlet/service/ui.statistic"> Dashboard</a></li> 
+       <li><a href="<%=request.getContextPath()%>/servlet/service/ui.moveMonit" target="_blank"> Moniter</a></li> 
+       
+        
+         <li id="grouplist"> </li>
+         
+        </ul> --> 
+        <ul class="pt-15 pull-right">
+        <!--    <li><a href="<%=request.getContextPath()%>/servlet/service/ui.configuration" target="_blank"><img src="<%=request.getContextPath()%>/apps/global/assets/images/shedule.png"> Configuration</a></li>
+          <li><a href="#" class="creat-new-campaigns-menu"> Create New Campaigns</a></li>
+           <li><a href="<%=request.getContextPath()%>/servlet/service/ui.provisioning" target="_blank"> Set Up</a></li> 
+            
+         <li> <a class="btn btn btn-info" style="float: right" href="javascript:void(0)" onclick="logout('u193')">Logout
+</a> </li> --> 
+        </ul>
+      </div>
+     
+    </div>
+  </div>
+  <!-- Page -->
+  <div class="page">
+    <div class="page-content container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel" id="exampleWizardForm">
+            <div class="panel-body" style="padding:30px;">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="panel-body">
+                    <form id="exampleFormContainer">
+                      <div class="wizard-content">
+                        <div class="container">
+                          <div class="row">
+                          	<div class="col-md-12 text-center heading">
+                          		<h2>Web Service Integration</h2>
+                          	</div>
+                          </div>
+                          <div class="row">
+                          	<div class="col-md-12" style="overflow: auto !important;">
+                          	
+                          	<table class="table table-bordered table-section">
+                          			<thead>
+                          				<tr style="background-color: #82BDFF;">
+                          					<th></th>
+                          					<th>Sr no.</th>
+                                    <th>Web Service Id</th>
+                                    <th>Service name</th>
+                                    <th>Service Type</th>
+                          					<th>Service Sub Type</th>
+                          				</tr>
+                          			</thead>
+                          			<tbody id="webservtab">
+                          				
+                          			</tbody>
+                          		</table>
+                          
+                          	</div>
+                          </div>
+                          <div class="row"> 
+                          	<div class="col-md-12 text-right">
+                          		<button class="btn btn-danger btn-sm delete-btn-get-data"><i class="fa fa-trash"></i> Delete</button>
+      				              <!--   <button class="btn btn-primary btn-sm edit-btn-get-data"><i class="fa fa-edit"></i> Edit</button> -->
+      				                  <button class="btn btn-primary btn-sm edit-btn-get-data" type="button" id="editbutt"><i class="fa fa-edit"></i> Edit</button>
+      				                <div class="dropdown pull-right" style="margin-left: 5px;">
+        								        <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-plus"></i> Add</button>
+              									<div class="dropdown-menu" id="demolist">
+                                    				<a class="dropdown-item" id="addGetData" value="getdata">Get Data</a>
+              									    <a class="dropdown-item" id="addSendData" value="senddata">Send Data</a>
+              									</div>
+      								        </div>
+                          	</div>
+                          </div>
+                          <div class="get-post"> 
+	                          <div class="row" style="display: none;">
+	                            <div class="col-md-12 nav">
+	                                <a data-toggle="tab" href="#get" id="navGet" class="active btn btn-secondary">Get Data</a>
+	                                <a data-toggle="tab" href="#post" id="navSend" class="btn btn-secondary">Send Data</a>
+	                            </div>
+	                          </div>
+	                          <div class="row pt-4 mt-4">
+	                            <div class="col-md-12">
+	                              <div class="tab-content">
+	                                <div id="get" class="tab-pane fade in active">
+	                                  <div class="row">
+	                                    <div class="col-md-12">
+	                                  		<h4><strong> Get Data</strong></h4>
+	                                  	</div>
+	                                    <div class="col-md-12">
+	                                      <div class="wizard-content pull-push-section">
+	                                        <div class="row">
+	                                          	<div id="myTab" class="col-md-6 nav">
+	                                          		<a  data-toggle="tab" href="#pull" class="active btn btn-secondary" id="sched" >Schedule</a>
+			                                        <a data-toggle="tab" href="#push" class="btn btn-secondary" id="endpnt">End Point</a>
+	                                        	</div>
+	                                          	<div class="col-md-6">
+	                                        		<div class="row" style="width: 100%;">
+				                                        <div class="col-md-4">
+			                                          		<label style="padding-top: 8px;">Name Of Services</label>
+				                                        </div>
+				                                        <div class="col-md-4">
+				                                          	<select class="form-control" id="nameofservice">
+				                                          		<option> -- Select Service -- </option>
+				                                          		<option value="LeadAutoConvert">LeadAutoConvert</option>
+				                                          		<option value="DocTiger" selected>DocTiger</option>
+				                                          	</select>
+				                                        </div>
+			                                        </div>  	
+	                                          	</div>
+	                                        </div>
+	                                        <div class="row">
+	                                          <div class="col-md-12">
+	                                            <div class="tab-content" style="margin-top:40px;">
+	                                              <div id="pull" class="tab-pane fade in active">
+	                                                  <form class="form-inline" method="">
+	                                                      <div class="row">
+	                                                          <div class="col-md-2 text-right">
+	                                                          	<h4><strong> Input</strong></h4>
+	                                                          </div>
+	                                                          <div class="col-md-12">
+	                                                              <div class="form-group addMore m-0">
+	                                                              <!-- new nonedit -->
+																													<div class="row addMore-copy"
+																														style="display: block;">
+																														<div
+																															class="col-sm-10 col-sm-offset-2 addMore-sub">
+																															<div class="row">
+																																<div class="col-sm-1">
+																																	<input type="checkbox" name="prkey5"
+																																		checked> <i class="fa fa-key"></i>
+																																</div>
+																																<div class="col-sm-2">
+																																	<input type="text" name="FieldName5"
+																																		placeholder="Event Name"
+																																		class="form-control">
+																																</div>
+																																<div class="col-sm-2">
+																																	<select
+																																		class="form-control sf-object bg-gray" name="ip_fieldtype5">
+																																		<option>-- Field Type --</option>
+																																		<option value="String"
+																																			selected="selected">String</option>
+																																		<option value="Integer">Integer</option>
+																																		<option value="Double">Double</option>
+																																		<option value="Boolean">Boolean</option>
+																																	</select>
+																																</div>
+																																<div class="col-sm-2">
+																																	<input type="text" name="ipfieldlength5"
+																																		placeholder="Field Length"
+																																		class="form-control">
+																																</div>
+																															</div>
+																														</div>
+																														<div
+																															class="col-sm-10 col-sm-offset-2 addMore-sub">
+																															<div class="row">
+																																<div class="col-sm-1">
+																																	<input type="checkbox" name="prkey5"
+																																		checked> <i class="fa fa-key"></i>
+																																</div>
+																																<div class="col-sm-2">
+																																	<input type="text" name="FieldName5"
+																																		placeholder="LeadMailId"
+																																		class="form-control">
+																																</div>
+																																<div class="col-sm-2">
+																																	<select
+																																		class="form-control sf-object bg-gray" name="ip_fieldtype5">
+																																		<option>-- Field Type --</option>
+																																		<option value="String"
+																																			selected="selected">String</option>
+																																		<option value="Integer">Integer</option>
+																																		<option value="Double">Double</option>
+																																		<option value="Boolean">Boolean</option>
+																																	</select>
+																																</div>
+																																<div class="col-sm-2">
+																																	<input type="text" name="ipfieldlength5"
+																																		placeholder="Field Length"
+																																		class="form-control">
+																																</div>
+																															</div>
+																														</div>
+																													</div>
+
+
+																													<!-- nonedit end -->
+	                                                              
+	                                                                <div class="row addMore-main" id ="div1">
+	                                                                  <div class="col-sm-2">
+	                                                                  </div>
+	                                                                  <div class="col-sm-10 addMore-sub ipfld" id="ip">
+	                                                                    <div class="row">
+	                                                                      <div class="col-sm-1">
+	                                                                        <input type="checkbox" name="prkey5" id="firstcheckbox" value="yes" > <i class="fa fa-key"></i>
+	                                                                      </div>
+	                                                                      <div class="col-sm-2">
+	                                                                        <input type="text" name="FieldName5" placeholder="Field Name" class="form-control"  id="input-field-one">
+	                                                                      </div>
+	                                                                      <div class="col-sm-2">
+	                                                                        <select class="form-control sf-object bg-gray" id="input-field-select" name="ip_fieldtype5">
+	                                                                            <option>-- Field Type --</option>
+	                                                                          <option value="String">String</option>
+	                                                                          <option value="Integer">Integer</option>
+	                                                                          <option value="Double">Double</option>
+	                                                                          <option value="Boolean">Boolean</option>
+
+	                                                                        </select>
+	                                                                      </div>
+	                                                                      <div class="col-sm-2">
+	                                                                        <input type="text" name="ipfieldlength5" placeholder="Field Length" id="input-field-second" class="form-control">
+	                                                                      </div>
+	                                                                      <div class="col-sm-1 text-right p-0">
+	                                                                        <a class="active btn btn-secondary add-more-btn" id="addip"><i class="fa fa-plus"></i></a>
+	                                                                      </div>  
+	                                                                    </div>
+	                                                                  </div>
+	                                                                </div>
+	                                                                <div class="row addMore-copy extipfield" style="display: none;">
+	                                                                  <div class="col-sm-2">
+	                                                                  </div>
+	                                                                  <div class="col-sm-10 addMore-sub">
+	                                                                    <div class="row">
+	                                                                      <div class="col-sm-1">
+	                                                                        <input type="checkbox" name="prkey5" id="ipprkeycpy"> <i class="fa fa-key"></i>
+	                                                                      </div>
+	                                                                      <div class="col-sm-2">
+	                                                                        <input type="text" name="FieldName5" id="ipfieldnamecpy" placeholder="Field Name" class="form-control">
+	                                                                      </div>
+	                                                                      <div class="col-sm-2">
+	                                                                        <select class="form-control sf-object bg-gray" id="ip_fieldtypecpy"  name="ip_fieldtype5">
+	                                                                        <option>-- Field Type --</option>
+	                                                                          <option value="String">String</option>
+	                                                                          <option value="Integer">Integer</option>
+	                                                                          <option value="Double">Double</option>
+	                                                                          <option value="Boolean">Boolean</option>
+	                                                                        </select>
+	                                                                      </div>
+	                                                                      <div class="col-sm-2">
+	                                                                        <input type="text" name="ipfieldlength5" placeholder="Field Length"  id="ipfieldlengthcpy" class="form-control">
+	                                                                      </div>
+	                                                                      <div class="col-sm-1 p-0 text-right">
+	                                                                        <a class="btn btn-danger copy-remove-btn sm-btn-custom"><i class="fa fa-trash"></i></a>
+	                                                                      </div>
+	                                                                    </div>
+	                                                                  </div>
+	                                                                </div>
+	                                                            </div>
+	                                                          </div>
+	                                                          <div class="col-md-2 text-right">
+	                                                          	<h4><strong> Output</strong></h4>
+	                                                          </div>
+	                                                          <div class="col-md-12">
+	                                                              <div class="form-group addMore m-0">
+	                                                              
+	                                                                <!-- new nonedit -->
+																													<div class="row addMore-copy"
+																														style="display: block;">
+																														<div
+																															class="col-sm-10 col-sm-offset-2 addMore-sub">
+																															<div class="row">
+																																<div class="col-sm-1">
+																																	<input type="checkbox" name="FieldName"
+																																		checked> <i class="fa fa-key"></i>
+																																</div>
+																																<div class="col-sm-2">
+																																	<input type="text" name="FieldName6"
+																																		placeholder="Event Name"
+																																		class="form-control">
+																																</div>
+																																<div class="col-sm-2">
+																																	<select
+																																		class="form-control sf-object bg-gray" name="ip_fieldtype6">
+																																		<option>-- Field Type --</option>
+																																		<option value="String"
+																																			selected="selected">String</option>
+																																		<option value="Integer">Integer</option>
+																																		<option value="Double">Double</option>
+																																		<option value="Boolean">Boolean</option>
+																																	</select>
+																																</div>
+																																<div class="col-sm-2">
+																																	<input type="text" name="ipfieldlength6"
+																																		placeholder="Field Length"
+																																		class="form-control">
+																																</div>
+																															</div>
+																														</div>
+																														<div
+																															class="col-sm-10 col-sm-offset-2 addMore-sub">
+																															<div class="row">
+																																<div class="col-sm-1">
+																																	<input type="checkbox" name="FieldName"
+																																		checked> <i class="fa fa-key"></i>
+																																</div>
+																																<div class="col-sm-2">
+																																	<input type="text" name="FieldName6"
+																																		placeholder="LeadMailId"
+																																		class="form-control">
+																																</div>
+																																<div class="col-sm-2">
+																																	<select
+																																		class="form-control sf-object bg-gray" name="ip_fieldtype6">
+																																		
+																																		<option>-- Field Type --</option>
+																																		<option value="String"
+																																			selected="selected">String</option>
+																																		<option value="Integer">Integer</option>
+																																		<option value="Double">Double</option>
+																																		<option value="Boolean">Boolean</option>
+																																	</select>
+																																</div>
+																																<div class="col-sm-2">
+																																	<input type="text" name="ipfieldlength6"
+																																		placeholder="Field Length"
+																																		class="form-control">
+																																</div>
+																															</div>
+																														</div>
+																													</div>
+
+
+																													<!-- nonedit end -->
+	                                                              
+	                                                                <div class="row addMore-main" id ="div2">
+	                                                                  <div class="col-sm-2">
+	                                                                  </div>
+	                                                                  <div class="col-sm-10 addMore-sub opfld" id="op">
+	                                                                    <div class="row">
+	                                                                      <div class="col-sm-1">
+	                                                                      </div>
+	                                                                      <div class="col-sm-2">
+	                                                                        <input type="text" name="FieldName6" id="output-field-one" placeholder="Field Name" class="form-control">
+	                                                                      </div>
+	                                                                      <div class="col-sm-2">
+	                                                                        <select class="form-control sf-object bg-gray" id="output-field-select" name="ip_fieldtype6">
+	                                                                          <option>-- Field Type --</option>
+	                                                                          <option value="String">String</option>
+	                                                                          <option value="Integer">Integer</option>
+	                                                                          <option value="Double">Double</option>
+	                                                                          <option value="Boolean">Boolean</option>
+	                                                                    
+	                                                                        </select>
+	                                                                      </div>
+	                                                                      <div class="col-sm-2">
+	                                                                        <input type="text" name="ipfieldlength6" id="output-field-second" placeholder="Field Length" class="form-control">
+	                                                                      </div>
+	                                                                      <div class="col-sm-1 text-right p-0">
+	                                                                        <a class="active btn btn-secondary add-more-btn" id="addop"><i class="fa fa-plus"></i></a>
+	                                                                      </div>  
+	                                                                    </div>
+	                                                                  </div>
+	                                                                </div>
+	                                                                <div class="row addMore-copy extopfield" style="display: none;">
+	                                                                  <div class="col-sm-2">
+	                                                                  </div>
+	                                                                  <div class="col-sm-10 addMore-sub">
+	                                                                    <div class="row">
+	                                                                      <div class="col-sm-1"></div>
+	                                                                      <div class="col-sm-2">
+	                                                                        <input type="text" name="FieldName6"  id="fieldnamecpy" placeholder="Field Name" class="form-control">
+	                                                                      </div>
+	                                                                      <div class="col-sm-2">
+	                                                                        <select class="form-control sf-object bg-gray" id="op_fieldtypecpy"  name="ip_fieldtype6">
+	                                                                         <option>-- Field Type --</option>
+	                                                                          <option value="String">String</option>
+	                                                                          <option value="Integer">Integer</option>
+	                                                                          <option value="Double">Double</option>
+	                                                                          <option value="Boolean">Boolean</option>
+	                                                                      
+	                                                                        </select>
+	                                                                      </div>
+	                                                                      <div class="col-sm-2">
+	                                                                        <input type="text" name="ipfieldlength6" placeholder="Field Length" id="fieldlengthcpy" class="form-control">
+	                                                                      </div>
+	                                                                      <div class="col-sm-1 p-0 text-right">
+	                                                                        <a class="btn btn-danger copy-remove-btn sm-btn-custom"><i class="fa fa-trash"></i></a>
+	                                                                      </div>
+	                                                                    </div>
+	                                                                  </div>
+	                                                                </div>
+	                                                            </div>
+	                                                          </div>
+	                                                          <div class="col-md-12">
+	                                                              <div class="row mt-4">
+	                                                                  <div class="col-md-2 text-right">
+	                                                                      <label>Url</label>
+	                                                                  </div>
+	                                                                  <div class="col-md-5">
+	                                                                      <input type="" name="" class="form-control" id="url" placeholder="Enter Url">
+	                                                                  </div>
+	                                                              </div>
+	                                                              <div class="row mt-4">
+	                                                                  <div class="col-md-2 text-right">
+	                                                                      <label>Username</label>
+	                                                                  </div>
+	                                                                  <div class="col-md-2">
+	                                                                      <input type="" name="" class="form-control" id="username" placeholder="Enter Username">
+	                                                                  </div>
+	                                                                  <div class="col-md-1">
+	                                                                      <label>Password</label>
+	                                                                  </div>
+	                                                                  <div class="col-md-2">
+	                                                                      <input type="password"  id="password" name="" class="form-control" placeholder="Enter Password">
+	                                                                  </div>
+	                                                              </div>
+	                                                              <div class="row mt-4">
+	                                                                  <div class="col-md-2 text-right">
+	                                                                      <label>Token</label>
+	                                                                  </div>
+	                                                                  <div class="col-md-5">
+	                                                                      <input type="" name="" id="token" class="form-control" placeholder="Token">
+	                                                                  </div>
+	                                                              </div>
+	                                                              <div class="row mt-4">
+	                                                              		<div class="col-md-5">
+	                                                              			<div class="row">
+	                                                              				<div class="col-md-5 text-right">
+			                                                                      	<label>Schedule Every</label>
+			                                                                  	</div>
+			                                                                  	<div class="col-md-1">
+			                                                                  		<i class="fa fa-clock-o scheduleClock" aria-hidden="true"></i>
+			                                                                  	</div>
+			                                                                  	<div class="col-md-6 scheduleClocktext">
+			                                                                  		<div class="row">
+			                                                                  			<div class="col-md-12" style="margin-bottom: 5px;">
+			                                                                  				<select class="form-control" name="">
+                                                                                  <option>Hours</option>
+                                                                                  <option>Day</option>
+                                                                                  <option>Week</option>
+			                                                                  					<option>Month</option>
+			                                                                  				</select>
+			                                                                  			</div>
+			                                                                  		</div>	
+			                                                                  	</div>
+	                                                              			</div>
+	                                                              		</div>
+	                                                              		<div class="col-md-7">
+	                                                              			<div class="row">
+				                                                                <div class="col-md-3">
+			                                                                      	<label>START AT</label>
+			                                                                  	</div>
+			                                                                  	<div class="col-md-4">
+  			                                                                  	<div class="input-group date" data-provide="datepicker">
+                                                                                <input type="text" class="form-control" id="scheduletime">
+                                                                                <div class="input-group-addon" style="">
+                                                                                    <span class="fa fa-calendar"></span>
+                                                                                </div>
+                                                                            </div>
+                                                                          </div>
+                                                                          
+	                                                              			</div>
+	                                                              		</div>
+	                                                              </div>
+	                                                              <div class="row mt-4">
+	                                                                  <div class="col-md-2">
+	                                                                    
+	                                                                  </div>
+	                                                                  <div class="col-md-5">
+	                                                                  <!--  <button class="btn btn-success mr-3 sub-btn-data">Submit1</button>  -->   
+	                                                                  <button type="button" class="btn btn-success mr-3" id="getdatabut" onclick="return GetDataFunction()">Submit</button> 
+	                                                                      <button class="btn btn-danger">Cancel</button>
+	                                                                  </div>
+	                                                              </div>
+	                                                          </div>
+	                                                      </div>
+	                                                  </form>
+	                                              </div>
+	                                              <div id="push" class="tab-pane fade">
+	                                                 <div class="row">
+	                                                    <div class="col-md-12">
+	                                                        <div class="row">
+	                                                            <div class="col-md-3 text-right">
+	                                                                <button class="btn btn-info">token</button>
+	                                                            </div>
+	                                                            <div class="col-md-4">
+	                                                                <input type="text" name="" class="form-control" id="entertoken" placeholder="Enter token">
+	                                                            </div>
+	                                                        </div>
+	                                                        <div class="row mt-4">
+	                                                            <div class="col-md-2 text-right">
+	                                                                <label>URL</label>
+	                                                            </div>
+	                                                            <div class="col-md-5">
+	                                                                <input type="" name="" class="form-control" id="enterurl" placeholder="Enter URL" >
+	                                                            </div>
+	                                                        </div>
+	                                                        <div class="row mt-4">
+		                                                        <div class="col-md-2 text-right">
+	                                                          		<h4><strong> Request</strong></h4>
+	                                                          	</div>
+                                                          	</div>
+	                                                        <div class="row mt-4">
+	                                                          <div class="col-sm-2">
+	                                                          </div>
+	                                                        <!--  <div class="col-sm-2">
+	                                                          	<input type="radio" name="request" value="1" class="requestC"> <b>Json</b>
+	                                                          </div>
+	                                                          <div class="col-sm-2">
+	                                                          	<input type="radio" name="request" value="2" class="requestC"> <b>Base64</b>
+	                                                          </div>   --> 
+	                                                          <div class="col-sm-2">
+	                                                          	<input type="radio" name="request" value="3" class="requestC"> <b>Primary Key</b>
+	                                                          </div>
+	                                                        </div>
+	                                                        <div class="row mt-4 requestprimary" style="display: none;">
+	                                                          <div class="col-sm-2">
+	                                                          </div>
+	                                                          <div class="col-md-10">
+	                                                              <div class="form-group addMore m-0">
+	                                                                <!-- new nonedit -->
+																													<div class="row addMore-copy"
+																														style="display: block;">
+																														<div
+																															class="col-sm-10 col-sm-offset-2 addMore-sub">
+																															<div class="row">
+																																<div class="col-sm-1">
+																																	<input type="checkbox" name="prkey1"
+																																		checked> <i class="fa fa-key"></i>
+																																</div>
+																																<div class="col-sm-2">
+																																	<input type="text" name="FieldName1" 
+																																		placeholder="Event Name"
+																																		class="form-control">
+																																</div>
+																																<div class="col-sm-2">
+																																	<select
+																																		class="form-control sf-object bg-gray" name="ip_fieldtype1">
+																																		<option>-- Field Type --</option>
+																																		<option value="String"
+																																			selected="selected">String</option>
+																																		<option value="Integer">Integer</option>
+																																		<option value="Double">Double</option>
+																																		<option value="Boolean">Boolean</option>
+																																	</select>
+																																</div>
+																																<div class="col-sm-2">
+																																	<input type="text" name="ipfieldlength1"
+																																		placeholder="Field Length"
+																																		class="form-control">
+																																</div>
+																															</div>
+																														</div>
+																														<div
+																															class="col-sm-10 col-sm-offset-2 addMore-sub">
+																															<div class="row">
+																																<div class="col-sm-1">
+																																	<input type="checkbox" name="prkey1"
+																																		checked> <i class="fa fa-key"></i>
+																																</div>
+																																<div class="col-sm-2">
+																																	<input type="text" name="FieldName1" 
+																																		placeholder="LeadMailId"
+																																		class="form-control">
+																																</div>
+																																<div class="col-sm-2">
+																																	<select
+																																		class="form-control sf-object bg-gray" name="ip_fieldtype1">
+																																		<option>-- Field Type --</option>
+																																		<option value="String"
+																																			selected="selected">String</option>
+																																		<option value="Integer">Integer</option>
+																																		<option value="Double">Double</option>
+																																		<option value="Boolean">Boolean</option>
+																																	</select>
+																																</div>
+																																<div class="col-sm-2">
+																																	<input type="text" name="ipfieldlength1"
+																																		placeholder="Field Length"
+																																		class="form-control">
+																																</div>
+																															</div>
+																														</div>
+																													</div>
+
+
+																													<!-- nonedit end -->
+	                                                              
+	                                                                <div class="row addMore-main" id="div3">
+	                                                                  <div class="col-sm-12 addMore-sub ipfld1" id="ip1">
+	                                                                    <div class="row">
+	                                                                      <div class="col-sm-1">
+	                                                                      	<input type="checkbox" id="firstedcheckbox" name="prkey1"> <i class="fa fa-key"></i>
+	                                                                      </div>
+	                                                                      <div class="col-sm-2">
+	                                                                        <input type="text" name="FieldName1" id="input-field-one-ed" placeholder="Field Name" class="form-control">
+	                                                                      </div>
+	                                                                      <div class="col-sm-2">
+	                                                                        <select class="form-control sf-object bg-gray" id="input-field-select-ed" name="ip_fieldtype1">
+	                                                                          <option>-- Field Type --</option>
+	                                                                        <option value="String">String</option>
+	                                                                          <option value="Integer">Integer</option>
+	                                                                          <option value="Double">Double</option>
+	                                                                          <option value="Boolean">Boolean</option>
+	                                                                        </select>
+	                                                                      </div>
+	                                                                      <div class="col-sm-2">
+	                                                                        <input type="text" name="ipfieldlength1" id="input-field-second-ed" placeholder="Field Length" class="form-control">
+	                                                                      </div>
+	                                                                      <div class="col-sm-1 text-right p-0">
+	                                                                        <a class="active btn btn-secondary add-more-btn" id="addip1"><i class="fa fa-plus"></i></a>
+	                                                                      </div>  
+	                                                                    </div>
+	                                                                  </div>
+	                                                                </div>
+	                                                                <div class="row addMore-copy extipfield1" style="display: none;">
+	                                                                  <div class="col-sm-12 addMore-sub">
+	                                                                    <div class="row">
+	                                                                      <div class="col-sm-1">
+	                                                                      	<input type="checkbox" id="ipprkeycpy1" name="prkey1"> <i class="fa fa-key"></i>
+	                                                                      </div>
+	                                                                      <div class="col-sm-2">
+	                                                                        <input type="text" name="FieldName1" id="ipfieldnamecpy1" placeholder="Field Name" class="form-control">
+	                                                                      </div>
+	                                                                      <div class="col-sm-2">
+	                                                                        <select class="form-control sf-object bg-gray" id="ip_fieldtypecpy1"  name="ip_fieldtype1">
+	                                                                          <option>-- Field Type --</option>
+	                                                                          <option value="String">String</option>
+	                                                                          <option value="Integer">Integer</option>
+	                                                                          <option value="Double">Double</option>
+	                                                                          <option value="Boolean">Boolean</option>
+	                                                                        </select>
+	                                                                      </div>
+	                                                                      <div class="col-sm-2">
+	                                                                        <input type="text"  name="ipfieldlength1" id="ipfieldlengthcpy1" placeholder="Field Length" class="form-control">
+	                                                                      </div>
+	                                                                      <div class="col-sm-1 p-0 text-right">
+	                                                                        <a class="btn btn-danger copy-remove-btn sm-btn-custom"><i class="fa fa-trash"></i></a>
+	                                                                      </div>
+	                                                                    </div>
+	                                                                  </div>
+	                                                                </div>
+	                                                            </div>
+	                                                          </div>    
+	                                                        </div>
+	                                                        <div class="row mt-4 requestbase64" style="display: none;">
+	                                                            <div class="col-md-2 text-right">
+	                                                                <label>Request Payload</label>
+	                                                            </div>
+	                                                            <div class="col-md-5">
+	                                                                <textarea class="form-control"></textarea>
+	                                                            </div>
+	                                                        </div>
+	                                                        <div class="row mt-4">
+		                                                        <div class="col-md-2 text-right">
+	                                                          		<h4><strong> Response</strong></h4>
+	                                                          	</div>
+                                                          	</div>
+	                                                        <div class="row mt-4">
+	                                                            <div class="col-md-2 text-right">
+	                                                                <label>Response</label>
+	                                                            </div>
+	                                                            <div class="col-md-5">
+	                                                                <textarea class="form-control"></textarea>
+	                                                            </div>
+	                                                        </div>
+	                                                        <div class="row mt-4">
+	                                                            <div class="col-md-2 text-right">
+	                                                            </div>
+	                                                            <div class="col-md-5">
+	                                                              
+	                                                                 <button type="button" class="btn btn-success " onclick="return EndpointFunction()">Submit</button>
+	                                                            </div>
+	                                                        </div>
+	                                                    </div>
+	                                                 </div>
+	                                              </div>
+	                                            </div>
+	                                          </div>
+	                                        </div>
+	                                      </div>
+	                                    </div>
+	                                  </div>
+	                                </div>
+
+
+	                                <div id="post" class="tab-pane fade">
+	                                  <div class="row">
+	                                    <div class="col-md-12">
+	                                  		<h4><strong> Send Data</strong></h4>
+	                                  	</div>
+	                                    <div class="col-md-12">
+	                                      <div class="wizard-content pull-push-section">
+	                                        <div class="row">
+	                                          	<div id="myTab2" class="col-md-6 nav">
+	                                          		 <a data-toggle="tab" href="#configure" class="active btn btn-secondary">Configure</a>
+			                                           <a data-toggle="tab" href="#kk" class="btn btn-secondary">End Point</a>
+	                                        	</div>
+	                                          	<div class="col-md-6">
+	                                        		<div class="row" style="width: 100%;">
+				                                        <div class="col-md-4">
+			                                          		<label style="padding-top: 8px;">Name Of Services</label>
+				                                        </div>
+				                                        <div class="col-md-4">
+				                                          	<select class="form-control" id="nameofservice3">
+				                                          		<option> -- Select Service -- </option>
+				                                          		<option value="LeadAutoConvert">LeadAutoConvert</option>
+				                                          		<option value="DocTiger" selected>DocTiger</option>
+				                                          	</select>
+				                                        </div>
+			                                        </div>  	
+	                                          	</div>
+	                                        </div>
+	                                        <div class="row">
+	                                          <div class="col-md-12">
+	                                            <div class="tab-content" style="margin-top:40px;">
+	                                              <div id="configure" class="tab-pane fade in active">
+	                                                  <div class="row mt-4">
+      		                                              <div class="col-md-2 text-right">
+      		                                                  <label>URL</label>
+      		                                              </div>
+      		                                              <div class="col-md-5">
+      		                                                  <input type="" name="" id="enterurl3" class="form-control" placeholder="Enter URL">
+      		                                              </div>
+      		                                          </div>
+    		                                            <div class="row mt-4">
+      		                                            <div class="col-md-2 text-right">
+      	                                              	<h4><strong> Request </strong></h4>
+      	                                              </div>
+    	                                              </div>
+      		                                          <div class="row mt-4">
+      		                                          	<div class="col-sm-2">
+      		                                          	</div>
+      		                                            <div class="col-md-10">
+      		                                              <div class="form-group addMore m-0">
+      		                                              
+      		                                                <!-- new nonedit -->
+																													<div class="row addMore-copy"
+																														style="display: block;">
+																														<div
+																															class="col-sm-10 col-sm-offset-2 addMore-sub">
+																															<div class="row">
+																																<div class="col-sm-1">
+																																	<input type="checkbox" name="prkey3"
+																																		checked> <i class="fa fa-key"></i>
+																																</div>
+																																<div class="col-sm-2">
+																																	<input type="text"  name="FieldName3"
+																																		placeholder="Event Name"
+																																		class="form-control">
+																																</div>
+																																<div class="col-sm-2">
+																																	<select
+																																		class="form-control sf-object bg-gray" name="ip_fieldtype3">
+																																		<option>-- Field Type --</option>
+																																		<option value="String"
+																																			selected="selected">String</option>
+																																		<option value="Integer">Integer</option>
+																																		<option value="Double">Double</option>
+																																		<option value="Boolean">Boolean</option>
+																																	</select>
+																																</div>
+																																<div class="col-sm-2" >
+																																	<input type="text" name="ipfieldlength3"
+																																		placeholder="Field Length"
+																																		class="form-control" name="ipfieldlength3">
+																																</div>
+																															</div>
+																														</div>
+																														<div
+																															class="col-sm-10 col-sm-offset-2 addMore-sub">
+																															<div class="row">
+																																<div class="col-sm-1">
+																																	<input type="checkbox" name="prkey3"
+																																		checked> <i class="fa fa-key"></i>
+																																</div>
+																																<div class="col-sm-2">
+																																	<input type="text"  name="FieldName3"
+																																		placeholder="LeadMailId"
+																																		class="form-control">
+																																</div>
+																																<div class="col-sm-2">
+																																	<select
+																																		class="form-control sf-object bg-gray" name="ip_fieldtype3">
+																																		<option>-- Field Type --</option>
+																																		<option value="String"
+																																			selected="selected">String</option>
+																																		<option value="Integer">Integer</option>
+																																		<option value="Double">Double</option>
+																																		<option value="Boolean">Boolean</option>
+																																	</select>
+																																</div>
+																																<div class="col-sm-2">
+																																	<input type="text"
+																																		placeholder="Field Length"
+																																		class="form-control" name="ipfieldlength3">
+																																</div>
+																															</div>
+																														</div>
+																													</div>
+
+
+																													<!-- nonedit end -->
+      		                                              
+      		                                                <div class="row addMore-main" id="div4">
+      		                                                  <div class="col-sm-12 addMore-sub">
+      		                                                    <div class="row">
+      		                                                      <div class="col-sm-1">
+      		                                                      	<input type="checkbox" id="firstcfgcheckbox" name="prkey3"> <i class="fa fa-key"></i>
+      		                                                      </div>
+      		                                                      <div class="col-sm-2">
+      		                                                        <input type="text" id="input-field-one-cfg" name="FieldName3" placeholder="Field Name" class="form-control">
+      		                                                      </div>
+      		                                                      <div class="col-sm-2">
+      		                                                        <select class="form-control sf-object bg-gray" id="input-field-select-cfg" name="ip_fieldtype3">
+      		                                                          <option>-- Field Type --</option>
+      		                                                         <option value="String">String</option>
+	                                                                          <option value="Integer">Integer</option>
+	                                                                          <option value="Double">Double</option>
+	                                                                          <option value="Boolean">Boolean</option>
+      		                                                        </select>
+      		                                                      </div>
+      		                                                      <div class="col-sm-2">
+      		                                                        <input type="text" id="input-field-second-cfg" name="ipfieldlength3" placeholder="Field Length" class="form-control">
+      		                                                      </div>
+      		                                                      <div class="col-sm-1 text-right p-0">
+      		                                                        <a class="active btn btn-secondary add-more-btn"><i class="fa fa-plus"></i></a>
+      		                                                      </div>  
+      		                                                    </div>
+      		                                                  </div>
+      		                                                </div>
+      		                                                <div class="row addMore-copy" style="display: none;">
+      		                                                  <div class="col-sm-12 addMore-sub">
+      		                                                    <div class="row">
+      		                                                      <div class="col-sm-1">
+      		                                                      	<input type="checkbox" name="prkey3"> <i class="fa fa-key"></i>
+      		                                                      </div>
+      		                                                      <div class="col-sm-2">
+      		                                                        <input type="text" name="FieldName3" placeholder="Field Name" class="form-control">
+      		                                                      </div>
+      		                                                      <div class="col-sm-2">
+      		                                                        <select class="form-control sf-object bg-gray" name="ip_fieldtype3">
+      		                                                          <option>-- Field Type --</option>
+      		                                                        <option value="String">String</option>
+	                                                                          <option value="Integer">Integer</option>
+	                                                                          <option value="Double">Double</option>
+	                                                                          <option value="Boolean">Boolean</option>
+      		                                                        </select>
+      		                                                      </div>
+      		                                                      <div class="col-sm-2">
+      		                                                        <input type="text" name="ipfieldlength3" placeholder="Field Length" class="form-control">
+      		                                                      </div>
+      		                                                      <div class="col-sm-1 p-0 text-right">
+      		                                                        <a class="btn btn-danger copy-remove-btn sm-btn-custom"><i class="fa fa-trash"></i></a>
+      		                                                      </div>
+      		                                                    </div>
+      		                                                  </div>
+      		                                                </div>
+      		                                            </div>
+      		                                          </div>    
+      		                                          </div>
+  		                                              <div class="row mt-4">
+  		                                                <div class="col-md-2 text-right">
+  	                                              	    <h4><strong> Response  </strong></h4>
+  	                                                 </div>
+  	                                                </div>
+    	                                              <div class="row mt-4">
+      		                                          	<div class="col-sm-2">
+      		                                          	</div>
+      		                                            <div class="col-md-10">
+      		                                              <div class="form-group addMore m-0">
+      		                                              <!-- non edit -->
+																												<div class="row addMore-copy"
+																													style="display: block;">
+																													<div
+																														class="col-sm-10 col-sm-offset-2 addMore-sub">
+																														<div class="row">
+																															<div class="col-sm-1">
+																																<input type="checkbox" name="FieldName"
+																																	checked> <i class="fa fa-key"></i>
+																															</div>
+																															<div class="col-sm-2">
+																																<input type="text" name="FieldName4"
+																																	placeholder="Event Name"
+																																	class="form-control">
+																															</div>
+																															<div class="col-sm-2">
+																																<select
+																																	class="form-control sf-object bg-gray" name="ip_fieldtype4">
+																																	<option>-- Field Type --</option>
+																																	<option value="String"
+																																		selected="selected">String</option>
+																																	<option value="Integer">Integer</option>
+																																	<option value="Double">Double</option>
+																																	<option value="Boolean">Boolean</option>
+																																</select>
+																															</div>
+																															<div class="col-sm-2">
+																																<input type="text" name="ipfieldlength4"
+																																	placeholder="Field Length"
+																																	class="form-control">
+																															</div>
+																														</div>
+																													</div>
+																													<div
+																														class="col-sm-10 col-sm-offset-2 addMore-sub">
+																														<div class="row">
+																															<div class="col-sm-1">
+																																<input type="checkbox" name="FieldName"
+																																	checked> <i class="fa fa-key"></i>
+																															</div>
+																															<div class="col-sm-2">
+																																<input type="text" name="FieldName4"
+																																	placeholder="LeadMailId"
+																																	class="form-control">
+																															</div>
+																															<div class="col-sm-2">
+																																<select
+																																	class="form-control sf-object bg-gray" name="ip_fieldtype4">
+																																	<option>-- Field Type --</option>
+																																	<option value="String"
+																																		selected="selected">String</option>
+																																	<option value="Integer">Integer</option>
+																																	<option value="Double">Double</option>
+																																	<option value="Boolean">Boolean</option>
+																																</select>
+																															</div>
+																															<div class="col-sm-2">
+																																<input type="text" name="ipfieldlength4"
+																																	placeholder="Field Length"
+																																	class="form-control">
+																															</div>
+																														</div>
+																													</div>
+																												</div>
+
+
+																												<!-- non edit -->
+      		                                              <div class="row addMore-main" id="div5">
+      		                                                  <div class="col-sm-12 addMore-sub">
+      		                                                    <div class="row">
+      		                                                      <div class="col-sm-1">
+      		                                                      </div>
+      		                                                      <div class="col-sm-2">
+      		                                                        <input type="text" id="output-field-one-cfg" name="FieldName4" placeholder="Field Name" class="form-control">
+      		                                                      </div>
+      		                                                      <div class="col-sm-2">
+      		                                                        <select class="form-control sf-object bg-gray" id="output-field-select-cfg" name="ip_fieldtype4">
+      		                                                          <option>-- Field Type --</option>
+      		                                                           <option value="String">String</option>
+	                                                                          <option value="Integer">Integer</option>
+	                                                                          <option value="Double">Double</option>
+	                                                                          <option value="Boolean">Boolean</option>
+      		                                                        </select>
+      		                                                      </div>
+      		                                                      <div class="col-sm-2">
+      		                                                        <input type="text" id="output-field-second-cfg" name="ipfieldlength4" placeholder="Field Length" class="form-control">
+      		                                                      </div>
+      		                                                      <div class="col-sm-1 text-right p-0">
+      		                                                        <a class="active btn btn-secondary add-more-btn"><i class="fa fa-plus"></i></a>
+      		                                                      </div>  
+      		                                                    </div>
+      		                                                  </div>
+      		                                                </div>
+      		                                                <div class="row addMore-copy" style="display: none;">
+      		                                                  <div class="col-sm-12 addMore-sub">
+      		                                                    <div class="row">
+      		                                                      <div class="col-sm-1">
+      		                                                      </div>
+      		                                                      <div class="col-sm-2">
+      		                                                        <input type="text" name="FieldName4" placeholder="Field Name" class="form-control">
+      		                                                      </div>
+      		                                                      <div class="col-sm-2">
+      		                                                        <select class="form-control sf-object bg-gray" name="ip_fieldtype4">
+      		                                                          <option>-- Field Type --</option>
+      		                                                           <option value="String">String</option>
+	                                                                          <option value="Integer">Integer</option>
+	                                                                          <option value="Double">Double</option>
+	                                                                          <option value="Boolean">Boolean</option>
+      		                                                        </select>
+      		                                                      </div>
+      		                                                      <div class="col-sm-2">
+      		                                                        <input type="text" name="ipfieldlength4" placeholder="Field Length" class="form-control">
+      		                                                      </div>
+      		                                                      <div class="col-sm-1 p-0 text-right">
+      		                                                        <a class="btn btn-danger copy-remove-btn sm-btn-custom"><i class="fa fa-trash"></i></a>
+      		                                                      </div>
+      		                                                    </div>
+      		                                                  </div>
+      		                                                </div>
+      		                                              </div>
+      		                                            </div>    
+    		                                            </div>
+    		                                            <div class="row mt-4">
+    		                                              <div class="col-md-2 text-right">
+    		                                              </div>
+    		                                              <div class="col-md-5">
+    		                                              
+    		                                                     <button type="button" class="btn btn-success " onclick="return senddataConfigureFunction()">Test</button>
+    		                                              </div>
+    		                                            </div>
+	                                              </div>
+	                                              <div id="kk" class="tab-pane fade">
+	                                                  <div class="row">
+                                                      <div class="col-md-12">
+                                                          <div class="row">
+                                                              <div class="col-md-3 text-right">
+                                                                  <button class="btn btn-info">token</button>
+                                                              </div>
+                                                              <div class="col-md-4">
+                                                                  <input type="text"  class="form-control" id="entertoken2" placeholder="Enter token">
+                                                              </div>
+                                                          </div>
+                                                          <div class="row mt-4">
+                                                              <div class="col-md-2 text-right">
+                                                                  <label>URL</label>
+                                                              </div>
+                                                              <div class="col-md-5">
+                                                                  <input type="" id="enterurl2" class="form-control" placeholder="Enter URL" >
+                                                              </div>
+                                                          </div>
+                                                          <div class="row mt-4">
+                                                            <div class="col-md-2 text-right">
+                                                                <h4><strong> Request</strong></h4>
+                                                              </div>
+                                                            </div>
+                                                          <div class="row mt-4">
+                                                            <div class="col-sm-2">
+                                                            </div>
+                                                           <!--  <div class="col-sm-2">
+                                                              <input type="radio" name="request2" value="1" class="requestC2"> <b>Json</b>
+                                                            </div>
+                                                            <div class="col-sm-2">
+                                                              <input type="radio" name="request2" value="2" class="requestC2"> <b>Base64</b>
+                                                            </div>  -->
+                                                            <div class="col-sm-2">
+                                                              <input type="radio" name="request2" value="3" class="requestC2"> <b>Primary Key</b>
+                                                            </div>
+                                                          </div>
+                                                          <div class="row mt-4 2requestprimary" style="display: none;">
+                                                            <div class="col-sm-2">
+                                                            </div>
+                                                            <div class="col-md-10">
+                                                                <div class="form-group addMore m-0">
+                                                                
+                                                                <!-- non edit -->
+																														<div class="row addMore-copy"
+																															style="display: block;">
+																															<div
+																																class="col-sm-10 col-sm-offset-2 addMore-sub">
+																																<div class="row">
+																																	<div class="col-sm-1">
+																																		<input type="checkbox"
+																																			name="prkey2" checked> <i
+																																			class="fa fa-key"></i>
+																																	</div>
+																																	<div class="col-sm-2">
+																																		<input type="text" name="FieldName2"
+																																			placeholder="Event Name"
+																																			class="form-control">
+																																	</div>
+																																	<div class="col-sm-2">
+																																		<select
+																																			class="form-control sf-object bg-gray" name="ip_fieldtype2">
+																																			<option>-- Field Type --</option>
+																																			<option value="String"
+																																				selected="selected">String</option>
+																																			<option value="Integer">Integer</option>
+																																			<option value="Double">Double</option>
+																																			<option value="Boolean">Boolean</option>
+																																		</select>
+																																	</div>
+																																	<div class="col-sm-2">
+																																		<input type="text" name="ipfieldlength2"
+																																			placeholder="Field Length"
+																																			class="form-control">
+																																	</div>
+																																</div>
+																															</div>
+																															<div
+																																class="col-sm-10 col-sm-offset-2 addMore-sub">
+																																<div class="row">
+																																	<div class="col-sm-1">
+																																		<input type="checkbox"
+																																			name="prkey2" checked> <i
+																																			class="fa fa-key"></i>
+																																	</div>
+																																	<div class="col-sm-2">
+																																		<input type="text" name="FieldName2"
+																																			placeholder="LeadMailId"
+																																			class="form-control">
+																																	</div>
+																																	<div class="col-sm-2">
+																																		<select
+																																			class="form-control sf-object bg-gray" name="ip_fieldtype2">
+																																			<option>-- Field Type --</option>
+																																			<option value="String"
+																																				selected="selected">String</option>
+																																			<option value="Integer">Integer</option>
+																																			<option value="Double">Double</option>
+																																			<option value="Boolean">Boolean</option>
+																																		</select>
+																																	</div>
+																																	<div class="col-sm-2">
+																																		<input type="text" name="ipfieldlength2"
+																																			placeholder="Field Length"
+																																			class="form-control">
+																																	</div>
+																																</div>
+																															</div>
+																														</div>
+
+																														<!-- non edit -->
+                                                                
+                                                                 <div class="row addMore-main" id="div6">
+                                                                    <div class="col-sm-12 addMore-sub">
+                                                                      <div class="row">
+                                                                        <div class="col-sm-1">
+                                                                          <input type="checkbox" id="firstedcheckbox-sd" name="prkey2"> <i class="fa fa-key"></i>
+                                                                        </div>
+                                                                        <div class="col-sm-2">
+                                                                          <input type="text" id="input-field-one-sd" name="FieldName2" placeholder="Field Name" class="form-control">
+                                                                        </div>
+                                                                        <div class="col-sm-2">
+                                                                          <select class="form-control sf-object bg-gray" id="input-field-select-sd" name="ip_fieldtype2">
+                                                                            <option>-- Field Type --</option>
+                                                                           <option value="String">String</option>
+	                                                                          <option value="Integer">Integer</option>
+	                                                                          <option value="Double">Double</option>
+	                                                                          <option value="Boolean">Boolean</option>
+                                                                          </select>
+                                                                        </div>
+                                                                        <div class="col-sm-2">
+                                                                          <input type="text" id="input-field-second-sd" name="ipfieldlength2" placeholder="Field Length" class="form-control">
+                                                                        </div>
+                                                                        <div class="col-sm-1 text-right p-0">
+                                                                          <a class="active btn btn-secondary add-more-btn"><i class="fa fa-plus"></i></a>
+                                                                        </div>  
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                  <div class="row addMore-copy" style="display: none;">
+                                                                    <div class="col-sm-12 addMore-sub">
+                                                                      <div class="row">
+                                                                        <div class="col-sm-1">
+                                                                          <input type="checkbox" name="prkey2"> <i class="fa fa-key"></i>
+                                                                        </div>
+                                                                        <div class="col-sm-2">
+                                                                          <input type="text" name="FieldName2" placeholder="Field Name" class="form-control">
+                                                                        </div>
+                                                                        <div class="col-sm-2">
+                                                                          <select class="form-control sf-object bg-gray" name="ip_fieldtype2">
+                                                                            <option>-- Field Type --</option>
+                                                                            <option value="String">String</option>
+	                                                                          <option value="Integer">Integer</option>
+	                                                                          <option value="Double">Double</option>
+	                                                                          <option value="Boolean">Boolean</option>
+                                                                          </select>
+                                                                        </div>
+                                                                        <div class="col-sm-2">
+                                                                          <input type="text" name="ipfieldlength2" placeholder="Field Length" class="form-control">
+                                                                        </div>
+                                                                        <div class="col-sm-1 p-0 text-right">
+                                                                          <a class="btn btn-danger copy-remove-btn sm-btn-custom"><i class="fa fa-trash"></i></a>
+                                                                        </div>
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                              </div>
+                                                            </div>    
+                                                          </div>
+                                                          <div class="row mt-4 2requestbase64" style="display: none;">
+                                                              <div class="col-md-2 text-right">
+                                                                  <label>Request Payload</label>
+                                                              </div>
+                                                              <div class="col-md-5">
+                                                                  <textarea class="form-control"></textarea>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row mt-4">
+                                                            <div class="col-md-2 text-right">
+                                                                <h4><strong> Response</strong></h4>
+                                                              </div>
+                                                            </div>
+                                                          <div class="row mt-4">
+                                                              <div class="col-md-2 text-right">
+                                                                  <label>Response</label>
+                                                              </div>
+                                                              <div class="col-md-5">
+                                                                  <textarea class="form-control"></textarea>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row mt-4">
+                                                              <div class="col-md-2 text-right">
+                                                              </div>
+                                                              <div class="col-md-5">
+                                                                 
+                                                                   <button type="button" class="btn btn-success " onclick="return senddataEndpointFunction()">Submit</button>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                   </div>
+	                                              </div>
+	                                            </div>
+	                                          </div>
+	                                        </div>
+	                                      </div>
+	                                    </div>
+	                                  </div>
+	                                </div>
+
+	                              </div>
+	                            </div>
+	                          </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+	              <div class="wizard-buttons"><a class="btn btn-default btn-outline disabled" href="#" data-wizard="back" role="button">Back</a><a class="btn btn-primary btn-outline custom-btn float-right" href="#" data-wizard="next" role="button">Next</a><a class="btn btn-success btn-outline float-right hidden-xs-up" href="#" data-wizard="finish" role="button">Finish</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+ <!--  <script data-cfasync="false" src="../../../cdn-cgi/scripts/d07b1474/cloudflare-static/email-decode.min.js"></script><script src="<%=request.getContextPath()%>/apps/global/vendor/babel-external-helpers/babel-external-helpers599c.js?v4.0.2"></script>
+  -->
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/jquery/jquery.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/popper-js/umd/popper.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/bootstrap/bootstrap.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/asscrollbar/jquery-asScrollbar.min599c.js?v4.0.2"></script>
+  <!-- <script src="../../global/vendor/formvalidation/formValidation.min599c.js?v4.0.2"></script> 
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/jquery-wizard/jquery-wizard.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/js/Plugin.min599c.js?v4.0.2"></script> -->
+  
+  <script src="<%=request.getContextPath()%>/apps/global/js/Config.min599c.js?v4.0.2"></script>
+ 
+  <!-- <script src="<%=request.getContextPath()%>/apps/global/js/Plugin/jquery-wizard.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/assets/examples/js/forms/wizard.min599c.js?v4.0.2"></script> -->
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+  <script type="text/javascript" src="<%=request.getContextPath()%>/apps/SalesAutoConvertEsp/js/custom.js"></script>
+  <script type="text/javascript">
+ 
+  var  remoteemail=localStorage.getItem('remoteuser');
+  var slingip = localStorage.getItem('slingip');
+  
+ // email=nilesh@gmail.com&group=G1&datasourcename=newwbser
+   
+ 
+	var Alldatalistarr=[];
+	  $(document)
+			.ready(
+					function() {
+					
+						var schem = document.getElementById("scheme").value;
+						var servname = document.getElementById("sername").value;
+						  console.log("schem="+schem+servname);
+					 remoteemail= remoteemail.replace(/@/g, "_");
+				       console.log("remoteemail="+remoteemail);
+					var urltblbdy='';
+					var datalistarr1;
+					var datarr2=[];
+					var servicearr=[];
+					
+					servicearr.push("LeadAutoConvert");
+					servicearr.push("DocTiger");
+					//+servicearr[j]
+					for(var j=0;j<servicearr.length;++j){
+					 //console.log("aa==  for j="+j);
+					//alert("i== "+j+servicearr.length);
+					$.ajax({
+									type : 'GET',
+									url : 'https://'+slingip+':8088/apirest/wsapi/getuserwebserviceDet?user='+remoteemail+'&servicename='+servicearr[j]
+											,
+									async: false,
+								
+								    timeout: 30000,
+									data : {},
+									success : function(response) {
+									//alert("Response returned :: "+JSON.stringify(response));
+									var jsonString = JSON.stringify(response);
+									//obj = JSON.parse(JSON.stringify(response));
+								//var jsonString = "'"+JSON.stringify(response)+"'"; 
+								jsonString= jsonString.replace(/\"{/g, "{");
+								jsonString= jsonString.replace(/\}"/g, "}");
+								jsonString= jsonString.replace(/\\"/g, "\"");
+							    console.log("response= "+ jsonString);
+							    
+							    var obj = JSON.parse(jsonString);
+							
+							//alert("aa== "+JSON.stringify(JsonObj.outputdata));
+						//	console.log("aa== "+JSON.stringify(obj.outputdata.datalist));
+							if( obj.outputdata.datalist.length>0){
+							for(var k=0;k<obj.outputdata.datalist.length;k++){
+							Alldatalistarr.push(obj.outputdata.datalist[k]);
+							}
+							}
+							
+					
+									}
+								});
+								
+								}
+									
+					
+					console.log("finalObj== "+Alldatalistarr.length+JSON.stringify(Alldatalistarr));
+	  	for(var i=0;i<Alldatalistarr.length;i++){
+		//console.log("webserviceid"+Alldatalistarr[i].webserviceid);
+		var srn=i+1;
+		urltblbdy = urltblbdy + '<tr><td> <input type="radio" name="radio-get-data"></td><td>' + srn
+						+ '</td><td >'+Alldatalistarr[i].webserviceid+'</td><td >'+Alldatalistarr[i].servicename+'</td><td >'+Alldatalistarr[i].collectionname+'</td><td >'+Alldatalistarr[i].webserviceType+'</td></tr>';
+		}
+		//alert("in tab urltblbdy "+urltblbdy);
+		document.getElementById("webservtab").innerHTML = urltblbdy;
+
+
+							});
+  	$(document).ready(function() { 
+  
+
+      $('body').on('click', '#plusIn.fa-plus', function() { 
+        $(".columeIn").show();
+        $('.tdInput').attr('colspan','6');
+        $(this).attr('class','fa fa-minus');
+      });
+      $('body').on('click', '#plusIn.fa-minus', function() { 
+          $(".columeIn").hide();
+          $('.tdInput').attr('colspan','3');
+          $(this).attr('class','fa fa-plus');
+      });
+      
+      $('body').on('click', '#plusOut.fa-plus', function() { 
+        $(".columeOut").show();
+        $('.tdOutput').attr('colspan','6');
+        $(this).attr('class','fa fa-minus');
+      });
+      
+      $('body').on('click', '#plusOut.fa-minus', function() { 
+        $(".columeOut").hide();
+        $('.tdOutput').attr('colspan','3');
+        $(this).attr('class','fa fa-plus');
+      });
+
+      $(".scheduleCalendar").click(function() {
+        $(".scheduleCalendarBox").show();
+      });
+      
+      $("#addGetData").click(function() {
+        $(".get-post").show();
+        $('#navGet').trigger('click');
+        datatype=($(this).text());
+        
+      }); 
+      $("#addSendData").click(function() {
+        $(".get-post").show();
+        $('#navSend').trigger('click');
+        datatype=($(this).text());
+        
+      }); 
+      $(".scheduleClock").click(function() {
+        $(".scheduleClocktext").show();
+      });
+      $("#send-plus").click(function() {
+        $(".colume2").show();
+      }); 
+      $('#myTab a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    	    var target = $(e.target).attr("href");
+    	    if ((target == '#pull')) {
+    	    	getsubserviceType="Schedule";
+    	        console.log("getsubserviceType= "+getsubserviceType);
+    	    } else {
+    	    	getsubserviceType="End Point";
+    	        
+    	    }
+    	});
+  });
+  </script>
+
+  	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+  
+	<script type="text/javascript">
+	var slingip = localStorage.getItem('slingip');
+	    
+	function GetDataFunction() {
+		 console.log("remoteemail= "+remoteemail);
+		getsubserviceType=$( "#myTab a.active").html();
+		 getsubserviceType =getsubserviceType.toLowerCase()
+		console.log("getsubserviceType==== "+getsubserviceType);
+		//alert($( "#myTab a.active").text);
+		var mainJson={};
+		  console.log("in fun");
+		 
+			  datatype=datatype.toLowerCase()
+		  datatype=datatype.replace(/\s/g, '');
+		  remoteemail= remoteemail.replace(/@/g, "_");
+		  mainJson["collectionname"]= datatype;
+		  mainJson["webserviceType"]= getsubserviceType;
+		 var servicename=document.getElementById("nameofservice").value;
+		  mainJson["servicename"]= servicename;
+		  
+		  var today = new Date();
+			var h = today.getHours()+today.getMinutes()+today.getSeconds();
+			
+			var dd = today.getDate();
+			var mm = today.getMonth() + 1; // January is 0!
+			var yyyy = today.getFullYear();
+			if (dd < 10) {
+				dd = '0' + dd;
+			}
+			if (mm < 10) {
+				mm = '0' + mm;
+			}
+			var today = yyyy + mm  + dd+h;
+			
+			console.log(today);
+		  mainJson["webserviceid"]= servicename+datatype+getsubserviceType+today;
+		  mainJson["user"]= remoteemail;
+		//  mainJson["input"]= ipFieldArr;
+		//  mainJson["output"]= opFieldArr;
+		  mainJson["url"]= document.getElementById("url").value;
+		  mainJson["username"]= document.getElementById("username").value;
+		  mainJson["password"]= document.getElementById("password").value;
+		  mainJson["token"]= document.getElementById("token").value;
+		
+		  var fieldname = document.getElementsByName("FieldName5");
+		  var ip_fieldtype1 = document.getElementsByName("ip_fieldtype5");
+		  var ipfieldlength1 = document.getElementsByName("ipfieldlength5");
+		  var checkBox = document.getElementsByName("prkey5");
+		  var ipFieldArr=[];
+		  for(var i=0;i<checkBox.length-1;i++){
+			  var json={};
+			  var primarykey=checkBox[i].checked;
+			  if(primarykey === true){
+					
+					primarykey="yes";
+				}else{
+					primarykey="no";
+				}
+			  json["primarykey"]=primarykey;
+		// console.log("primarykey= "+primarykey);
+		
+		 json["fieldname"]=fieldname[i].value;
+		 json["fieldtype"]=ip_fieldtype1[i].value;
+		 json["fieldlength"]=ipfieldlength1[i].value;
+		// console.log("json= "+JSON.stringify(json));
+		 ipFieldArr.push(json);
+		  }
+		var totalip={};
+		totalip["totalinputentered"]=ipFieldArr.length;
+		  ipFieldArr.push(totalip);
+		 
+		 
+		  mainJson["input"]=ipFieldArr;
+		  //response
+		  
+		  var fieldname4 = document.getElementsByName("FieldName6");
+		  var ip_fieldtype4 = document.getElementsByName("ip_fieldtype6");
+		  var ipfieldlength4 = document.getElementsByName("ipfieldlength6");
+		 
+		  var opFieldArr=[];
+		  for(var i=0;i<fieldname4.length-1;i++){
+			  var json={};
+		
+		 json["fieldname"]=fieldname4[i].value;
+		 json["fieldtype"]=ip_fieldtype4[i].value;
+		 json["fieldlength"]=ipfieldlength4[i].value;
+		// console.log("json= "+JSON.stringify(json));
+		 opFieldArr.push(json);
+		  }
+		var totalop={};
+		totalop["totaloutputentered"]=opFieldArr.length;
+		  opFieldArr.push(totalop);
+		  mainJson["output"]=opFieldArr;
+		  
+		  console.log("mainJson= "+JSON.stringify(mainJson));
+		  
+		 // 
+		// update
+		  if (update) {
+			 
+				console.log("Edit1");
+				update = false
+		        callupdatewebserviceDet(mainJson); 
+			}else{
+				console.log("save= ");
+				 callpostwebserviceDet(mainJson);
+			}
+		  
+		  }
+	//get data endpoint
+	function EndpointFunction(){
+		var mainJson={};
+		getsubserviceType=$( "#myTab a.active").html();
+		console.log("getsubserviceType= "+getsubserviceType);
+		  datatype=datatype.toLowerCase()
+		  datatype=datatype.replace(/\s/g, '');
+		  getsubserviceType =getsubserviceType.toLowerCase()
+		  getsubserviceType=getsubserviceType.replace(/\s/g, '');
+		  remoteemail= remoteemail.replace(/@/g, "_");
+		  mainJson["collectionname"]= datatype;
+		  mainJson["webserviceType"]= getsubserviceType;
+		 var servicename=document.getElementById("nameofservice").value;
+		  mainJson["servicename"]= servicename;
+		  var today = new Date();
+			var h = today.getHours()+today.getMinutes()+today.getSeconds();
+			
+			var dd = today.getDate();
+			var mm = today.getMonth() + 1; // January is 0!
+			var yyyy = today.getFullYear();
+			if (dd < 10) {
+				dd = '0' + dd;
+			}
+			if (mm < 10) {
+				mm = '0' + mm;
+			}
+			var today = yyyy + mm  + dd+h;
+			
+			console.log(today);
+		  mainJson["webserviceid"]= servicename+datatype+getsubserviceType+today;
+		  
+		  mainJson["user"]= remoteemail;
+		
+		  mainJson["token"]= document.getElementById("entertoken").value;
+		  mainJson["url"]= document.getElementById("enterurl").value;
+		
+		  var fieldname = document.getElementsByName("FieldName1");
+		  var ip_fieldtype1 = document.getElementsByName("ip_fieldtype1");
+		  var ipfieldlength1 = document.getElementsByName("ipfieldlength1");
+		  var checkBox = document.getElementsByName("prkey1");
+		  var ipFieldArr=[];
+		  for(var i=0;i<checkBox.length-1;i++){
+			  var json={};
+			  var primarykey=checkBox[i].checked;
+			  if(primarykey === true){
+					
+					primarykey="yes";
+				}else{
+					primarykey="no";
+				}
+			  json["primarykey"]=primarykey;
+		 console.log("primarykey= "+primarykey);
+		
+		 json["fieldname"]=fieldname[i].value;
+		 json["fieldtype"]=ip_fieldtype1[i].value;
+		 json["fieldlength"]=ipfieldlength1[i].value;
+		 console.log("json= "+JSON.stringify(json));
+		 ipFieldArr.push(json);
+		  }
+		var totalip={};
+		totalip["totalinputentered"]=ipFieldArr.length;
+		  ipFieldArr.push(totalip);
+		 
+		  mainJson["input"]=ipFieldArr;
+		  console.log("mainJson= "+JSON.stringify(mainJson));
+		  
+
+		
+		 if (update) {
+			 
+				console.log("Edit1");
+				update = false
+		  callupdatewebserviceDet(mainJson); 
+			}else{
+				console.log("save= ");
+				 callpostwebserviceDet(mainJson);
+			}
+
+	}
+
+	//send data configure
+	function senddataConfigureFunction(){
+		var mainJson={};
+		getsubserviceType=$( "#myTab2 a.active").html();
+		console.log("getsubserviceType= "+getsubserviceType+" :: datatype= "+datatype);
+		  datatype=datatype.toLowerCase()
+		  datatype=datatype.replace(/\s/g, '');
+		  getsubserviceType =getsubserviceType.toLowerCase()
+		  getsubserviceType=getsubserviceType.replace(/\s/g, '');
+		  remoteemail= remoteemail.replace(/@/g, "_");
+		  mainJson["collectionname"]= datatype;
+		  mainJson["webserviceType"]= getsubserviceType;
+		 var servicename=document.getElementById("nameofservice3").value;
+		  mainJson["servicename"]= servicename;
+		  var today = new Date();
+			var h = today.getHours()+today.getMinutes()+today.getSeconds();
+			
+			var dd = today.getDate();
+			var mm = today.getMonth() + 1; // January is 0!
+			var yyyy = today.getFullYear();
+			if (dd < 10) {
+				dd = '0' + dd;
+			}
+			if (mm < 10) {
+				mm = '0' + mm;
+			}
+			var today = yyyy + mm  + dd+h;
+			
+			console.log(today);
+		  mainJson["webserviceid"]= servicename+datatype+getsubserviceType+today;
+		  
+		  mainJson["user"]= remoteemail;
+		
+		
+		  mainJson["url"]= document.getElementById("enterurl3").value;
+		
+		  var fieldname = document.getElementsByName("FieldName3");
+		  var ip_fieldtype1 = document.getElementsByName("ip_fieldtype3");
+		  var ipfieldlength1 = document.getElementsByName("ipfieldlength3");
+		  var checkBox = document.getElementsByName("prkey3");
+		  var ipFieldArr=[];
+		  for(var i=0;i<checkBox.length-1;i++){
+			  var json={};
+			  var primarykey=checkBox[i].checked;
+			  if(primarykey === true){
+					
+					primarykey="yes";
+				}else{
+					primarykey="no";
+				}
+			  json["primarykey"]=primarykey;
+		 console.log("primarykey= "+primarykey);
+		
+		 json["fieldname"]=fieldname[i].value;
+		 json["fieldtype"]=ip_fieldtype1[i].value;
+		 json["fieldlength"]=ipfieldlength1[i].value;
+		 console.log("json= "+JSON.stringify(json));
+		 ipFieldArr.push(json);
+		  }
+		var totalip={};
+		totalip["totalinputentered"]=ipFieldArr.length;
+		  ipFieldArr.push(totalip);
+		 
+		 
+		  mainJson["input"]=ipFieldArr;
+		  //response
+		  
+		  var fieldname4 = document.getElementsByName("FieldName4");
+		  var ip_fieldtype4 = document.getElementsByName("ip_fieldtype4");
+		  var ipfieldlength4 = document.getElementsByName("ipfieldlength4");
+		 
+		  var opFieldArr=[];
+		  for(var i=0;i<fieldname4.length-1;i++){
+			  var json={};
+		
+		 json["fieldname"]=fieldname4[i].value;
+		 json["fieldtype"]=ip_fieldtype4[i].value;
+		 json["fieldlength"]=ipfieldlength4[i].value;
+		 console.log("json= "+JSON.stringify(json));
+		 opFieldArr.push(json);
+		  }
+		var totalop={};
+		totalop["totaloutputentered"]=opFieldArr.length;
+		  opFieldArr.push(totalop);
+		  mainJson["output"]=opFieldArr;
+		  
+		  console.log("mainJson= "+JSON.stringify(mainJson));
+		  
+		  
+		  if (update) {
+				 
+				console.log("Edit1");
+				update = false
+		  callupdatewebserviceDet(mainJson); 
+			}else{
+				console.log("save= ");
+				 callpostwebserviceDet(mainJson);
+			}
+
+	}
+
+
+	//send data endpoint
+	function senddataEndpointFunction(){
+		var mainJson={};
+		getsubserviceType=$( "#myTab2 a.active").html();
+		console.log("getsubserviceType= "+getsubserviceType+" :: datatype= "+datatype);
+		  datatype=datatype.toLowerCase();
+		  datatype=datatype.replace(/\s/g, '');
+		  getsubserviceType =getsubserviceType.toLowerCase();
+		  getsubserviceType=getsubserviceType.replace(/\s/g, '');
+		  remoteemail= remoteemail.replace(/@/g, "_");
+		  mainJson["collectionname"]= datatype;
+		  mainJson["webserviceType"]= getsubserviceType;
+		 var servicename=document.getElementById("nameofservice3").value;
+		  mainJson["servicename"]= servicename;
+		  var today = new Date();
+			var h = today.getHours()+today.getMinutes()+today.getSeconds();
+			
+			var dd = today.getDate();
+			var mm = today.getMonth() + 1; // January is 0!
+			var yyyy = today.getFullYear();
+			if (dd < 10) {
+				dd = '0' + dd;
+			}
+			if (mm < 10) {
+				mm = '0' + mm;
+			}
+			var today = yyyy + mm  + dd+h;
+			
+			console.log(today);
+		  mainJson["webserviceid"]= servicename+datatype+getsubserviceType+today;
+		  
+		  mainJson["user"]= remoteemail;
+		
+		  mainJson["token"]= document.getElementById("entertoken2").value;
+		  mainJson["url"]= document.getElementById("enterurl2").value;
+		
+		  var fieldname = document.getElementsByName("FieldName2");
+		  var ip_fieldtype1 = document.getElementsByName("ip_fieldtype2");
+		  var ipfieldlength1 = document.getElementsByName("ipfieldlength2");
+		  var checkBox = document.getElementsByName("prkey2");
+		  var ipFieldArr=[];
+		  for(var i=0;i<checkBox.length-1;i++){
+			  var json={};
+			  var primarykey=checkBox[i].checked;
+			  if(primarykey === true){
+					
+					primarykey="yes";
+				}else{
+					primarykey="no";
+				}
+			  json["primarykey"]=primarykey;
+		 console.log("primarykey= "+primarykey);
+		
+		 json["fieldname"]=fieldname[i].value;
+		 json["fieldtype"]=ip_fieldtype1[i].value;
+		 json["fieldlength"]=ipfieldlength1[i].value;
+		 console.log("json= "+JSON.stringify(json));
+		 ipFieldArr.push(json);
+		  }
+		var totalip={};
+		totalip["totalinputentered"]=ipFieldArr.length;
+		  ipFieldArr.push(totalip);
+		 
+		  mainJson["input"]=ipFieldArr;
+		  console.log("mainJson= "+JSON.stringify(mainJson));
+		  
+		  
+		  if (update) {
+				 
+				console.log("Edit1");
+				update = false
+		  callupdatewebserviceDet(mainJson); 
+			}else{
+				console.log("save= ");
+				 callpostwebserviceDet(mainJson);
+			}
+
+	}
+	function callpostwebserviceDet(mainjs){
+	  $.ajax({
+	        url: 'https://'+slingip+':8088/apirest/wsapi/postwebserviceDet',
+	        type: 'post',
+	        dataType: 'json',
+	        contentType: 'application/json',
+	        
+	        data: JSON.stringify(mainjs),
+	        success: function (data) {
+	        	console.log("response= "+ JSON.stringify(data));
+	        	
+	        	
+	        }
+	    });
+	}
+
+
+		​
+	function callupdatewebserviceDet(mainjs){
+		  $.ajax({
+	            url: 'https://'+slingip+':8088/apirest/wsapi/updatewebserviceDet',
+	            type: 'post',
+	            dataType: 'json',
+	            contentType: 'application/json',
+	            
+	            data: JSON.stringify(mainjs),
+	            success: function (data) {
+	            	console.log("response= "+ JSON.stringify(data));
+	            	
+	            	
+	            }
+	        });
+		}
+	    
+	    $('.sub-btn-data').click(function(){
+	    	
+	    	
+	          var input1 = $('#input-field-one').val();
+	          var inputSelect = $('#input-field-select').val();
+	          var input2 = $('#input-field-second').val();
+	          var input3 = $('#output-field-one').val();
+	          var inputSelect2 = $('#output-select-type').val();
+	          var input4 = $('#output-field-second').val();
+	          var totalRowCount = $(".table-section tbody tr").length;
+	          var count = Number(totalRowCount)+1;
+	          console.log("input1"+input1+" :: input2 "+input2);
+	          $('.table-section > tbody').append('<tr><td> <input type="radio" name=""> </td><td><span>'+count+'</span></td><td></td><td>Get Data</td><td>Schedule</td><td>'+input1+'</td><td>'+inputSelect+'</td><td>'+input2+'</td><td>'+input3+'</td><td>'+inputSelect2+'</td><td>'+input4+'</td></tr>');
+	          $("input[type=text]").val("");
+	      });
+
+	    
+	    function logout(uid){
+	  	  $.ajax({
+	  	  type: 'GET',
+	  	  url: 'http://'+slingip+':8078/OpenFireClient/Logout.jsp',
+	  	  data: {
+	  	  username: uid
+	  	  }, 
+	  	  complete: function(){
+	  	  window.location="http://"+slingip+":8082/portal/logout.jsp";
+	  	  }
+	  	  });
+	  	  }
+	    
+	    
+	  
+	    var cnt=0;
+	    var ipcnt=0;
+	    $('body').on('click', '.add-more-btn', function() { 
+	       var copy = $(this).parents('.addMore').find('.addMore-copy').html();
+	       $(this).parents('.addMore').find('.addMore-main').append(copy);
+	    
+	    	
+	    	
+	    	
+	    });
+
+
+	
+
+	    $('body').on('click', '.copy-remove-btn', function() { 
+	        $(this).parents('.addMore-sub').remove();
+	    });
+	    
+	    $('body').on('change', '.requestC', function() { 
+	        var re = $(this).attr('value');
+	        if(re == 2  || re == 1){
+	            $('.requestbase64').css('display','block');
+	        }else{
+	            $('.requestbase64').css('display','none');
+	        }
+	        if(re == 3){
+	            $('.requestprimary').css('display','block');
+	        }else{
+	            $('.requestprimary').css('display','none');
+	        }
+	    });
+
+	    $('body').on('change', '.requestC2', function() { 
+	        var re = $(this).attr('value');
+	        if(re == 2  || re == 1){
+	            $('.2requestbase64').css('display','block');
+	        }else{
+	            $('.2requestbase64').css('display','none');
+	        }
+	        if(re == 3){
+	            $('.2requestprimary').css('display','block');
+	        }else{
+	            $('.2requestprimary').css('display','none');
+	        }
+	    });
+	    
+	    
+	    $(function () {
+	          $('.datepicker').datepicker();
+		    });
+
+	     /* $('.sub-btn-data').click(function(){
+	          var totalRowCount = $(".table-section tbody tr").length;
+	          var count = Number(totalRowCount)+1;
+	          $('.table-section > tbody').append('<tr><td> <input type="radio" name="radio-get-data"><button class="btn btn-success btn-sm tbl-save-btn" type="button" style="display:none;">Save</button> </td><td><span>'+count+'</span></td><td><span class="tdata"></span><input type="text" name="" class="tdataedit" value=""></td><td value="Get Data">Get Data</td><td>Schedule</td><td>');
+	      }); */
+	      $('.get-data-end-point').click(function(){
+	          var totalRowCount = $(".table-section tbody tr").length;
+	          var count = Number(totalRowCount)+1;
+	          $('.table-section > tbody').append('<tr><td> <input type="radio" name="radio-get-data"><button class="btn btn-success btn-sm tbl-save-btn" type="button" style="display:none;">Save</button> </td><td><span>'+count+'</span></td><td><span class="tdata"></span><input type="text" name="" class="tdataedit" value=""></td><td>Get Data</td><td>End Point</td><td>');
+	      });
+	      $('.submit-send-data-configure').click(function(){
+	          var totalRowCount = $(".table-section tbody tr").length;
+	          var count = Number(totalRowCount)+1;
+	          $('.table-section > tbody').append('<tr><td> <input type="radio" name="radio-get-data"><button class="btn btn-success btn-sm tbl-save-btn" type="button" style="display:none;">Save</button> </td><td><span>'+count+'</span></td><td><span class="tdata"></span><input type="text" name="" class="tdataedit" value=""></td><td>Send Data</td><td>Configure</td><td>');
+	      });
+	      $('.submit-send-data-end-point').click(function(){
+	          var totalRowCount = $(".table-section tbody tr").length;
+	          var count = Number(totalRowCount)+1;
+	          $('.table-section > tbody').append('<tr><td> <input type="radio" name="radio-get-data"><button class="btn btn-success btn-sm tbl-save-btn" type="button" style="display:none;">Save</button> </td><td><span>'+count+'</span></td><td><span class="tdata"></span><input type="text" name="" class="tdataedit" value=""></td><td>Send Data</td><td>End Point</td><td>');
+	      });
+
+	      $(".delete-btn-get-data").on("click", function () {
+		    var data = $('.table-section > tbody').find('tr').has('input[name="radio-get-data"]:checked').find('td:nth-child(3)').html();
+	         var data1 = $('.table-section > tbody').find('tr').has('input[name="radio-get-data"]:checked').find('td:nth-child(4)').html();
+			  console.log("Enter"+data);
+			  console.log("Enter"+data1);
+			  remoteemail= remoteemail.replace(/@/g, "_");
+	        $('.table-section > tbody').find('tr').has('input[name="radio-get-data"]:checked').remove();
+			$.ajax({
+									type : 'GET',
+									url : 'https://'+slingip+ ':8088/apirest/wsapi/deletewebserviceDet?user='+remoteemail+'&servicename='+data1+'&webserviceid='+data
+											,
+											async: false,
+								
+								timeout: 30000,
+									data : {},
+									success : function(response) {
+									alert("Response returned :: "+JSON.stringify(response));
+					
+									}
+								});
+	      });
+
+	   
+
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.13.0/prism.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.13.0/components/prism-javascript.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.13.0/components/prism-typescript.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.13.0/components/prism-json.min.js"></script>
+	<script type="text/javascript" src="https://twemoji.maxcdn.com/2/twemoji.min.js?2.5"></script>
+</body>
+</html>

@@ -20,7 +20,7 @@
 		<relativePath>../../parent/pom.xml</relativePath>
 	</parent>
 
-	<groupId>sample.leadautoconverter2.leadautoconverter2</groupId>
+	<groupId>sample.SalesAutoConverter.SalesAutoConverter</groupId>
 	<packaging>bundle</packaging>
 	<version>2.0.9-SNAPSHOT</version>
 
@@ -34,6 +34,14 @@
 				<extensions>true</extensions>
 				
 			</plugin>
+			<!--  <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-compiler-plugin</artifactId>
+      <configuration>
+        <source>1.8</source>
+        <target>1.8</target>
+      </configuration>
+    </plugin> -->
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
@@ -222,6 +230,7 @@
 							!sun.nio.ch.*,
 							!javax.interceptor.*,
 							!org.xmlpull.v1.*,
+							!org.apache.poi.xssf.usermodel.*,
 							
 							*
                         </Import-Package>
@@ -423,7 +432,7 @@
 			<version>1.18.1</version>
 		</dependency>
 		
-		<!-- 
+		<!-- -->
 		<dependency>
 		    <groupId>org.apache.poi</groupId>
 		    <artifactId>poi</artifactId>
@@ -452,10 +461,21 @@
 		    <artifactId>poi-scratchpad</artifactId>
 		    <version>3.15</version>
 		</dependency>
-	     -->
+	  
+	     <dependency>
+<groupId>javax.mail</groupId>
+<artifactId>javax.mail-api</artifactId>
+<version>1.6.0</version>
+</dependency>
+
+<dependency>
+<groupId>com.sun.mail</groupId>
+<artifactId>javax.mail</artifactId>
+<version>1.6.0</version>
+</dependency>
 	</dependencies>
 
 
-	<name>LeadAutoconverter2</name>
-	<artifactId>leadautoconverter2</artifactId>
+	<name>SalesAutoConverter</name>
+	<artifactId>salesAutoConverter</artifactId>
 </project>

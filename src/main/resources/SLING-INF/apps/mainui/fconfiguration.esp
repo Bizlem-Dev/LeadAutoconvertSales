@@ -110,10 +110,11 @@
                   </div>
                   <div class="col-md-3">
                     <div class="box-f1">
-                        <h4>Salesforce</h4>
+                      <a href="<%=request.getContextPath()%>/servlet/service/ui.LACwebservice" target="_blank">
+                        <h4>Webservice Integration</h4></a>
                      </div> 
                   </div>
-                  <div class="col-md-3">
+                <!--   <div class="col-md-3">
                     <a href="smtp-setup.html">
                       <div class="box-f1">
                         <h4>SMTP Setup</h4>
@@ -124,7 +125,7 @@
                     <div class="box-f1">
                         <h4>SMS</h4>
                      </div> 
-                  </div>
+                  </div>-->
                 </div>
                 <br/>
                   <div class="row">
@@ -133,7 +134,7 @@
                     </div>
                   </div>
               </div>
-            <div class="wizard-buttons"><a class="btn btn-default btn-outline disabled" href="#" data-wizard="back" role="button">Back</a><a class="btn btn-primary btn-outline custom-btn float-right" href="#" data-wizard="next" role="button">Next</a><a class="btn btn-success btn-outline float-right hidden-xs-up" href="#" data-wizard="finish" role="button">Finish</a></div>
+            <!-- <div class="wizard-buttons"><a class="btn btn-default btn-outline disabled" href="#" data-wizard="back" role="button">Back</a><a class="btn btn-primary btn-outline custom-btn float-right" href="#" data-wizard="next" role="button">Next</a><a class="btn btn-success btn-outline float-right hidden-xs-up" href="#" data-wizard="finish" role="button">Finish</a></div>  -->
             </div>
           </div>
         </div>

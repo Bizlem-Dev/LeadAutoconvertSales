@@ -345,7 +345,7 @@
 		$.ajax({
 			       	//url: '<%=request.getContextPath()%>/servlet/service/uidata.createLead',
 					//url: 'http://prod.bizlem.io:8082/portal/servlet/service/createCampaign.getFunnelDetails?userName=viki_gmail.com&funnelName=July17F02',//createListAndSubscribers
-					url: '<%=request.getContextPath()%>/servlet/service/createCampaign.getFunnelDetails?userName='+remoteuser+'&funnelName='+funnel_name,
+					url: '<%=request.getContextPath()%>/servlet/service/saveFunnel.EditFunnel?funnel='+remoteuser+'&funnel='+funnel_name,
 					type: 'GET',
 					async: false,
                     cache: false,
@@ -362,12 +362,7 @@
 							   var funnelName=funnel_details_json_obj["funnelName"];
 							   
 							   var ExploreJsonArr=funnel_details_json_obj["Explore"];
-							   var EnticeJsonArr=funnel_details_json_obj["Entice"];
-							   var InformJsonArr=funnel_details_json_obj["Inform"];
-							   var WarmJsonArr=funnel_details_json_obj["Warm"];
-							   var ConnectJsonArr=funnel_details_json_obj["Connect"];
-							   //alert(ExploreJsonArr);
-							   
+							 	   
 							   console.log("ExploreJsonArr : "+ExploreJsonArr);
 							   var campaign_json_obj=null;
 							   var CreatedBy=null;
@@ -429,19 +424,11 @@
 								   
 								   CreatedBy=campaign_json_obj.CreatedBy;
 								   funnelName=campaign_json_obj.funnelName;
-								   SubFunnelName=campaign_json_obj.SubFunnelName;
-								   CampaignNodeNameInSling=campaign_json_obj.CampaignNodeNameInSling;
-								   FromName=campaign_json_obj.FromName;
-								   FromEmailAddress=campaign_json_obj.FromEmailAddress;
-								   CampaignName=campaign_json_obj.CampaignName;
-								   Subject=campaign_json_obj.Subject;
-								   Body=campaign_json_obj.Body;
-								   Type=campaign_json_obj.Type;
-								   Campaign_Id=campaign_json_obj.Campaign_Id;
-								   List_Id=campaign_json_obj.List_Id;
-								   campaign_status=campaign_json_obj.campaign_status;
-								   Campaign_Date=campaign_json_obj.Campaign_Date;
-								   alert(CampaignNodeNameInSling);
+								   SubFunnelName=campaign_json_obj.Category;
+								 //  CampaignNodeNameInSling=campaign_json_obj.CampaignNodeNameInSling;
+								
+								   Campaign_Id=campaign_json_obj.Campaign_id;
+								   
 								   
 								   /*
 								   if(i==0){
@@ -453,155 +440,11 @@
 								   document.getElementById("explore_row_add_more_sub_copy").innerHTML  =explore_row_add_more_sub_copy;
 								   //}
 								   explore_row_add_more_copy='<div class="col-md-12 addMore-sub"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up EC <span>'+(i+1)+'</span></button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button></div></div></div>';
-								   if(i==0){
-									   localStorage.setItem('fromName',FromName);
-									   localStorage.setItem('fromEmailAddress',FromEmailAddress);
-									   localStorage.setItem('listid',List_Id);
-								   }
+								
 							   
 							   }
 							   console.log("step 2 : ");
-							   for (var i = 0; i < EnticeJsonArr.length; i++) {
-							       campaign_json_obj = EnticeJsonArr[i];
-								   
-								   CreatedBy=campaign_json_obj.CreatedBy;
-								   funnelName=campaign_json_obj.funnelName;
-								   SubFunnelName=campaign_json_obj.SubFunnelName;
-								   CampaignNodeNameInSling=campaign_json_obj.CampaignNodeNameInSling;
-								   FromName=campaign_json_obj.FromName;
-								   FromEmailAddress=campaign_json_obj.FromEmailAddress;
-								   CampaignName=campaign_json_obj.CampaignName;
-								   Subject=campaign_json_obj.Subject;
-								   Body=campaign_json_obj.Body;
-								   Type=campaign_json_obj.Type;
-								   Campaign_Id=campaign_json_obj.Campaign_Id;
-								   List_Id=campaign_json_obj.List_Id;
-								   campaign_status=campaign_json_obj.campaign_status;
-								   Campaign_Date=campaign_json_obj.Campaign_Date;
-								   alert(CampaignNodeNameInSling);
-								   /*
-								   if(i==0){
-								   entice_main_btn_section_part=entice_main_btn_section_part+'<div class="row addMore-main"><div class="col-md-12"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up EnC <span>'+(i+1)+'</span> </button></div><div class="col-md-3 pl-0"><button class="btn btn-warning apend-btn plus-btn add-more-btn">+</button></div></div></div></div>';
-								   document.getElementById("entice_main_btn_section_part").innerHTML  =entice_main_btn_section_part;
-								   }else{
-								   */
-								   entice_row_add_more_sub_copy=entice_row_add_more_sub_copy+'<div class="col-md-12 addMore-sub"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block" disabled>Set Up EnC <span>'+(i+1)+'</span></button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn" disabled><i class="fa fa-trash-o" aria-hidden="true"></i></button></div></div></div>';
-								   document.getElementById("entice_row_add_more_sub_copy").innerHTML  =entice_row_add_more_sub_copy;
-								   //}
-								   entice_row_add_more_copy='<div class="col-md-12 addMore-sub"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up EnC <span>'+(i+1)+'</span></button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button></div></div></div>';
-								   if(i==0){
-									   localStorage.setItem('fromName',FromName);
-									   localStorage.setItem('fromEmailAddress',FromEmailAddress);
-									   localStorage.setItem('listid',List_Id);
-								   }
-							   
-							   }
-							   console.log("step 3 : ");
-							   for (var i = 0; i < InformJsonArr.length; i++) {
-							       campaign_json_obj = InformJsonArr[i];
-								   
-								   CreatedBy=campaign_json_obj.CreatedBy;
-								   funnelName=campaign_json_obj.funnelName;
-								   SubFunnelName=campaign_json_obj.SubFunnelName;
-								   CampaignNodeNameInSling=campaign_json_obj.CampaignNodeNameInSling;
-								   FromName=campaign_json_obj.FromName;
-								   FromEmailAddress=campaign_json_obj.FromEmailAddress;
-								   CampaignName=campaign_json_obj.CampaignName;
-								   Subject=campaign_json_obj.Subject;
-								   Body=campaign_json_obj.Body;
-								   Type=campaign_json_obj.Type;
-								   Campaign_Id=campaign_json_obj.Campaign_Id;
-								   List_Id=campaign_json_obj.List_Id;
-								   campaign_status=campaign_json_obj.campaign_status;
-								   Campaign_Date=campaign_json_obj.Campaign_Date;
-								   alert(CampaignNodeNameInSling);
-								   /*
-								   if(i==0){
-								   inform_main_btn_section_part=inform_main_btn_section_part+'<div class="row addMore-main"><div class="col-md-12"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up IC <span>'+(i+1)+'</span> </button></div><div class="col-md-3 pl-0"><button class="btn btn-warning apend-btn plus-btn add-more-btn">+</button></div></div></div></div>';
-								   document.getElementById("inform_main_btn_section_part").innerHTML  =inform_main_btn_section_part;
-								   }else{
-								   */
-								   inform_row_add_more_sub_copy=inform_row_add_more_sub_copy+'<div class="col-md-12 addMore-sub"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block" disabled>Set Up IC <span>'+(i+1)+'</span></button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn" disabled><i class="fa fa-trash-o" aria-hidden="true"></i></button></div></div></div>';
-								   document.getElementById("inform_row_add_more_sub_copy").innerHTML  =inform_row_add_more_sub_copy;
-								   //}
-								   inform_row_add_more_copy='<div class="col-md-12 addMore-sub"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up IC <span>'+(i+1)+'</span></button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button></div></div></div>';
-								   if(i==0){
-									   localStorage.setItem('fromName',FromName);
-									   localStorage.setItem('fromEmailAddress',FromEmailAddress);
-									   localStorage.setItem('listid',List_Id);
-								   }
-								   
-							   }
-							   console.log("step 4 : ");
-							   for (var i = 0; i < WarmJsonArr.length; i++) {
-							       campaign_json_obj = WarmJsonArr[i];
-								   
-								   CreatedBy=campaign_json_obj.CreatedBy;
-								   funnelName=campaign_json_obj.funnelName;
-								   SubFunnelName=campaign_json_obj.SubFunnelName;
-								   CampaignNodeNameInSling=campaign_json_obj.CampaignNodeNameInSling;
-								   FromName=campaign_json_obj.FromName;
-								   FromEmailAddress=campaign_json_obj.FromEmailAddress;
-								   CampaignName=campaign_json_obj.CampaignName;
-								   Subject=campaign_json_obj.Subject;
-								   Body=campaign_json_obj.Body;
-								   Type=campaign_json_obj.Type;
-								   Campaign_Id=campaign_json_obj.Campaign_Id;
-								   List_Id=campaign_json_obj.List_Id;
-								   campaign_status=campaign_json_obj.campaign_status;
-								   Campaign_Date=campaign_json_obj.Campaign_Date;
-								   alert(CampaignNodeNameInSling);
-								   /*
-								   if(i==0){
-								   warm_main_btn_section_part=warm_main_btn_section_part+'<div class="row addMore-main"><div class="col-md-12"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up WC <span>'+(i+1)+'</span> </button></div><div class="col-md-3 pl-0"><button class="btn btn-warning apend-btn plus-btn add-more-btn">+</button></div></div></div></div>';
-								   document.getElementById("warm_main_btn_section_part").innerHTML  =warm_main_btn_section_part;
-								   }else{
-								   */
-								   warm_row_add_more_sub_copy=warm_row_add_more_sub_copy+'<div class="col-md-12 addMore-sub"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block" disabled>Set Up WC <span>'+(i+1)+'</span></button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn" disabled><i class="fa fa-trash-o" aria-hidden="true"></i></button></div></div></div>';
-								   document.getElementById("warm_row_add_more_sub_copy").innerHTML  =warm_row_add_more_sub_copy;
-							       //}
-								   warm_row_add_more_copy='<div class="col-md-12 addMore-sub"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up WC <span>'+(i+1)+'</span></button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button></div></div></div>';
-								   if(i==0){
-									   localStorage.setItem('fromName',FromName);
-									   localStorage.setItem('fromEmailAddress',FromEmailAddress);
-									   localStorage.setItem('listid',List_Id);
-								   }
-							   }
-							   console.log("step 5 : ");
-							   for (var i = 0; i < ConnectJsonArr.length; i++) {
-							       campaign_json_obj = ConnectJsonArr[i];
-								   
-								   CreatedBy=campaign_json_obj.CreatedBy;
-								   funnelName=campaign_json_obj.funnelName;
-								   SubFunnelName=campaign_json_obj.SubFunnelName;
-								   CampaignNodeNameInSling=campaign_json_obj.CampaignNodeNameInSling;
-								   FromName=campaign_json_obj.FromName;
-								   FromEmailAddress=campaign_json_obj.FromEmailAddress;
-								   CampaignName=campaign_json_obj.CampaignName;
-								   Subject=campaign_json_obj.Subject;
-								   Body=campaign_json_obj.Body;
-								   Type=campaign_json_obj.Type;
-								   Campaign_Id=campaign_json_obj.Campaign_Id;
-								   List_Id=campaign_json_obj.List_Id;
-								   campaign_status=campaign_json_obj.campaign_status;
-								   Campaign_Date=campaign_json_obj.Campaign_Date;
-								   alert(CampaignNodeNameInSling);
-								   /*
-								   if(i==0){
-								   connect_main_btn_section_part=connect_main_btn_section_part+'<div class="row addMore-main"><div class="col-md-12"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up CC <span>'+(i+1)+'</span> </button></div><div class="col-md-3 pl-0"><button class="btn btn-warning apend-btn plus-btn add-more-btn">+</button></div></div></div></div>';
-								   document.getElementById("connect_main_btn_section_part").innerHTML  =connect_main_btn_section_part;
-								   }else{
-								   */
-								   connect_row_add_more_sub_copy=connect_row_add_more_sub_copy+'<div class="col-md-12 addMore-sub"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block" disabled>Set Up CC <span>'+(i+1)+'</span></button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn" disabled><i class="fa fa-trash-o" aria-hidden="true"></i></button></div></div></div>';
-								   document.getElementById("connect_row_add_more_sub_copy").innerHTML  =connect_row_add_more_sub_copy;
-								   //}
-								   connect_row_add_more_copy='<div class="col-md-12 addMore-sub"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up CC <span>'+(i+1)+'</span></button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button></div></div></div>';
-								   if(i==0){
-									   localStorage.setItem('fromName',FromName);
-									   localStorage.setItem('fromEmailAddress',FromEmailAddress);
-									   localStorage.setItem('listid',List_Id);
-								   }
-							   }
+							 
 							   console.log("step 6 : ");
 							   document.getElementById("explore_main_btn_section_part").innerHTML  =explore_main_btn_section_part;
 							   document.getElementById("entice_main_btn_section_part").innerHTML  =entice_main_btn_section_part;

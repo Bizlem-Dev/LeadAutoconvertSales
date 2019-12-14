@@ -1,0 +1,113 @@
+
+<div class="well">
+	<div class="row">
+		<div
+			class="col-md-12 radio-section import-contact text-center import-contact-main-section">
+			<!--  <h5>Select/ Import/ Create the List of Leads</h5>
+                                  <br>
+                                  <br> -->
+			<div class="radio-section text-left p-0">
+				<label class="containers">Upload from XLS File <input
+					type="radio" name="radio" id="radio1-section"
+					value="csv_file_upload" checked="checked"> <span
+					class="checkmark"></span>
+					<p>import contacts from .xls file.</p>
+				</label>
+			</div>
+			
+			<br>
+		</div>
+	</div>
+	<div class="row">
+		<div>
+
+			<div class="col-md-12 show-import-from-csv-file">
+				<div class="col-md-12 show-import-from-csv-file" style="display: none;">
+					<label for="from-name">DataSource Name</label>
+					<div>
+					
+				
+					</div>
+					<br>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+
+
+						<div class="">
+							<div class="row upload-new-class">
+								<div class="col-md-3">
+
+									<div class="row">
+										<div class="col-md-12">
+											<!--
+													  <div class="m-0 fileUpload btn custom-btn btn-default new-btn">
+														 <span>Upload CSV File</span>
+														 <input id="uploadBtn" name="filename" type="file" class="custom-btn upload">
+													  </div>
+													  -->
+											<div
+												class="m-0 fileUpload btn custom-btn btn-default new-btn">
+												<span>Download Sample XLS File</span> <a
+													class="btn btn-warning btn-smT1"
+													href="<%=request.getContextPath()%>/apps/global/files/LeadUploadFormatXLS.xls"
+													id="w3s"> <i class="fa fa-arrow-down"></i> <img
+													src="<%=request.getContextPath()%>/apps/global/assets/images/img/dwnld_excel_icon.png"
+													width="20px">
+												</a>
+											</div>
+											<br /> <br />
+											<div
+												class="m-0 fileUpload btn custom-btn btn-default new-btn">
+												<span>Upload XLS File</span>
+												<form method="POST" enctype="multipart/form-data">
+													<input type="file" name="file" id="fileUploaderjson">
+												</form>
+											</div>
+											<div>
+												<label id="jsonObject1"> </label>
+											</div>
+											<!--  <button type="button" id="show_list" onclick="displaycontacts()" class="custom-btn btn btn-info funnel-next-btn">Show List</button>  -->
+											<div id="showlistbut"></div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12 mt-4 pt-4">
+									<div class="row">
+										<div class="col-md-4">
+											<div class="row">
+												<div class="col-md-6 radio-section" id="diventirelist">
+
+												</div>
+												<div class="col-md-6 radio-section" id="divpartoflist">
+
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12 mt-4" id="divforlisttable"></div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 text-center" style="margin-top: 25px;">
+
+						<button type="button" id="save_xlslead"
+							class="custom-btn btn btn-info funnel-next-btn select-existing-upload-save">Save</button>
+						<!--custom-btn btn btn-info funnel-next-btn-->
+						<button type="button"
+							class="custom-btn btn btn-info funnel-next-btn">Cancel</button>
+					</div>
+					   <div  class="col-md-12 text-center" id="errconfn" style="color:red;"> </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+
+	
+
+</div>

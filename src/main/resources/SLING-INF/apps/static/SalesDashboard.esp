@@ -1,0 +1,628 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge;" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>Dashboard</title>
+        <!-- href="<%=request.getContextPath()%>/apps/Dashboard/css/bootstrap.min599c.css?v4.0.2" -->
+         <link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/apps/global/assets/images/lead-auto-convert-logo.png">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/DashboardSales/css/bootstrap/bootstrap.min.css" />
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/DashboardSales/css/jquery-ui/jquery-ui-1.12.1.css" />
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/DashboardSales/css/chartist/chartist.css" />
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/DashboardSales/css/chartist/chartist.tooltip.css" />
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/DashboardSales/css/style.css" />
+        
+    </head>
+<body>
+	<div class="dashboard-container">
+		<div class="row title-raw">
+        	<div class="col-lg-12">
+	        	<h1>Dashboard</h1>
+            </div>
+        </div>
+        <div class="dashboard-content">
+            <!--Lead raw-->            
+            <div class="row lead-raw">               
+                <div class="col-lg-2 col-md-6">
+                <div>
+                	<p class="m-b-5">Select Option</p>
+                </div>
+                  <div>
+                    <select id="funnel-filter" name="funnel-filter">
+                    </select>
+                  </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6">
+                
+ <a href="<%=request.getContextPath()%>/apps/global/files/Template.xlsx" download="" id="downloadexcel">Export Excel</a>				  
+				  <input type="file" name="" id="selectexcel" style="display:block;"> 
+			   
+  <button id="buttonid" style="display:block;" onclick="clicked();">Upload
+				 
+                 </button></div>
+                
+                <div class="col-lg-2 col-md-3 lead-btn lead-btn-first">
+                  <div class="lead-button raw-leads">
+                    <p class="value" id="raw-lead"></p>
+                    <p class="label">Raw Leads</p>
+                  </div>  
+              </div>
+                
+                <div class="col-lg-2 col-md-3 lead-btn">
+                  <div class="lead-button hot-leads">
+                    <p class="value" id="hot-lead"></p>
+                    <p class="label">Hot Leads</p>
+                  </div>  
+              </div>
+                
+                <div class="col-lg-2 col-md-3 lead-btn">
+                  <div class="lead-button con-rates">
+                    <p class="value" id="conv-rate"></p>
+                    <p class="label">Con. Rates</p>
+                  </div>  
+              </div>
+                
+                <div class="col-lg-2 col-md-3 lead-btn">
+                  <div class="lead-button con-leads">
+                    <p class="value" id="conv-lead"></p>
+                    <p class="label">Converted Leads</p>
+                  </div>  
+              </div>
+            </div>
+            
+           
+            
+            <!--charts container-->
+            <div class="row chart-raw">
+
+              <!-- cust acq cost -->
+              <div class="col-lg-5">
+                <div class="chart-container" style="min-height:375px;">
+                    
+                      <div class="funnel-chart-filter row m-b-15">                        	
+                          <div class="col-lg-12 chart-title">
+                          <p>Geo location</p>
+                          </div>
+                      </div>
+                      
+
+                      <div class="chart-content geo-location-content">
+                        <div id="geo-location-chart" class="chart geo-location-chart"></div>
+                      </div>
+                      
+                      <div class="table-container p-t-25 p-l-15 p-r-15">
+                        <table id="geo-location-table" class="table table-hover table-striped">
+                          <thead>
+                            <tr>
+                              <th>Country</th>
+                              <th>HotLeads</th>
+                              <th>Converted</th>
+                            </tr>
+                          </thead>
+                              <tbody>
+                              </tbody>
+                            </table>
+                      </div>
+                  </div>       
+              </div>
+
+              <!-- Campaign funel -->
+              <div class="col-lg-5 p-l-0">
+                <div class="chart-container">
+                    <div class="col-lg-12 chart-title">
+                          <p>Campaign Funnel</p>
+                      </div>
+                      <div class="funnel-chart-filter row m-b-15">                        	
+                      </div>
+                      
+                      <div class="chart-content">
+                        <div id="funnel-chart" class="funnel-chart"></div>
+                      </div>
+                      
+                      
+                      <div class="table-container table-responsive p-t-25 p-l-15">
+                        <table id="campaign-funnel-data" class="table table-hover table-striped">
+                              <thead>
+                                <tr>
+                                  <th style="width:30%;">Source</th>
+                                  <th>Leads</th>
+                                 <!--  <th>Rate</th>  -->
+                                </tr>
+                              </thead>
+                              <tbody>
+                                
+                              </tbody>
+                            </table>
+                      </div>
+                  </div>                
+              </div>
+              
+              <!-- upgrd rate -->
+              <div class="col-lg-2 p-l-0">
+                <div class="chart-container b-r-0">
+                    <div class="col-lg-12 chart-title">
+                          <p>Upgradation Rate</p>
+                          </div>
+                      <div class="funnel-chart-filter row m-b-15">
+                      <div class="col-lg-10">
+                            <select id="upg-rate-funnel-filter" name="upg-rate-funnel-filter" class=" m-b-5">
+                                <option>Sub Funnel 1</option>
+                                <option>Sub Funnel 2</option>
+                                <option>Sub Funnel 3</option>
+                                <option>Sub Funnel 4</option>
+                              </select>
+                          </div>
+                          
+                      </div>
+                      
+                      
+                      <div class="chart-content" style=" width: 107%; ">
+                        <div id="upg-rate" class="chart upg-rate-chart">
+                            
+                          </div>
+                      </div>
+                      
+                          <div class="table-container p-t-25 p-l-15 p-r-0">
+                        <table id="upg-rate-table" class="table table-hover table-striped">
+                              <thead>
+                                <tr>
+                             <!--      <th>Source</th>
+                                  <th>Upgrad. Rate</th>  -->
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>Facebook</td>
+                                  <td>2%</td>
+                                </tr>
+                                <tr>
+                                  <td>Twitter</td>
+                                  <td>4%</td>
+                                </tr>
+                                <tr>
+                                  <td>Instagram</td>
+                                  <td>2%</td>
+                                </tr>                                
+                              </tbody>
+                            </table>
+                      </div>
+                  </div>
+              </div>
+            </div>
+            
+            
+            <div class="row chart-raw">
+
+              <!-- funnel lead category -->
+              <div class="col-lg-5 pl-l-0">
+                  <div class="chart-container">
+                        <div class="col-lg-12 chart-title">
+                            <p>Funnel Leads Category</p>
+                          </div>
+                        <div class="funnel-chart-filter row m-b-15">
+                        </div>
+                        
+  
+                        <div class="chart-content funnel-cat-chart-content">
+                          <div id="funnel-lead-cat" class="chart funnel-cat-chart"></div>
+                        </div>
+                        
+                        
+                        <div class="table-container p-t-25 p-l-15 table-responsive">
+                          <table id="funnel-lead-cat-table" class="table table-hover table-striped">
+                                <thead>
+                                </thead>
+                                <tbody>                         
+                                </tbody>
+                              </table>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <!-- Active Users -->
+                
+                <div class="col-lg-5 p-l-0">
+                <div class="chart-container">
+                      <div class="col-lg-12 chart-title">
+                        <p>Active Users</p>
+                      </div>
+                    </div>
+  
+                    <div class="chart-content act-user-chart-content">
+                      <div>
+                            <ul class="ct-legend">
+                                <li class="ct-series-0 act-usr" data-legend="0">Active User</li>
+                                <li class="ct-series-1 headroom" data-legend="1">Headroom</li>
+                              </ul>
+                              <span>(for additional leads)</span>
+                          </div>
+                          <div>
+                            <ul class="ct-legend">
+                                <li class="ct-series-1 spam" data-legend="1">Spam</li>
+                                <li class="ct-series-1 funnel-end" data-legend="1">Funnel End</li>
+                                <li class="ct-series-1 unsu" data-legend="1">Unsubscribe</li>
+                              </ul>
+                              <span>(no further campaign)</span>
+                          </div>
+                      <div id="act-usr-chart" class="chart act-usr-chart"><svg width="522.594" height="250"><g transform="translate(20,20)"><g class="month-col No Month Yet" transform="translate(44,0)"><rect x="2" y="210" width="195" height="-1" fill="#6baed6" class="item" data-name="item1" data-value="0" data-year="bar1"></rect><rect x="2" y="210" width="195" height="-1" fill="#9ecae1" class="item" data-name="item2" data-value="0" data-year="bar1"></rect><rect x="2" y="210" width="195" height="-1" fill="#c6dbef" class="item" data-name="item3" data-value="0" data-year="bar1"></rect><rect x="199" y="210" width="195" height="-1" fill="#e6550d" class="item" data-name="item1" data-value="0" data-year="bar2"></rect><rect x="199" y="210" width="195" height="-1" fill="#fd8d3c" class="item" data-name="item2" data-value="0" data-year="bar2"></rect><rect x="199" y="210" width="195" height="-1" fill="#fdae6b" class="item" data-name="item3" data-value="0" data-year="bar2"></rect><g class="legend-item" text-anchor="middle" transform="translate(195,230)"><text>No Month Yet</text></g><g class="test"></g></g></g></svg></div>
+                    </div>
+                    
+                    <div class="table-container p-t-25 p-l-15">
+                      <table id="act-usr-table" class="table table-hover table-striped">
+                        <thead>
+                          <tr>
+                            <th>Category</th>
+                            <th>Number</th>
+                          </tr> 
+                        </thead>
+                        <tbody><tr><td>Active User</td><td>0</td></tr><tr><td>Headroom</td><td>0</td></tr><tr><td>Unsubscribe</td><td>0</td></tr><tr><td>Spam</td><td>0</td></tr><tr><td>Funnel end</td><td>0</td></tr></tbody>
+                      </table>
+                    </div>
+                  </div>
+                
+                
+
+              <!-- most active lead -->
+              <!--
+              <div class="col-lg-5 p-l-0">
+                <div class="chart-container">
+                    <div class="col-lg-12 chart-title">
+                          <p>Most Active Leads</p>
+                          </div>
+                      
+                      <div class="chart-content most-active-lead-chart-content">
+                        <div id="most-active-lead" class="most-active-lead"></div>
+                      </div>
+                      
+                      
+                      <div class="table-container p-t-25 p-l-15 p-r-15">
+                        <table id="most-active-lead-table" class="table table-hover table-striped">
+                          <thead>
+                            <tr>
+                              <th style="width:30%">
+                                <select id="most-act-chart-filter">
+                                  <option value="visit" selected>Visit</option>
+                                  <option value="session">Session</option>
+                                </select>
+                              </th>
+                              <th><</th>
+                              <th></th>
+                              <th>Lead</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td></td>
+                              <td>2</td>
+                              <td>4</td>
+                              <td>100</td>
+                            </tr>
+                            <tr>
+                              <td></td>
+                              <td>5</td>
+                              <td>9</td>
+                              <td>130</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                  </div>                
+              </div>
+              -->
+              <!-- outcome -->
+              <div class="col-lg-2 p-l-0">
+                <div class="chart-container b-r-0">
+                  <div class="col-lg-12 chart-title">
+                    <p>Outcome</p>
+                  </div>                      
+                    <div class="chart-content expected-chart-content">
+                      <div id="expected-chart" class="chart expected-chart">
+                        
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="table-container p-t-25">
+                      <select name="expected-chart-filter" id="expected-chart-filter">
+                        </select>
+                    <table id="expected-table" class="table table-hover table-striped">
+                      <thead>
+                        <tr>
+                          <th style="width:20%">Actual</th>
+                          <th style="width:20%">Targeted</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1250</td>
+                          <td>1500</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+            </div>
+            
+            <div class="row chart-raw">
+
+              <!-- upcoming campaign -->
+              <div class="col-lg-5">
+                  <div class="chart-container b-r-0">
+                      
+                        <div class="funnel-chart-filter row m-b-15">
+                          <div class="col-lg-12 chart-title">
+                            <p>Upcoming Campaign</p>
+                            </div>
+                        </div>
+                        
+                        <div class="table-container">
+                          <table id="upcoming-campaign" class="table table-hover table-striped">
+                            <thead>
+                              <tr>
+                                <th>Date</th>
+                                <th>Campaign Name</th>
+                                <th>Leads</th>
+                              </tr>
+                            </thead>                               
+                            <tbody>
+                              <tr>
+                                <td>15-08-19</td>
+                                <td>ABC</td>
+                                <td>10,000</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                    </div>
+                </div>
+
+              <!-- standOut -->
+              <div class="col-lg-5">
+                <div class="chart-container">
+                  <div class="col-lg-12 chart-title">
+                    <p>Standout</p>
+                  </div>
+                  <div class="funnel-chart-filter row m-b-15">
+                    <!-- <div class="col-lg-4">
+                      <select id="stndout-cmp-filter" name="stndout-cmp-filter" class=" m-b-5">
+                        <option>Campaign</option>
+                        <option>URL</option>
+                      </select>
+                    </div> -->
+                  </div>
+                      
+                  <div class="chart-content stand-out-chart-content">
+                    <div id="stand-out-chart" class="chart stand-out-chart"></div>
+                  </div>
+                  
+                  <div class="table-container p-t-25">
+                    <table id="stand-out-table" class="table table-hover table-striped">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>Trafic</th>
+                          <th>Upgrade</th>
+                          <th>Session Time</th>
+                        </tr>
+                      </thead>                               
+                      <tbody>
+                        <tr>
+                          <td>C1</td>
+                          <td>23</td>
+                          <td>2</td>
+                          <td>100</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>                
+              </div>
+                
+          <!--     <div class="col-lg-2">
+                <div class="chart-container b-r-0">                    	
+                  <div class="funnel-chart-filter row m-b-15">
+                      <div class="col-lg-12 chart-title" >
+                      <p class="p-l-0">Drip Rate</p>
+                      </div>
+                  </div>                    
+                  <div class="chart-content conv-rate-chart-content">
+                    <div id="conv-rate-chart" class="chart conv-rate-chart" style="margin-top:60px;"></div>
+                  </div>
+              </div>
+              <div class="table-container p-t-25 p-l-0 p-r-0">
+                <table id="conv-rate-table" class="table table-hover table-striped">
+                  <thead>
+                    <tr>
+                      <th>Raw Leads</th>
+                      <th>Conv.</th>
+                      <th>Rate</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1000</td>
+                      <td>300</td>
+                      <td>30%</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div> -->
+          </div>
+            
+            
+            
+            <div class="row chart-raw">
+
+              <!-- active user 
+              <div class="col-lg-5">
+                  <div class="chart-container" style="min-height:510px;">
+                    <div class="funnel-chart-filter row m-b-15">
+                      <div class="col-lg-12 chart-title">
+                        <p>Active Users</p>
+                      </div>
+                    </div>
+  
+                    <div class="chart-content act-user-chart-content">
+                      <div>
+                            <ul class="ct-legend">
+                                <li class="ct-series-0 act-usr" data-legend="0">Active User</li>
+                                <li class="ct-series-1 headroom" data-legend="1">Headroom</li>
+                              </ul>
+                              <span>(for additional leads)</span>
+                          </div>
+                          <div>
+                            <ul class="ct-legend">
+                                <li class="ct-series-1 spam" data-legend="1">Spam</li>
+                                <li class="ct-series-1 funnel-end" data-legend="1">Funnel End</li>
+                                <li class="ct-series-1 unsu" data-legend="1">Unsubscribe</li>
+                              </ul>
+                              <span>(no further campaign)</span>
+                          </div>
+                      <div id="act-usr-chart" class="chart act-usr-chart"></div>
+                    </div>
+                    
+                    <div class="table-container p-t-25 p-l-15">
+                      <table id="act-usr-table" class="table table-hover table-striped">
+                        <thead>
+                          <tr>
+                            <th>Category</th>
+                            <th>Number</th>
+                          </tr> 
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Active User</td>
+                            <td>1000</td>
+                          </tr>    
+                          <tr>
+                            <td>Headroom</td>
+                            <td>1000</td>
+                          </tr>
+                          <tr>
+                            <td>Unsubscribe</td>
+                            <td>1000</td>
+                          </tr>  
+                          <tr>
+                            <td>Spam</td>
+                            <td>1000</td>
+                          </tr> 
+                          <tr>
+                            <td>Funnel end</td>
+                            <td>1000</td>
+                          </tr>                             
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>  -->
+                <!-- missed opportuities -->
+                 
+                
+                <div class="col-lg-5">
+                	<div class="chart-container" style="min-height:510px;">
+                    <div class="col-lg-12 chart-title">
+                      <p>Missed oppurtinities</p>
+                    </div>
+                    <div class="chart-content missed-opp-chart-content">
+                      <div id="missed-opp" class="missed-opp"></div>
+                    </div>
+                    <div class="table-container p-t-25 p-l-15 p-r-15">
+                        	<table id="missed-opp-table" class="table table-hover table-striped">
+                            <thead>
+                              <tr>
+                                <th style="width:30%">Reason</th>
+                                <th>Missed oppurtinities</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Price</td>
+                                <td>10</td>
+                              </tr>
+                                <tr>
+                                <td>Quality</td>
+                                <td>20</td>
+                              </tr>
+                                <tr>
+                                <td>Specs</td>
+                                <td>30</td>
+                              </tr>
+                                <tr>
+                                <td>Competitiors</td>
+                                <td>40</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                    </div>                
+                </div> 
+
+                <!-- cust acq cost -->
+                <!-- <div class="col-lg-5">
+                	<div class="chart-container" style="min-height:375px; display: none">
+                    	
+                        <div class="funnel-chart-filter row m-b-15">                        	
+                            <div class="col-lg-12 chart-title">
+                            <p>Customer Acquisition Cost</p>
+                            </div>
+                        </div>
+                        
+
+                        <div class="chart-content reach-of-social-med-content">
+                        	<div id="cust-acq-cost" class="chart cust-acq-cost"></div>
+                        </div>
+                        
+                        <div class="table-container p-t-25 p-l-15 p-r-15">
+                        	<table id="cust-acq-cost-table" class="table table-hover table-striped">                                
+                                <tbody>
+                                  <tr>
+                                    <td style="width:30%">
+                                    	<select id="funnel-chart-filter" name="funnel-chart-filter" class=" m-b-5">
+                                          <option>Surce</option>
+                                        </select>
+                                    </td>
+                                    <td style="width:30%">
+                                    	<select id="funnel-chart-filter" name="funnel-chart-filter" class=" m-b-5">
+                                          <option>Period</option>
+                                        </select>
+                                    </td>
+                                    <td style="width:30%">
+                                    	<select id="funnel-chart-filter" name="funnel-chart-filter" class=" m-b-5">
+                                          <option>Cost per connect</option>
+                                        </select>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td style="width:30%">Mail</td>
+                                    <td style="width:30%">21/09/19- 2/10/19</td>
+                                    <td style="width:30%">10</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                    </div>       
+                </div> -->
+                
+            </div>
+            
+            
+    	</div>
+	</div>
+	
+    <script type="text/javascript" src="<%=request.getContextPath()%>/apps/DashboardSales/js/jquery/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/apps/DashboardSales/js/jquery/ui/jquery-ui-1.12.1.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/apps/DashboardSales/js/bootstrap/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/apps/DashboardSales/js/chart/d3/d3-funnel.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/apps/DashboardSales/js/chart/chartist/chartist.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/apps/DashboardSales/js/chart/chartist/chartist.tooltip.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/apps/DashboardSales/js/chart/chartist/chartist.legend.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/apps/DashboardSales/js/common.js"></script>
+    
+</body>
+</html>
